@@ -3,518 +3,636 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STRATAVERSE™ — Strategic Intelligence Platform for Global Leaders</title>
+    <title>STRATAVERSE™ — Strategic Intelligence for Global Leaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
-            --gold-primary: #C9A961;
-            --gold-dark: #9B7E3C;
-            --gold-light: #E5D4A6;
-            --navy-deep: #0A1628;
-            --navy-medium: #1A2B47;
-            --platinum: #E8E8E8;
+            --gold: #D4AF37;
+            --gold-light: #F4E4B8;
+            --gold-dark: #B8962E;
+            --navy: #0B1120;
+            --navy-light: #1A2332;
+            --navy-lighter: #2A3544;
             --white: #FFFFFF;
-            --black: #000000;
+            --platinum: #E5E5E5;
+            --shadow-gold: 0 10px 40px rgba(212, 175, 55, 0.3);
+            --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #0A1628 50%, #1A2B47 100%);
+            background: linear-gradient(135deg, #000000 0%, #0B1120 50%, #1A2332 100%);
             color: var(--platinum);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
-        
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+            background-size: 100px 100px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 22, 40, 0.95);
+            background: rgba(11, 17, 32, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             z-index: 1000;
             padding: 1.5rem 0;
         }
-        
+
         .nav-container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 3rem;
+            padding: 0 4rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--gold-primary);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 0.05em;
         }
-        
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-        }
-        
+
         .nav-links a {
             color: var(--platinum);
             text-decoration: none;
+            margin-left: 3rem;
             font-weight: 500;
             font-size: 0.95rem;
-            transition: color 0.3s ease;
-            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            position: relative;
         }
-        
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
         .nav-links a:hover {
-            color: var(--gold-primary);
+            color: var(--gold);
         }
-        
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         /* Hero Section */
         .hero {
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8rem 3rem 4rem;
-            position: relative;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(201, 169, 97, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(201, 169, 97, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .hero-content {
-            max-width: 1200px;
-            text-align: center;
-            position: relative;
+            padding: 8rem 4rem 4rem;
             z-index: 10;
         }
-        
-        .hero-subtitle {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--gold-primary);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
+
+        .hero-content {
+            max-width: 1400px;
+            text-align: center;
         }
-        
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold);
+            font-size: 0.85rem;
             font-weight: 700;
-            color: var(--white);
-            line-height: 1.2;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
             margin-bottom: 2rem;
-            letter-spacing: -0.02em;
+            transition: all 0.4s ease;
         }
-        
-        .hero-title span {
-            color: var(--gold-primary);
+
+        .hero-badge:hover {
+            background: rgba(212, 175, 55, 0.15);
+            box-shadow: var(--shadow-gold);
+            transform: translateY(-2px);
         }
-        
-        .hero-description {
-            font-size: 1.35rem;
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
             color: var(--platinum);
             max-width: 900px;
             margin: 0 auto 3rem;
             line-height: 1.8;
             font-weight: 300;
         }
-        
-        .value-props {
+
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            max-width: 1100px;
-            margin: 4rem auto 3rem;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 4rem auto;
         }
-        
-        .value-prop {
-            text-align: center;
-            padding: 2rem;
+
+        .stat-card {
+            padding: 3rem 2rem;
+            background: rgba(26, 35, 50, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        
-        .value-prop-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+            background: rgba(26, 35, 50, 0.8);
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
             font-weight: 700;
-            color: var(--gold-primary);
+            color: var(--gold);
             margin-bottom: 0.5rem;
         }
-        
-        .value-prop-label {
-            font-size: 1.1rem;
+
+        .stat-label {
+            font-size: 1.2rem;
             font-weight: 600;
             color: var(--white);
             margin-bottom: 0.5rem;
         }
-        
-        .value-prop-desc {
+
+        .stat-desc {
             font-size: 0.95rem;
             color: var(--platinum);
             line-height: 1.6;
         }
-        
-        .cta-primary {
+
+        .cta-button {
             display: inline-block;
-            padding: 1.25rem 3.5rem;
-            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
-            color: var(--black);
-            font-weight: 600;
-            font-size: 1.05rem;
+            padding: 1.5rem 4rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--navy);
+            font-weight: 700;
+            font-size: 1.1rem;
             text-decoration: none;
             border: none;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             letter-spacing: 0.05em;
             text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-gold);
         }
-        
-        .cta-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
         }
-        
-        /* Onboarding Section */
-        .onboarding-section {
-            min-height: 100vh;
-            padding: 6rem 3rem;
-            background: rgba(10, 22, 40, 0.5);
+
+        .cta-button:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
             display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
-        
-        .onboarding-section.active {
-            display: block;
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
         }
-        
-        .section-container {
-            max-width: 1000px;
-            margin: 0 auto;
+
+        .modal {
+            background: linear-gradient(135deg, rgba(11, 17, 32, 0.98) 0%, rgba(26, 35, 50, 0.98) 100%);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 4rem;
+            position: relative;
+            box-shadow: var(--shadow-deep);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
         }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 3rem;
             font-weight: 700;
-            color: var(--white);
+            color: var(--gold);
             margin-bottom: 1rem;
         }
-        
-        .section-subtitle {
+
+        .modal-subtitle {
             font-size: 1.2rem;
             color: var(--platinum);
-            font-weight: 300;
+            margin-bottom: 3rem;
+            line-height: 1.6;
         }
-        
+
         .form-group {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
-        
+
         .form-label {
             display: block;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--white);
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
         }
-        
+
         .form-input {
             width: 100%;
             padding: 1.25rem 1.5rem;
-            background: rgba(26, 43, 71, 0.6);
-            border: 1px solid rgba(201, 169, 97, 0.3);
+            background: rgba(26, 35, 50, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             color: var(--white);
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-family: 'Inter', sans-serif;
             transition: all 0.3s ease;
         }
-        
+
         .form-input:focus {
             outline: none;
-            border-color: var(--gold-primary);
-            background: rgba(26, 43, 71, 0.8);
+            border-color: var(--gold);
+            background: rgba(26, 35, 50, 0.8);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
-        
+
         .form-textarea {
-            min-height: 150px;
+            min-height: 120px;
             resize: vertical;
         }
-        
+
         .challenge-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
-        
-        .challenge-card {
-            padding: 2rem;
-            background: rgba(26, 43, 71, 0.6);
-            border: 2px solid rgba(201, 169, 97, 0.2);
+
+        .challenge-option {
+            padding: 1.5rem;
+            background: rgba(26, 35, 50, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
-        .challenge-card:hover {
-            border-color: var(--gold-primary);
-            background: rgba(26, 43, 71, 0.8);
+
+        .challenge-option:hover {
+            border-color: var(--gold);
+            background: rgba(26, 35, 50, 0.6);
         }
-        
-        .challenge-card.selected {
-            border-color: var(--gold-primary);
-            background: rgba(201, 169, 97, 0.1);
+
+        .challenge-option.selected {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
         }
-        
+
         .challenge-title {
-            font-size: 1.2rem;
             font-weight: 600;
             color: var(--white);
             margin-bottom: 0.5rem;
         }
-        
+
         .challenge-desc {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--platinum);
-            line-height: 1.6;
+            line-height: 1.5;
         }
-        
-        /* Archetype Selection */
+
+        /* Archetype Grid */
         .archetype-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            margin-top: 2rem;
+            margin: 3rem 0;
         }
-        
+
         .archetype-card {
             padding: 2.5rem;
-            background: rgba(26, 43, 71, 0.6);
-            border: 2px solid rgba(201, 169, 97, 0.2);
+            background: rgba(26, 35, 50, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
         }
-        
+
+        .archetype-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .archetype-card:hover::before {
+            left: 100%;
+        }
+
         .archetype-card:hover {
-            border-color: var(--gold-primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+            background: rgba(26, 35, 50, 0.8);
         }
-        
+
         .archetype-card.selected {
-            border-color: var(--gold-primary);
-            background: rgba(201, 169, 97, 0.1);
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: var(--shadow-gold);
         }
-        
+
         .archetype-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
             margin-bottom: 1.5rem;
         }
-        
+
         .archetype-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
             font-weight: 700;
-            color: var(--gold-primary);
+            color: var(--gold);
             margin-bottom: 0.5rem;
         }
-        
+
         .archetype-leader {
             font-size: 0.9rem;
             color: var(--platinum);
-            font-weight: 500;
         }
-        
-        .archetype-category {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: rgba(201, 169, 97, 0.2);
+
+        .archetype-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(212, 175, 55, 0.2);
             color: var(--gold-light);
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
         }
-        
-        .archetype-description {
+
+        .archetype-desc {
             font-size: 1rem;
             color: var(--platinum);
             line-height: 1.7;
             margin-bottom: 1.5rem;
         }
-        
-        .archetype-impact {
+
+        .impact-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            gap: 0.75rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(201, 169, 97, 0.2);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
-        
+
         .impact-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        
-        .impact-label {
             font-size: 0.9rem;
+        }
+
+        .impact-label {
             color: var(--platinum);
         }
-        
-        .impact-value {
+
+        .impact-badge {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            font-size: 0.85rem;
-            padding: 0.3rem 0.8rem;
             border-radius: 2px;
         }
-        
+
         .impact-high {
             background: rgba(76, 175, 80, 0.2);
             color: #81C784;
         }
-        
+
         .impact-medium {
             background: rgba(255, 193, 7, 0.2);
             color: #FFD54F;
         }
-        
+
         .impact-low {
             background: rgba(158, 158, 158, 0.2);
             color: #BDBDBD;
         }
-        
-        /* Strategy Preview */
-        .strategy-preview {
-            position: fixed;
-            right: 0;
-            top: 0;
-            width: 400px;
-            height: 100vh;
-            background: rgba(10, 22, 40, 0.98);
-            border-left: 1px solid rgba(201, 169, 97, 0.3);
+
+        /* Strategy Summary */
+        .strategy-summary {
+            position: sticky;
+            top: 100px;
             padding: 2rem;
-            overflow-y: auto;
-            transform: translateX(100%);
-            transition: transform 0.4s ease;
-            z-index: 999;
+            background: rgba(11, 17, 32, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-top: 3rem;
         }
-        
-        .strategy-preview.active {
-            transform: translateX(0);
-        }
-        
-        .preview-header {
-            margin-bottom: 2rem;
-        }
-        
-        .preview-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+
+        .summary-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
             font-weight: 700;
-            color: var(--gold-primary);
-            margin-bottom: 0.5rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
         }
-        
-        .preview-subtitle {
-            font-size: 0.95rem;
-            color: var(--platinum);
-        }
-        
-        .selected-archetypes {
+
+        .selected-list {
             margin-bottom: 2rem;
         }
-        
-        .selected-archetype-item {
+
+        .selected-item {
             padding: 1rem;
-            background: rgba(26, 43, 71, 0.6);
-            border-left: 3px solid var(--gold-primary);
+            background: rgba(26, 35, 50, 0.6);
+            border-left: 3px solid var(--gold);
             margin-bottom: 1rem;
         }
-        
-        .selected-archetype-name {
+
+        .selected-name {
             font-weight: 600;
             color: var(--white);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.25rem;
         }
-        
-        .selected-archetype-weight {
+
+        .selected-weight {
             font-size: 0.85rem;
             color: var(--platinum);
         }
-        
-        .combined-impact {
-            padding: 1.5rem;
-            background: rgba(201, 169, 97, 0.1);
-            border: 1px solid rgba(201, 169, 97, 0.3);
+
+        .impact-bars {
             margin-bottom: 2rem;
         }
-        
-        .combined-impact-title {
-            font-weight: 600;
-            color: var(--gold-primary);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
+
         .impact-bar {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
-        
-        .impact-bar-label {
+
+        .impact-bar-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
         }
-        
-        .impact-bar-fill {
-            height: 6px;
-            background: rgba(201, 169, 97, 0.2);
+
+        .impact-bar-track {
+            height: 8px;
+            background: rgba(212, 175, 55, 0.2);
             position: relative;
             overflow: hidden;
         }
-        
-        .impact-bar-progress {
+
+        .impact-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary));
-            transition: width 0.6s ease;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .btn-generate {
             width: 100%;
             padding: 1.25rem;
-            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
-            color: var(--black);
-            font-weight: 600;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--navy);
+            font-weight: 700;
             font-size: 1rem;
             border: none;
             cursor: pointer;
@@ -522,59 +640,118 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        
+
         .btn-generate:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.4);
+            box-shadow: var(--shadow-gold);
         }
-        
-        .btn-secondary {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: var(--gold-primary);
-            border: 2px solid var(--gold-primary);
+
+        .btn-generate:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results Modal */
+        .results-content {
+            padding: 2rem 0;
+        }
+
+        .result-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .result-section:last-child {
+            border-bottom: none;
+        }
+
+        .result-section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .result-text {
+            font-size: 1.05rem;
+            color: var(--platinum);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .timeline {
+            margin-top: 2rem;
+        }
+
+        .timeline-item {
+            padding: 1.5rem;
+            background: rgba(26, 35, 50, 0.6);
+            border-left: 3px solid var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-phase {
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content {
+            color: var(--platinum);
+            line-height: 1.7;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-export {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(26, 35, 50, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold);
             font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-top: 2rem;
         }
-        
-        .btn-secondary:hover {
-            background: rgba(201, 169, 97, 0.1);
+
+        .btn-export:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold);
         }
-        
+
         /* Footer */
         footer {
-            padding: 4rem 3rem 2rem;
-            background: rgba(10, 22, 40, 0.8);
-            border-top: 1px solid rgba(201, 169, 97, 0.2);
+            position: relative;
+            z-index: 10;
+            padding: 4rem 4rem 2rem;
+            background: rgba(11, 17, 32, 0.8);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
             text-align: center;
+            margin-top: 6rem;
         }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
+
         .footer-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--gold-primary);
+            color: var(--gold);
             margin-bottom: 1rem;
         }
-        
+
         .footer-text {
             color: var(--platinum);
             margin-bottom: 0.5rem;
-            font-size: 0.95rem;
         }
-        
+
         .footer-links {
             display: flex;
             justify-content: center;
@@ -582,456 +759,419 @@
             margin-top: 1.5rem;
             flex-wrap: wrap;
         }
-        
+
         .footer-links a {
-            color: var(--gold-primary);
+            color: var(--gold);
             text-decoration: none;
-            font-weight: 500;
             transition: color 0.3s ease;
         }
-        
+
         .footer-links a:hover {
             color: var(--gold-light);
         }
-        
+
         /* Responsive */
         @media (max-width: 1024px) {
-            .strategy-preview {
-                width: 100%;
-                position: relative;
-                transform: translateX(0);
-                height: auto;
-                margin-top: 3rem;
-            }
-            
             .archetype-grid {
                 grid-template-columns: 1fr;
             }
             
-            .value-props {
+            .stats-grid {
                 grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-description {
-                font-size: 1.1rem;
             }
             
             .challenge-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .modal {
+                padding: 2rem;
+            }
+            
+            .nav-container {
+                padding: 0 2rem;
             }
             
             .nav-links {
                 display: none;
             }
         }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--navy);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-dark);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
     </style>
 </head>
 <body>
+    <div class="bg-animation"></div>
+    <div class="bg-grid"></div>
+
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo-text">STRATAVERSE</div>
+            <div class="logo">STRATAVERSE</div>
             <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#archetypes">Archetypes</a>
                 <a href="https://bhramaastraadvisory.com/" target="_blank">Bhramaastra Advisory</a>
             </div>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero">
         <div class="hero-content">
-            <div class="hero-subtitle">Strategic Intelligence Platform</div>
-            <h1 class="hero-title">
-                Evidence-Based Strategy<br>
-                <span>Ethically Governed</span>
-            </h1>
-            <p class="hero-description">
-                STRATAVERSE combines proven strategic archetypes from global leaders with Bhagavad Gita ethical principles to architect organizational strategies that drive sustainable growth while maintaining uncompromising ethical standards.
+            <div class="hero-badge">Strategic Intelligence Platform</div>
+            <h1 class="hero-title">Evidence-Based Strategy<br>Ethically Governed</h1>
+            <p class="hero-subtitle">
+                Architect organizational strategies that drive sustainable growth while maintaining uncompromising ethical standards through proven archetypes and Bhagavad Gita principles.
             </p>
-            
-            <div class="value-props">
-                <div class="value-prop">
-                    <div class="value-prop-number">10</div>
-                    <div class="value-prop-label">Strategic Archetypes</div>
-                    <div class="value-prop-desc">Proven patterns from Nadella, Pichai, Ambani, Musk, and other global leaders</div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Strategic Archetypes</div>
+                    <div class="stat-desc">Proven patterns from global leaders including Nadella, Pichai, Ambani, Musk, and others</div>
                 </div>
-                <div class="value-prop">
-                    <div class="value-prop-number">7</div>
-                    <div class="value-prop-label">Ethical Guardrails</div>
-                    <div class="value-prop-desc">Bhagavad Gita principles ensuring dharmic alignment in every strategy</div>
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Ethical Guardrails</div>
+                    <div class="stat-desc">Bhagavad Gita principles ensuring dharmic alignment in every strategic decision</div>
                 </div>
-                <div class="value-prop">
-                    <div class="value-prop-number">8</div>
-                    <div class="value-prop-label">Impact Dimensions</div>
-                    <div class="value-prop-desc">Comprehensive forecasting across growth, efficiency, and sustainability metrics</div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Impact Dimensions</div>
+                    <div class="stat-desc">Comprehensive forecasting across growth, efficiency, sustainability, and ethical metrics</div>
                 </div>
             </div>
-            
-            <button class="cta-primary" onclick="startOnboarding()">Begin Strategic Assessment</button>
+
+            <button class="cta-button" onclick="openOnboarding()">Begin Strategic Assessment</button>
         </div>
     </section>
-    
-    <!-- Onboarding Section -->
-    <section class="onboarding-section" id="onboarding">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Strategic Context</h2>
-                <p class="section-subtitle">Help us understand your organizational challenges to recommend the most effective strategic archetypes</p>
-            </div>
-            
+
+    <!-- Onboarding Modal -->
+    <div class="modal-overlay" id="onboardingModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('onboardingModal')">&times;</button>
+            <h2 class="modal-title">Strategic Context</h2>
+            <p class="modal-subtitle">Provide your organizational context to receive personalized archetype recommendations</p>
+
             <form id="onboardingForm">
                 <div class="form-group">
                     <label class="form-label">Your Name</label>
                     <input type="text" class="form-input" id="userName" placeholder="Enter your full name" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="form-label">Organization Name</label>
                     <input type="text" class="form-input" id="orgName" placeholder="Enter organization name" required>
                 </div>
-                
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" id="userEmail" placeholder="your.email@company.com" required>
+                </div>
+
                 <div class="form-group">
                     <label class="form-label">Primary Strategic Challenge</label>
-                    <textarea class="form-input form-textarea" id="challenge" placeholder="Describe your primary organizational challenge or strategic objective..." required></textarea>
+                    <textarea class="form-input form-textarea" id="challenge" placeholder="Describe your primary organizational challenge or strategic objective in detail..." required></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="form-label">Select Challenge Categories (Choose all that apply)</label>
                     <div class="challenge-grid">
-                        <div class="challenge-card" onclick="toggleChallenge(this, 'culture')">
+                        <div class="challenge-option" onclick="toggleChallenge(this, 'culture')">
                             <div class="challenge-title">Culture Transformation</div>
-                            <div class="challenge-desc">Shifting organizational mindset, improving engagement, fostering innovation</div>
+                            <div class="challenge-desc">Organizational mindset, engagement, innovation culture</div>
                         </div>
-                        <div class="challenge-card" onclick="toggleChallenge(this, 'growth')">
+                        <div class="challenge-option" onclick="toggleChallenge(this, 'growth')">
                             <div class="challenge-title">Growth & Scaling</div>
                             <div class="challenge-desc">Market expansion, revenue growth, vertical integration</div>
                         </div>
-                        <div class="challenge-card" onclick="toggleChallenge(this, 'technology')">
+                        <div class="challenge-option" onclick="toggleChallenge(this, 'technology')">
                             <div class="challenge-title">Technology & AI</div>
                             <div class="challenge-desc">Digital transformation, AI adoption, platform development</div>
                         </div>
-                        <div class="challenge-card" onclick="toggleChallenge(this, 'execution')">
+                        <div class="challenge-option" onclick="toggleChallenge(this, 'execution')">
                             <div class="challenge-title">Execution Excellence</div>
-                            <div class="challenge-desc">Operational efficiency, project delivery, mass-scale implementation</div>
+                            <div class="challenge-desc">Operational efficiency, project delivery, implementation</div>
                         </div>
-                        <div class="challenge-card" onclick="toggleChallenge(this, 'innovation')">
+                        <div class="challenge-option" onclick="toggleChallenge(this, 'innovation')">
                             <div class="challenge-title">Disruptive Innovation</div>
                             <div class="challenge-desc">Market disruption, high-risk ventures, breakthrough products</div>
                         </div>
-                        <div class="challenge-card" onclick="toggleChallenge(this, 'sustainability')">
+                        <div class="challenge-option" onclick="toggleChallenge(this, 'sustainability')">
                             <div class="challenge-title">Long-Term Sustainability</div>
                             <div class="challenge-desc">ESG goals, stakeholder value, ethical governance</div>
                         </div>
                     </div>
                 </div>
-                
-                <button type="button" class="cta-primary" onclick="showArchetypes()">View Recommended Archetypes</button>
+
+                <button type="button" class="cta-button" style="width: 100%; margin-top: 2rem;" onclick="proceedToArchetypes()">View Strategic Archetypes</button>
             </form>
         </div>
-    </section>
-    
-    <!-- Archetype Selection Section -->
-    <section class="onboarding-section" id="archetypes">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Strategic Archetypes</h2>
-                <p class="section-subtitle">Select one or more archetypes to compose your strategic framework. Click to view detailed impact analysis.</p>
-            </div>
-            
-            <div class="archetype-grid">
-                <div class="archetype-card" onclick="selectArchetype(this, 'nadella')">
-                    <div class="archetype-header">
-                        <div>
-                            <div class="archetype-name">Culture Reinvention</div>
-                            <div class="archetype-leader">Inspired by Satya Nadella</div>
-                        </div>
-                        <div class="archetype-category">Leadership</div>
-                    </div>
-                    <div class="archetype-description">
-                        Transform organizational DNA from fixed mindset to growth mindset. Emphasizes empathy, learning culture, and long-term value creation over short-term wins.
-                    </div>
-                    <div class="archetype-impact">
-                        <div class="impact-item">
-                            <span class="impact-label">Topline Growth</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Productivity</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Sustainability</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Dharma Fit</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="archetype-card" onclick="selectArchetype(this, 'pichai')">
-                    <div class="archetype-header">
-                        <div>
-                            <div class="archetype-name">AI-First Platform</div>
-                            <div class="archetype-leader">Inspired by Sundar Pichai</div>
-                        </div>
-                        <div class="archetype-category">Technology</div>
-                    </div>
-                    <div class="archetype-description">
-                        Scale through AI-powered platforms and ecosystem development. Focus on democratizing technology while maintaining market leadership.
-                    </div>
-                    <div class="archetype-impact">
-                        <div class="impact-item">
-                            <span class="impact-label">Topline Growth</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Innovation</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Market Position</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Dharma Fit</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="archetype-card" onclick="selectArchetype(this, 'ambani')">
-                    <div class="archetype-header">
-                        <div>
-                            <div class="archetype-name">Scale & Integration</div>
-                            <div class="archetype-leader">Inspired by Mukesh Ambani</div>
-                        </div>
-                        <div class="archetype-category">Growth</div>
-                    </div>
-                    <div class="archetype-description">
-                        Aggressive vertical integration and market dominance through scale. Build end-to-end ecosystems with massive infrastructure investment.
-                    </div>
-                    <div class="archetype-impact">
-                        <div class="impact-item">
-                            <span class="impact-label">Market Share</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Capital Efficiency</span>
-                            <span class="impact-value impact-medium">Medium</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Risk Level</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Dharma Fit</span>
-                            <span class="impact-value impact-medium">Medium</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="archetype-card" onclick="selectArchetype(this, 'musk')">
-                    <div class="archetype-header">
-                        <div>
-                            <div class="archetype-name">Disruptive Execution</div>
-                            <div class="archetype-leader">Inspired by Elon Musk</div>
-                        </div>
-                        <div class="archetype-category">Innovation</div>
-                    </div>
-                    <div class="archetype-description">
-                        High-risk, high-reward approach with first-principles thinking. Rapid iteration, vertical integration, and mission-driven execution.
-                    </div>
-                    <div class="archetype-impact">
-                        <div class="impact-item">
-                            <span class="impact-label">Innovation Speed</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Market Disruption</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Risk Level</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Dharma Fit</span>
-                            <span class="impact-value impact-medium">Medium</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="archetype-card" onclick="selectArchetype(this, 'fink')">
-                    <div class="archetype-header">
-                        <div>
-                            <div class="archetype-name">Long-Term Stewardship</div>
-                            <div class="archetype-leader">Inspired by Larry Fink</div>
-                        </div>
-                        <div class="archetype-category">Governance</div>
-                    </div>
-                    <div class="archetype-description">
-                        Stakeholder capitalism with focus on ESG, long-term value creation, and sustainable growth. Balance profit with purpose.
-                    </div>
-                    <div class="archetype-impact">
-                        <div class="impact-item">
-                            <span class="impact-label">Sustainability</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Stakeholder Value</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Risk Management</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Dharma Fit</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="archetype-card" onclick="selectArchetype(this, 'modi')">
-                    <div class="archetype-header">
-                        <div>
-                            <div class="archetype-name">Mass-Scale Execution</div>
-                            <div class="archetype-leader">Inspired by Narendra Modi</div>
-                        </div>
-                        <div class="archetype-category">Execution</div>
-                    </div>
-                    <div class="archetype-description">
-                        Large-scale program implementation with clear communication, digital infrastructure, and measurable outcomes. Focus on execution excellence.
-                    </div>
-                    <div class="archetype-impact">
-                        <div class="impact-item">
-                            <span class="impact-label">Execution Speed</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Scale</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Measurability</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                        <div class="impact-item">
-                            <span class="impact-label">Dharma Fit</span>
-                            <span class="impact-value impact-high">High</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="btn-secondary" onclick="showHome()">Back to Home</button>
-        </div>
-    </section>
-    
-    <!-- Strategy Preview Panel -->
-    <div class="strategy-preview" id="strategyPreview">
-        <div class="preview-header">
-            <div class="preview-title">Your Strategy Mix</div>
-            <div class="preview-subtitle">Selected archetypes and combined impact</div>
-        </div>
-        
-        <div class="selected-archetypes" id="selectedArchetypes">
-            <p style="color: var(--platinum); font-size: 0.95rem;">No archetypes selected yet. Click on archetype cards to add them to your strategy.</p>
-        </div>
-        
-        <div class="combined-impact" id="combinedImpact" style="display: none;">
-            <div class="combined-impact-title">Combined Impact Analysis</div>
-            <div class="impact-bar">
-                <div class="impact-bar-label">
-                    <span>Growth Potential</span>
-                    <span id="growthValue">0%</span>
-                </div>
-                <div class="impact-bar-fill">
-                    <div class="impact-bar-progress" id="growthBar" style="width: 0%"></div>
-                </div>
-            </div>
-            <div class="impact-bar">
-                <div class="impact-bar-label">
-                    <span>Innovation Capacity</span>
-                    <span id="innovationValue">0%</span>
-                </div>
-                <div class="impact-bar-fill">
-                    <div class="impact-bar-progress" id="innovationBar" style="width: 0%"></div>
-                </div>
-            </div>
-            <div class="impact-bar">
-                <div class="impact-bar-label">
-                    <span>Ethical Alignment</span>
-                    <span id="ethicalValue">0%</span>
-                </div>
-                <div class="impact-bar-fill">
-                    <div class="impact-bar-progress" id="ethicalBar" style="width: 0%"></div>
-                </div>
-            </div>
-            <div class="impact-bar">
-                <div class="impact-bar-label">
-                    <span>Sustainability</span>
-                    <span id="sustainabilityValue">0%</span>
-                </div>
-                <div class="impact-bar-fill">
-                    <div class="impact-bar-progress" id="sustainabilityBar" style="width: 0%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <button class="btn-generate" onclick="generateStrategy()">Generate Strategic Playbook</button>
     </div>
-    
+
+    <!-- Archetype Selection Modal -->
+    <div class="modal-overlay" id="archetypeModal">
+        <div class="modal" style="max-width: 1400px;">
+            <button class="modal-close" onclick="closeModal('archetypeModal')">&times;</button>
+            <h2 class="modal-title">Select Strategic Archetypes</h2>
+            <p class="modal-subtitle">Choose one or more archetypes to compose your strategic framework. Each selection updates your combined impact analysis in real-time.</p>
+
+            <div class="archetype-grid" id="archetypeGrid"></div>
+
+            <div class="strategy-summary">
+                <div class="summary-title">Your Strategy Mix</div>
+                <div class="selected-list" id="selectedList">
+                    <p style="color: var(--platinum); font-size: 0.95rem;">No archetypes selected. Click cards above to build your strategy.</p>
+                </div>
+                <div class="impact-bars" id="impactBars" style="display: none;">
+                    <div class="impact-bar">
+                        <div class="impact-bar-header">
+                            <span>Growth Potential</span>
+                            <span id="growthValue">0%</span>
+                        </div>
+                        <div class="impact-bar-track">
+                            <div class="impact-bar-fill" id="growthBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="impact-bar">
+                        <div class="impact-bar-header">
+                            <span>Innovation Capacity</span>
+                            <span id="innovationValue">0%</span>
+                        </div>
+                        <div class="impact-bar-track">
+                            <div class="impact-bar-fill" id="innovationBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="impact-bar">
+                        <div class="impact-bar-header">
+                            <span>Ethical Alignment</span>
+                            <span id="ethicalValue">0%</span>
+                        </div>
+                        <div class="impact-bar-track">
+                            <div class="impact-bar-fill" id="ethicalBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="impact-bar">
+                        <div class="impact-bar-header">
+                            <span>Sustainability</span>
+                            <span id="sustainValue">0%</span>
+                        </div>
+                        <div class="impact-bar-track">
+                            <div class="impact-bar-fill" id="sustainBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-generate" id="generateBtn" onclick="generateStrategy()" disabled>Generate Strategic Playbook</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="modal-overlay" id="resultsModal">
+        <div class="modal" style="max-width: 1200px;">
+            <button class="modal-close" onclick="closeModal('resultsModal')">&times;</button>
+            <h2 class="modal-title">Your Strategic Playbook</h2>
+            <p class="modal-subtitle">Comprehensive strategic framework tailored to your organizational context</p>
+
+            <div class="results-content" id="resultsContent"></div>
+
+            <div class="export-buttons">
+                <button class="btn-export" onclick="exportPDF()">Export as PDF</button>
+                <button class="btn-export" onclick="exportJSON()">Export as JSON</button>
+                <button class="btn-export" onclick="printResults()">Print Playbook</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-brand">STRATAVERSE</div>
-            <p class="footer-text">Powered & Deeply Researched by Bhramaastra Advisory Services</p>
-            <p class="footer-text">© 2024 Bhramaastra Advisory Services. All Rights Reserved.</p>
-            <div class="footer-links">
-                <a href="https://bhramaastraadvisory.com/" target="_blank">bhramaastraadvisory.com</a>
-                <a href="tel:+971504090727">+971 50 409 0727</a>
-                <a href="mailto:connect@bhramaastraadvisoryservices.com">connect@bhramaastraadvisoryservices.com</a>
-            </div>
+        <div class="footer-brand">STRATAVERSE</div>
+        <p class="footer-text">Powered & Deeply Researched by Bhramaastra Advisory Services</p>
+        <p class="footer-text">© 2024 Bhramaastra Advisory Services. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="https://bhramaastraadvisory.com/" target="_blank">bhramaastraadvisory.com</a>
+            <a href="tel:+971504090727">+971 50 409 0727</a>
+            <a href="mailto:connect@bhramaastraadvisoryservices.com">connect@bhramaastraadvisoryservices.com</a>
         </div>
     </footer>
-    
+
     <script>
+        // Data
+        const archetypes = [
+            {
+                id: 'nadella',
+                name: 'Culture Reinvention',
+                leader: 'Satya Nadella',
+                tag: 'Leadership',
+                desc: 'Transform organizational DNA from fixed mindset to growth mindset. Emphasizes empathy, learning culture, collaboration over competition, and long-term value creation.',
+                impact: { growth: 85, innovation: 80, ethical: 95, sustain: 90 },
+                metrics: [
+                    { label: 'Topline Growth', value: 'High' },
+                    { label: 'Productivity', value: 'High' },
+                    { label: 'Sustainability', value: 'High' },
+                    { label: 'Dharma Fit', value: 'High' }
+                ]
+            },
+            {
+                id: 'pichai',
+                name: 'AI-First Platform',
+                leader: 'Sundar Pichai',
+                tag: 'Technology',
+                desc: 'Scale through AI-powered platforms and ecosystem development. Focus on democratizing technology, cloud-first architecture, and maintaining market leadership through innovation.',
+                impact: { growth: 90, innovation: 95, ethical: 85, sustain: 80 },
+                metrics: [
+                    { label: 'Market Position', value: 'High' },
+                    { label: 'Innovation', value: 'High' },
+                    { label: 'Scalability', value: 'High' },
+                    { label: 'Dharma Fit', value: 'High' }
+                ]
+            },
+            {
+                id: 'ambani',
+                name: 'Scale & Integration',
+                leader: 'Mukesh Ambani',
+                tag: 'Growth',
+                desc: 'Aggressive vertical integration and market dominance through scale. Build end-to-end ecosystems with massive infrastructure investment and rapid market capture.',
+                impact: { growth: 95, innovation: 70, ethical: 65, sustain: 60 },
+                metrics: [
+                    { label: 'Market Share', value: 'High' },
+                    { label: 'Scale', value: 'High' },
+                    { label: 'Capital Efficiency', value: 'Medium' },
+                    { label: 'Dharma Fit', value: 'Medium' }
+                ]
+            },
+            {
+                id: 'adani',
+                name: 'Infrastructure Corridors',
+                leader: 'Gautam Adani',
+                tag: 'Infrastructure',
+                desc: 'Nation-scale infrastructure development with focus on ports, energy, logistics, and connectivity. Strategic positioning in critical infrastructure sectors.',
+                impact: { growth: 88, innovation: 65, ethical: 70, sustain: 75 },
+                metrics: [
+                    { label: 'Infrastructure', value: 'High' },
+                    { label: 'Scale', value: 'High' },
+                    { label: 'Strategic Position', value: 'High' },
+                    { label: 'Dharma Fit', value: 'Medium' }
+                ]
+            },
+            {
+                id: 'musk',
+                name: 'Disruptive Execution',
+                leader: 'Elon Musk',
+                tag: 'Innovation',
+                desc: 'High-risk, high-reward approach with first-principles thinking. Rapid iteration, vertical integration, mission-driven execution, and breakthrough innovation.',
+                impact: { growth: 85, innovation: 98, ethical: 60, sustain: 70 },
+                metrics: [
+                    { label: 'Innovation Speed', value: 'High' },
+                    { label: 'Market Disruption', value: 'High' },
+                    { label: 'Risk Level', value: 'High' },
+                    { label: 'Dharma Fit', value: 'Medium' }
+                ]
+            },
+            {
+                id: 'huang',
+                name: 'AI Compute Foundation',
+                leader: 'Jensen Huang',
+                tag: 'Technology',
+                desc: 'Build foundational AI infrastructure and accelerated computing platforms. Focus on enabling ecosystem through hardware-software integration.',
+                impact: { growth: 92, innovation: 93, ethical: 80, sustain: 78 },
+                metrics: [
+                    { label: 'Technology Leadership', value: 'High' },
+                    { label: 'Ecosystem', value: 'High' },
+                    { label: 'Innovation', value: 'High' },
+                    { label: 'Dharma Fit', value: 'High' }
+                ]
+            },
+            {
+                id: 'fink',
+                name: 'Long-Term Stewardship',
+                leader: 'Larry Fink',
+                tag: 'Governance',
+                desc: 'Stakeholder capitalism with focus on ESG, long-term value creation, and sustainable growth. Balance profit with purpose and fiduciary responsibility.',
+                impact: { growth: 70, innovation: 65, ethical: 95, sustain: 95 },
+                metrics: [
+                    { label: 'Sustainability', value: 'High' },
+                    { label: 'Stakeholder Value', value: 'High' },
+                    { label: 'Risk Management', value: 'High' },
+                    { label: 'Dharma Fit', value: 'High' }
+                ]
+            },
+            {
+                id: 'modi',
+                name: 'Mass-Scale Execution',
+                leader: 'Narendra Modi',
+                tag: 'Execution',
+                desc: 'Large-scale program implementation with clear communication, digital infrastructure, and measurable outcomes. Focus on execution excellence at scale.',
+                impact: { growth: 80, innovation: 75, ethical: 85, sustain: 85 },
+                metrics: [
+                    { label: 'Execution Speed', value: 'High' },
+                    { label: 'Scale', value: 'High' },
+                    { label: 'Measurability', value: 'High' },
+                    { label: 'Dharma Fit', value: 'High' }
+                ]
+            },
+            {
+                id: 'mcmillon',
+                name: 'Omni-Channel Convergence',
+                leader: 'Doug McMillon',
+                tag: 'Retail',
+                desc: 'Seamless integration of physical and digital retail. Supply chain excellence, customer-centric innovation, and operational efficiency at massive scale.',
+                impact: { growth: 78, innovation: 72, ethical: 82, sustain: 80 },
+                metrics: [
+                    { label: 'Customer Experience', value: 'High' },
+                    { label: 'Operational Efficiency', value: 'High' },
+                    { label: 'Scale', value: 'High' },
+                    { label: 'Dharma Fit', value: 'High' }
+                ]
+            },
+            {
+                id: 'mrbeast',
+                name: 'Creator-Commerce Impact',
+                leader: 'MrBeast',
+                tag: 'Digital',
+                desc: 'Narrative-driven commerce with authentic audience engagement. Viral content creation, community building, and direct-to-consumer brand development.',
+                impact: { growth: 88, innovation: 85, ethical: 75, sustain: 70 },
+                metrics: [
+                    { label: 'Audience Engagement', value: 'High' },
+                    { label: 'Brand Building', value: 'High' },
+                    { label: 'Viral Potential', value: 'High' },
+                    { label: 'Dharma Fit', value: 'Medium' }
+                ]
+            }
+        ];
+
+        let userData = {};
         let selectedChallenges = [];
         let selectedArchetypes = [];
-        
-        const archetypeData = {
-            nadella: { name: 'Culture Reinvention', growth: 85, innovation: 80, ethical: 95, sustainability: 90 },
-            pichai: { name: 'AI-First Platform', growth: 90, innovation: 95, ethical: 85, sustainability: 80 },
-            ambani: { name: 'Scale & Integration', growth: 95, innovation: 70, ethical: 65, sustainability: 60 },
-            musk: { name: 'Disruptive Execution', growth: 85, innovation: 98, ethical: 60, sustainability: 70 },
-            fink: { name: 'Long-Term Stewardship', growth: 70, innovation: 65, ethical: 95, sustainability: 95 },
-            modi: { name: 'Mass-Scale Execution', growth: 80, innovation: 75, ethical: 85, sustainability: 85 }
-        };
-        
-        function startOnboarding() {
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('onboarding').classList.add('active');
-            window.scrollTo(0, 0);
+
+        function openOnboarding() {
+            document.getElementById('onboardingModal').classList.add('active');
         }
-        
-        function showHome() {
-            document.getElementById('home').style.display = 'flex';
-            document.getElementById('onboarding').classList.remove('active');
-            document.getElementById('archetypes').classList.remove('active');
-            window.scrollTo(0, 0);
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
         }
-        
+
         function toggleChallenge(element, challenge) {
             element.classList.toggle('selected');
             const index = selectedChallenges.indexOf(challenge);
@@ -1041,80 +1181,254 @@
                 selectedChallenges.push(challenge);
             }
         }
-        
-        function showArchetypes() {
-            const userName = document.getElementById('userName').value;
-            const orgName = document.getElementById('orgName').value;
+
+        function proceedToArchetypes() {
+            const name = document.getElementById('userName').value;
+            const org = document.getElementById('orgName').value;
+            const email = document.getElementById('userEmail').value;
             const challenge = document.getElementById('challenge').value;
-            
-            if (!userName || !orgName || !challenge) {
+
+            if (!name || !org || !email || !challenge) {
                 alert('Please fill in all required fields');
                 return;
             }
+
+            userData = { name, org, email, challenge, challenges: selectedChallenges };
             
-            document.getElementById('onboarding').classList.remove('active');
-            document.getElementById('archetypes').classList.add('active');
-            document.getElementById('strategyPreview').classList.add('active');
-            window.scrollTo(0, 0);
+            closeModal('onboardingModal');
+            renderArchetypes();
+            document.getElementById('archetypeModal').classList.add('active');
         }
-        
-        function selectArchetype(element, archetypeId) {
-            element.classList.toggle('selected');
-            const index = selectedArchetypes.findIndex(a => a.id === archetypeId);
+
+        function renderArchetypes() {
+            const grid = document.getElementById('archetypeGrid');
+            grid.innerHTML = archetypes.map(arch => `
+                <div class="archetype-card" onclick="toggleArchetype('${arch.id}')">
+                    <div class="archetype-header">
+                        <div>
+                            <div class="archetype-name">${arch.name}</div>
+                            <div class="archetype-leader">${arch.leader}</div>
+                        </div>
+                        <div class="archetype-tag">${arch.tag}</div>
+                    </div>
+                    <div class="archetype-desc">${arch.desc}</div>
+                    <div class="impact-grid">
+                        ${arch.metrics.map(m => `
+                            <div class="impact-item">
+                                <span class="impact-label">${m.label}</span>
+                                <span class="impact-badge impact-${m.value.toLowerCase()}">${m.value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleArchetype(id) {
+            const card = event.currentTarget;
+            card.classList.toggle('selected');
             
+            const index = selectedArchetypes.findIndex(a => a.id === id);
             if (index > -1) {
                 selectedArchetypes.splice(index, 1);
             } else {
-                selectedArchetypes.push({ id: archetypeId, ...archetypeData[archetypeId] });
+                const arch = archetypes.find(a => a.id === id);
+                selectedArchetypes.push(arch);
             }
             
-            updateStrategyPreview();
+            updateSummary();
         }
-        
-        function updateStrategyPreview() {
-            const container = document.getElementById('selectedArchetypes');
-            const impactSection = document.getElementById('combinedImpact');
-            
+
+        function updateSummary() {
+            const list = document.getElementById('selectedList');
+            const bars = document.getElementById('impactBars');
+            const btn = document.getElementById('generateBtn');
+
             if (selectedArchetypes.length === 0) {
-                container.innerHTML = '<p style="color: var(--platinum); font-size: 0.95rem;">No archetypes selected yet. Click on archetype cards to add them to your strategy.</p>';
-                impactSection.style.display = 'none';
+                list.innerHTML = '<p style="color: var(--platinum); font-size: 0.95rem;">No archetypes selected. Click cards above to build your strategy.</p>';
+                bars.style.display = 'none';
+                btn.disabled = true;
                 return;
             }
-            
-            container.innerHTML = selectedArchetypes.map(arch => `
-                <div class="selected-archetype-item">
-                    <div class="selected-archetype-name">${arch.name}</div>
-                    <div class="selected-archetype-weight">Weight: ${Math.round(100 / selectedArchetypes.length)}%</div>
+
+            list.innerHTML = selectedArchetypes.map(arch => `
+                <div class="selected-item">
+                    <div class="selected-name">${arch.name}</div>
+                    <div class="selected-weight">Weight: ${Math.round(100 / selectedArchetypes.length)}%</div>
                 </div>
             `).join('');
+
+            const avg = (key) => Math.round(selectedArchetypes.reduce((sum, a) => sum + a.impact[key], 0) / selectedArchetypes.length);
             
-            // Calculate combined impact
-            const avgGrowth = Math.round(selectedArchetypes.reduce((sum, a) => sum + a.growth, 0) / selectedArchetypes.length);
-            const avgInnovation = Math.round(selectedArchetypes.reduce((sum, a) => sum + a.innovation, 0) / selectedArchetypes.length);
-            const avgEthical = Math.round(selectedArchetypes.reduce((sum, a) => sum + a.ethical, 0) / selectedArchetypes.length);
-            const avgSustainability = Math.round(selectedArchetypes.reduce((sum, a) => sum + a.sustainability, 0) / selectedArchetypes.length);
-            
-            impactSection.style.display = 'block';
-            
+            bars.style.display = 'block';
+            btn.disabled = false;
+
             setTimeout(() => {
-                document.getElementById('growthBar').style.width = avgGrowth + '%';
-                document.getElementById('growthValue').textContent = avgGrowth + '%';
-                document.getElementById('innovationBar').style.width = avgInnovation + '%';
-                document.getElementById('innovationValue').textContent = avgInnovation + '%';
-                document.getElementById('ethicalBar').style.width = avgEthical + '%';
-                document.getElementById('ethicalValue').textContent = avgEthical + '%';
-                document.getElementById('sustainabilityBar').style.width = avgSustainability + '%';
-                document.getElementById('sustainabilityValue').textContent = avgSustainability + '%';
+                const growth = avg('growth');
+                const innovation = avg('innovation');
+                const ethical = avg('ethical');
+                const sustain = avg('sustain');
+
+                document.getElementById('growthBar').style.width = growth + '%';
+                document.getElementById('growthValue').textContent = growth + '%';
+                document.getElementById('innovationBar').style.width = innovation + '%';
+                document.getElementById('innovationValue').textContent = innovation + '%';
+                document.getElementById('ethicalBar').style.width = ethical + '%';
+                document.getElementById('ethicalValue').textContent = ethical + '%';
+                document.getElementById('sustainBar').style.width = sustain + '%';
+                document.getElementById('sustainValue').textContent = sustain + '%';
             }, 100);
         }
-        
+
         function generateStrategy() {
-            if (selectedArchetypes.length === 0) {
-                alert('Please select at least one archetype to generate a strategic playbook');
-                return;
-            }
+            const content = document.getElementById('resultsContent');
             
-            alert('Strategic Playbook Generation\n\nYour comprehensive strategic playbook with 90D/12M/3Y roadmaps will be generated. This feature will be available in the full platform.\n\nSelected Archetypes: ' + selectedArchetypes.map(a => a.name).join(', '));
+            const avg = (key) => Math.round(selectedArchetypes.reduce((sum, a) => sum + a.impact[key], 0) / selectedArchetypes.length);
+            
+            content.innerHTML = `
+                <div class="result-section">
+                    <h3 class="result-section-title">Executive Summary</h3>
+                    <p class="result-text"><strong>Organization:</strong> ${userData.org}</p>
+                    <p class="result-text"><strong>Strategic Lead:</strong> ${userData.name}</p>
+                    <p class="result-text"><strong>Primary Challenge:</strong> ${userData.challenge}</p>
+                    <p class="result-text"><strong>Selected Archetypes:</strong> ${selectedArchetypes.map(a => a.name).join(', ')}</p>
+                </div>
+
+                <div class="result-section">
+                    <h3 class="result-section-title">Strategic Framework</h3>
+                    <p class="result-text">Your customized strategic framework combines ${selectedArchetypes.length} proven archetypes to address your organizational challenges. This multi-archetype approach provides:</p>
+                    ${selectedArchetypes.map(arch => `
+                        <div class="timeline-item">
+                            <div class="timeline-phase">${arch.name} (${arch.leader})</div>
+                            <div class="timeline-content">${arch.desc}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="result-section">
+                    <h3 class="result-section-title">Combined Impact Analysis</h3>
+                    <p class="result-text">Based on your selected archetype mix, here are the projected impact scores across key dimensions:</p>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Growth Potential: ${avg('growth')}%</div>
+                        <div class="timeline-content">Expected revenue growth, market expansion, and scaling capabilities</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Innovation Capacity: ${avg('innovation')}%</div>
+                        <div class="timeline-content">Ability to develop breakthrough products, adopt new technologies, and disrupt markets</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Ethical Alignment: ${avg('ethical')}%</div>
+                        <div class="timeline-content">Adherence to Bhagavad Gita principles and dharmic decision-making</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Sustainability: ${avg('sustain')}%</div>
+                        <div class="timeline-content">Long-term viability, ESG performance, and stakeholder value creation</div>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3 class="result-section-title">Implementation Roadmap</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-phase">90-Day Foundation (Months 1-3)</div>
+                            <div class="timeline-content">
+                                • Establish strategic leadership team and governance structure<br>
+                                • Conduct baseline assessments across all impact dimensions<br>
+                                • Launch pilot programs for each selected archetype<br>
+                                • Define success metrics and KPIs<br>
+                                • Secure executive alignment and resource allocation
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-phase">12-Month Execution (Months 4-12)</div>
+                            <div class="timeline-content">
+                                • Scale successful pilots across organization<br>
+                                • Integrate archetype principles into core processes<br>
+                                • Measure and optimize performance against KPIs<br>
+                                • Address resistance and cultural barriers<br>
+                                • Demonstrate measurable business impact
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-phase">3-Year Transformation (Years 2-3)</div>
+                            <div class="timeline-content">
+                                • Embed strategic framework into organizational DNA<br>
+                                • Achieve sustained competitive advantage<br>
+                                • Expand to new markets and opportunities<br>
+                                • Continuous refinement and evolution<br>
+                                • Become industry benchmark for strategic excellence
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3 class="result-section-title">Ethical Guardrails</h3>
+                    <p class="result-text">Your strategy has been validated against 7 Bhagavad Gita principles:</p>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Dharma (Rightful Duty)</div>
+                        <div class="timeline-content">Strategy aligns with organizational purpose and societal responsibility</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Nishkama Karma (Action Without Attachment)</div>
+                        <div class="timeline-content">Focus on quality of execution rather than obsession with outcomes</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Sthitaprajna (Stable Intelligence)</div>
+                        <div class="timeline-content">Maintain strategic clarity despite market volatility and pressures</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Viveka (Discernment)</div>
+                        <div class="timeline-content">Distinguish between short-term tactics and long-term strategic value</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Lokasangraha (Welfare of Many)</div>
+                        <div class="timeline-content">Prioritize collective benefit over individual gain</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Abhyasa & Vairagya (Discipline & Non-Attachment)</div>
+                        <div class="timeline-content">Consistent practice while releasing attachment to past success</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-phase">Yogah Karmasu Kaushalam (Excellence in Action)</div>
+                        <div class="timeline-content">Pursue mastery and continuous improvement in execution</div>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3 class="result-section-title">Next Steps</h3>
+                    <p class="result-text">1. Review this strategic playbook with your executive team</p>
+                    <p class="result-text">2. Schedule a consultation with Bhramaastra Advisory Services for detailed implementation planning</p>
+                    <p class="result-text">3. Export this playbook for distribution and reference</p>
+                    <p class="result-text">4. Begin 90-day foundation phase with clear milestones</p>
+                </div>
+            `;
+
+            closeModal('archetypeModal');
+            document.getElementById('resultsModal').classList.add('active');
+        }
+
+        function exportPDF() {
+            alert('PDF Export\n\nYour strategic playbook will be exported as a professionally formatted PDF document. This feature requires server-side processing and will be available in the full platform deployment.');
+        }
+
+        function exportJSON() {
+            const data = {
+                userData,
+                selectedArchetypes: selectedArchetypes.map(a => ({ id: a.id, name: a.name, leader: a.leader })),
+                timestamp: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `strataverse-strategy-${Date.now()}.json`;
+            a.click();
+        }
+
+        function printResults() {
+            window.print();
         }
     </script>
 </body>
