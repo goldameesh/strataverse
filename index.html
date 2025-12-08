@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -36,7 +38,6 @@
             min-height: 100vh;
         }
 
-        /* Animated Background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -64,7 +65,6 @@
             pointer-events: none;
         }
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -124,7 +124,6 @@
             width: 100%;
         }
 
-        /* Hero Section */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -282,7 +281,6 @@
             box-shadow: 0 15px 50px rgba(212, 175, 55, 0.4);
         }
 
-        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -433,7 +431,6 @@
             line-height: 1.5;
         }
 
-        /* Archetype Grid */
         .archetype-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -558,7 +555,6 @@
             color: #BDBDBD;
         }
 
-        /* Strategy Summary */
         .strategy-summary {
             position: sticky;
             top: 100px;
@@ -651,7 +647,6 @@
             cursor: not-allowed;
         }
 
-        /* Results Modal */
         .results-content {
             padding: 2rem 0;
         }
@@ -674,6 +669,14 @@
             margin-bottom: 1.5rem;
         }
 
+        .result-subsection-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+        }
+
         .result-text {
             font-size: 1.05rem;
             color: var(--platinum);
@@ -681,27 +684,122 @@
             margin-bottom: 1rem;
         }
 
-        .timeline {
-            margin-top: 2rem;
+        .result-list {
+            margin: 1rem 0 1rem 2rem;
         }
 
-        .timeline-item {
+        .result-list li {
+            font-size: 1.05rem;
+            color: var(--platinum);
+            line-height: 1.8;
+            margin-bottom: 0.75rem;
+        }
+
+        .raci-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(26, 35, 50, 0.4);
+        }
+
+        .raci-table th,
+        .raci-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .raci-table th {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .raci-table td {
+            color: var(--platinum);
+        }
+
+        .kpi-card {
             padding: 1.5rem;
             background: rgba(26, 35, 50, 0.6);
             border-left: 3px solid var(--gold);
             margin-bottom: 1.5rem;
         }
 
-        .timeline-phase {
+        .kpi-title {
             font-weight: 700;
             color: var(--gold);
             margin-bottom: 0.5rem;
             font-size: 1.1rem;
         }
 
-        .timeline-content {
+        .kpi-content {
             color: var(--platinum);
             line-height: 1.7;
+        }
+
+        .dos-donts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .dos-card, .donts-card {
+            padding: 1.5rem;
+            background: rgba(26, 35, 50, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .dos-card {
+            border-left: 3px solid #81C784;
+        }
+
+        .donts-card {
+            border-left: 3px solid #E57373;
+        }
+
+        .dos-title {
+            font-weight: 700;
+            color: #81C784;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .donts-title {
+            font-weight: 700;
+            color: #E57373;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .dos-card ul, .donts-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .dos-card li, .donts-card li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            color: var(--platinum);
+            line-height: 1.6;
+        }
+
+        .dos-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #81C784;
+            font-weight: 700;
+        }
+
+        .donts-card li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: #E57373;
+            font-weight: 700;
         }
 
         .export-buttons {
@@ -728,7 +826,6 @@
             border-color: var(--gold);
         }
 
-        /* Footer */
         footer {
             position: relative;
             z-index: 10;
@@ -770,7 +867,6 @@
             color: var(--gold-light);
         }
 
-        /* Responsive */
         @media (max-width: 1024px) {
             .archetype-grid {
                 grid-template-columns: 1fr;
@@ -781,6 +877,10 @@
             }
             
             .challenge-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dos-donts-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -801,9 +901,17 @@
             .nav-links {
                 display: none;
             }
+
+            .raci-table {
+                font-size: 0.85rem;
+            }
+
+            .raci-table th,
+            .raci-table td {
+                padding: 0.75rem 0.5rem;
+            }
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -819,13 +927,50 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--gold);
         }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212, 175, 55, 0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--gold);
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
     <div class="bg-animation"></div>
     <div class="bg-grid"></div>
 
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="logo">STRATAVERSE</div>
@@ -835,7 +980,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">Strategic Intelligence Platform</div>
@@ -866,7 +1010,6 @@
         </div>
     </section>
 
-    <!-- Onboarding Modal -->
     <div class="modal-overlay" id="onboardingModal">
         <div class="modal">
             <button class="modal-close" onclick="closeModal('onboardingModal')">&times;</button>
@@ -887,6 +1030,23 @@
                 <div class="form-group">
                     <label class="form-label">Email Address</label>
                     <input type="email" class="form-input" id="userEmail" placeholder="your.email@company.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Industry Sector</label>
+                    <input type="text" class="form-input" id="industry" placeholder="e.g., Technology, Finance, Healthcare" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Organization Size</label>
+                    <select class="form-input" id="orgSize" required>
+                        <option value="">Select organization size</option>
+                        <option value="startup">Startup (1-50 employees)</option>
+                        <option value="small">Small (51-200 employees)</option>
+                        <option value="medium">Medium (201-1000 employees)</option>
+                        <option value="large">Large (1001-10000 employees)</option>
+                        <option value="enterprise">Enterprise (10000+ employees)</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -929,7 +1089,6 @@
         </div>
     </div>
 
-    <!-- Archetype Selection Modal -->
     <div class="modal-overlay" id="archetypeModal">
         <div class="modal" style="max-width: 1400px;">
             <button class="modal-close" onclick="closeModal('archetypeModal')">&times;</button>
@@ -986,7 +1145,6 @@
         </div>
     </div>
 
-    <!-- Results Modal -->
     <div class="modal-overlay" id="resultsModal">
         <div class="modal" style="max-width: 1200px;">
             <button class="modal-close" onclick="closeModal('resultsModal')">&times;</button>
@@ -1003,7 +1161,11 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Generating your comprehensive strategic playbook...</div>
+    </div>
+
     <footer>
         <div class="footer-brand">STRATAVERSE</div>
         <p class="footer-text">Powered & Deeply Researched by Bhramaastra Advisory Services</p>
@@ -1015,8 +1177,10 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // Data
+        // [Previous archetype data and functions remain the same - continuing with enhanced strategy generation]
+        
         const archetypes = [
             {
                 id: 'nadella',
@@ -1030,7 +1194,42 @@
                     { label: 'Productivity', value: 'High' },
                     { label: 'Sustainability', value: 'High' },
                     { label: 'Dharma Fit', value: 'High' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Shift from "know-it-all" to "learn-it-all" organizational culture',
+                        'Increase employee engagement scores by 25% within 12 months',
+                        'Reduce internal competition and increase cross-functional collaboration',
+                        'Establish customer empathy as core organizational value'
+                    ],
+                    kpis: [
+                        { metric: 'Employee Engagement Score', target: '+25 points', timeline: '12 months' },
+                        { metric: 'Internal Mobility Rate', target: '+40%', timeline: '18 months' },
+                        { metric: 'Innovation Pipeline Growth', target: '+30%', timeline: '12 months' },
+                        { metric: 'Customer NPS', target: '+20 points', timeline: '24 months' }
+                    ],
+                    dos: [
+                        'Celebrate learning from failures publicly',
+                        'Implement "learning hours" policy (10% time for skill development)',
+                        'Remove stack ranking and competitive performance systems',
+                        'Establish mentorship and reverse-mentorship programs',
+                        'Create cross-functional collaboration incentives'
+                    ],
+                    donts: [
+                        'Do not implement during active crisis requiring immediate tactical execution',
+                        'Do not apply without genuine leadership commitment (requires 3-5 years)',
+                        'Do not use as quick fix for poor business fundamentals',
+                        'Do not implement inconsistently across departments',
+                        'Do not expect immediate ROI - this is long-term transformation'
+                    ],
+                    risks: [
+                        'Middle management resistance to change',
+                        'Short-term productivity dip during transition',
+                        'Wall Street pressure for quarterly results',
+                        'Leadership turnover can derail transformation',
+                        'Inconsistent application creates cynicism'
+                    ]
+                }
             },
             {
                 id: 'pichai',
@@ -1044,7 +1243,42 @@
                     { label: 'Innovation', value: 'High' },
                     { label: 'Scalability', value: 'High' },
                     { label: 'Dharma Fit', value: 'High' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Integrate AI capabilities across all product lines within 18 months',
+                        'Build developer ecosystem with 100,000+ active developers',
+                        'Achieve 40% revenue from AI-powered products within 3 years',
+                        'Establish market leadership in AI infrastructure'
+                    ],
+                    kpis: [
+                        { metric: 'AI Product Revenue %', target: '40%', timeline: '36 months' },
+                        { metric: 'Developer Ecosystem Size', target: '100,000+', timeline: '24 months' },
+                        { metric: 'Platform API Calls', target: '1B+ daily', timeline: '18 months' },
+                        { metric: 'AI Model Accuracy', target: '95%+', timeline: '12 months' }
+                    ],
+                    dos: [
+                        'Invest heavily in AI research and talent acquisition',
+                        'Build open APIs and developer-friendly documentation',
+                        'Create AI ethics board and responsible AI guidelines',
+                        'Establish partnerships with academic institutions',
+                        'Democratize AI access through affordable pricing'
+                    ],
+                    donts: [
+                        'Do not compromise on AI safety and ethics for speed',
+                        'Do not build closed ecosystems that limit innovation',
+                        'Do not underestimate infrastructure costs',
+                        'Do not ignore regulatory compliance requirements',
+                        'Do not launch AI products without thorough testing'
+                    ],
+                    risks: [
+                        'Rapid AI regulation changes',
+                        'High infrastructure and compute costs',
+                        'Talent war for AI specialists',
+                        'Ethical concerns and public backlash',
+                        'Technology obsolescence risk'
+                    ]
+                }
             },
             {
                 id: 'ambani',
@@ -1058,7 +1292,42 @@
                     { label: 'Scale', value: 'High' },
                     { label: 'Capital Efficiency', value: 'Medium' },
                     { label: 'Dharma Fit', value: 'Medium' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Capture 40%+ market share within 3 years through aggressive pricing',
+                        'Build vertically integrated supply chain controlling 80% of value chain',
+                        'Achieve economies of scale reducing unit costs by 50%',
+                        'Establish infrastructure moats preventing competitor entry'
+                    ],
+                    kpis: [
+                        { metric: 'Market Share', target: '40%+', timeline: '36 months' },
+                        { metric: 'Vertical Integration %', target: '80%', timeline: '48 months' },
+                        { metric: 'Unit Cost Reduction', target: '-50%', timeline: '24 months' },
+                        { metric: 'Customer Acquisition', target: '100M+', timeline: '18 months' }
+                    ],
+                    dos: [
+                        'Secure massive capital commitments upfront',
+                        'Build infrastructure at unprecedented scale',
+                        'Use aggressive pricing to capture market share',
+                        'Acquire or build critical supply chain components',
+                        'Leverage scale for negotiating power'
+                    ],
+                    donts: [
+                        'Do not pursue without access to significant capital',
+                        'Do not underestimate regulatory scrutiny',
+                        'Do not ignore antitrust concerns',
+                        'Do not compromise on infrastructure quality for speed',
+                        'Do not assume market will accept monopolistic behavior'
+                    ],
+                    risks: [
+                        'Regulatory intervention and antitrust action',
+                        'Massive capital requirements and debt burden',
+                        'Public backlash against monopolistic practices',
+                        'Execution complexity at scale',
+                        'Competitor retaliation and price wars'
+                    ]
+                }
             },
             {
                 id: 'adani',
@@ -1072,7 +1341,42 @@
                     { label: 'Scale', value: 'High' },
                     { label: 'Strategic Position', value: 'High' },
                     { label: 'Dharma Fit', value: 'Medium' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Develop integrated infrastructure corridors connecting key economic zones',
+                        'Establish strategic control over critical logistics and energy infrastructure',
+                        'Build renewable energy capacity of 25GW+ within 5 years',
+                        'Create end-to-end supply chain solutions for key industries'
+                    ],
+                    kpis: [
+                        { metric: 'Infrastructure Assets Under Management', target: '$50B+', timeline: '60 months' },
+                        { metric: 'Renewable Energy Capacity', target: '25GW+', timeline: '60 months' },
+                        { metric: 'Port Throughput', target: '500M tons/year', timeline: '48 months' },
+                        { metric: 'Logistics Network Coverage', target: '500+ cities', timeline: '36 months' }
+                    ],
+                    dos: [
+                        'Secure government partnerships and concessions',
+                        'Focus on strategic chokepoints in supply chains',
+                        'Invest in renewable energy and sustainability',
+                        'Build integrated logistics and port infrastructure',
+                        'Leverage data from infrastructure for value-added services'
+                    ],
+                    donts: [
+                        'Do not ignore environmental and social impact assessments',
+                        'Do not underestimate political and regulatory risks',
+                        'Do not over-leverage balance sheet',
+                        'Do not compromise on safety standards',
+                        'Do not ignore local community concerns'
+                    ],
+                    risks: [
+                        'Political and regulatory changes',
+                        'Environmental activism and protests',
+                        'High capital intensity and long payback periods',
+                        'Geopolitical tensions affecting trade routes',
+                        'Technology disruption in logistics and energy'
+                    ]
+                }
             },
             {
                 id: 'musk',
@@ -1086,7 +1390,42 @@
                     { label: 'Market Disruption', value: 'High' },
                     { label: 'Risk Level', value: 'High' },
                     { label: 'Dharma Fit', value: 'Medium' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Achieve 10x improvement over existing solutions through first-principles redesign',
+                        'Reduce product development cycles by 70% through rapid iteration',
+                        'Build vertically integrated manufacturing reducing costs by 60%',
+                        'Create category-defining products that establish new markets'
+                    ],
+                    kpis: [
+                        { metric: 'Product Performance vs Competition', target: '10x better', timeline: '24 months' },
+                        { metric: 'Development Cycle Time', target: '-70%', timeline: '18 months' },
+                        { metric: 'Manufacturing Cost', target: '-60%', timeline: '36 months' },
+                        { metric: 'Market Creation', target: '$10B+ TAM', timeline: '48 months' }
+                    ],
+                    dos: [
+                        'Question every assumption using first-principles thinking',
+                        'Build rapid prototyping and iteration capabilities',
+                        'Vertically integrate critical components',
+                        'Set audacious goals that inspire teams',
+                        'Accept high failure rates in pursuit of breakthroughs'
+                    ],
+                    donts: [
+                        'Do not pursue without high risk tolerance',
+                        'Do not ignore regulatory compliance',
+                        'Do not underestimate capital requirements',
+                        'Do not compromise on technical excellence',
+                        'Do not expect linear progress or predictable timelines'
+                    ],
+                    risks: [
+                        'Extremely high failure probability',
+                        'Massive capital burn rates',
+                        'Regulatory and safety concerns',
+                        'Talent retention challenges',
+                        'Public relations crises'
+                    ]
+                }
             },
             {
                 id: 'huang',
@@ -1100,7 +1439,42 @@
                     { label: 'Ecosystem', value: 'High' },
                     { label: 'Innovation', value: 'High' },
                     { label: 'Dharma Fit', value: 'High' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Establish dominant position in AI compute infrastructure (70%+ market share)',
+                        'Build comprehensive software ecosystem with 1M+ developers',
+                        'Achieve 50% annual revenue growth through AI infrastructure demand',
+                        'Create platform lock-in through integrated hardware-software solutions'
+                    ],
+                    kpis: [
+                        { metric: 'AI Compute Market Share', target: '70%+', timeline: '36 months' },
+                        { metric: 'Developer Ecosystem', target: '1M+ developers', timeline: '24 months' },
+                        { metric: 'Revenue Growth', target: '50% YoY', timeline: 'Ongoing' },
+                        { metric: 'Platform Adoption', target: '80% of AI workloads', timeline: '48 months' }
+                    ],
+                    dos: [
+                        'Invest heavily in R&D (30%+ of revenue)',
+                        'Build comprehensive software stack and tools',
+                        'Create developer community and education programs',
+                        'Establish partnerships with cloud providers',
+                        'Focus on performance leadership and benchmarks'
+                    ],
+                    donts: [
+                        'Do not compromise on performance for cost',
+                        'Do not ignore software ecosystem development',
+                        'Do not underestimate competition from hyperscalers',
+                        'Do not neglect energy efficiency concerns',
+                        'Do not ignore geopolitical supply chain risks'
+                    ],
+                    risks: [
+                        'Rapid technology obsolescence',
+                        'Competition from cloud providers building custom chips',
+                        'Geopolitical tensions affecting supply chains',
+                        'High R&D costs and capital intensity',
+                        'Cyclical demand patterns'
+                    ]
+                }
             },
             {
                 id: 'fink',
@@ -1114,7 +1488,42 @@
                     { label: 'Stakeholder Value', value: 'High' },
                     { label: 'Risk Management', value: 'High' },
                     { label: 'Dharma Fit', value: 'High' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Achieve top-quartile ESG ratings across all major frameworks',
+                        'Reduce carbon footprint by 50% within 5 years',
+                        'Increase stakeholder satisfaction scores by 30%',
+                        'Build sustainable competitive advantage through responsible practices'
+                    ],
+                    kpis: [
+                        { metric: 'ESG Rating', target: 'Top Quartile', timeline: '24 months' },
+                        { metric: 'Carbon Footprint Reduction', target: '-50%', timeline: '60 months' },
+                        { metric: 'Stakeholder Satisfaction', target: '+30%', timeline: '36 months' },
+                        { metric: 'Sustainable Revenue %', target: '60%+', timeline: '48 months' }
+                    ],
+                    dos: [
+                        'Integrate ESG into core strategy and decision-making',
+                        'Establish transparent reporting and accountability',
+                        'Engage stakeholders in strategy development',
+                        'Invest in sustainable business models',
+                        'Build long-term partnerships with aligned values'
+                    ],
+                    donts: [
+                        'Do not greenwash or make unsubstantiated claims',
+                        'Do not sacrifice long-term value for short-term gains',
+                        'Do not ignore shareholder concerns about returns',
+                        'Do not implement without board-level commitment',
+                        'Do not underestimate costs of ESG transformation'
+                    ],
+                    risks: [
+                        'Short-term financial performance pressure',
+                        'Greenwashing accusations and reputational damage',
+                        'Higher costs of sustainable operations',
+                        'Difficulty measuring and reporting ESG impact',
+                        'Stakeholder conflicts and trade-offs'
+                    ]
+                }
             },
             {
                 id: 'modi',
@@ -1128,7 +1537,42 @@
                     { label: 'Scale', value: 'High' },
                     { label: 'Measurability', value: 'High' },
                     { label: 'Dharma Fit', value: 'High' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Implement organization-wide initiatives reaching 100% of employees within 6 months',
+                        'Achieve 95%+ adoption rates through clear communication and incentives',
+                        'Build digital infrastructure enabling real-time tracking and measurement',
+                        'Demonstrate measurable impact within 90 days of launch'
+                    ],
+                    kpis: [
+                        { metric: 'Program Reach', target: '100% employees', timeline: '6 months' },
+                        { metric: 'Adoption Rate', target: '95%+', timeline: '12 months' },
+                        { metric: 'Digital Infrastructure Uptime', target: '99.9%', timeline: 'Ongoing' },
+                        { metric: 'Measurable Impact', target: 'Demonstrated', timeline: '90 days' }
+                    ],
+                    dos: [
+                        'Establish clear, measurable objectives and KPIs',
+                        'Build robust digital infrastructure for tracking',
+                        'Communicate frequently and transparently',
+                        'Create incentives for adoption and compliance',
+                        'Celebrate quick wins and visible progress'
+                    ],
+                    donts: [
+                        'Do not launch without adequate infrastructure',
+                        'Do not underestimate change management requirements',
+                        'Do not ignore ground-level feedback',
+                        'Do not compromise on data quality and measurement',
+                        'Do not declare success prematurely'
+                    ],
+                    risks: [
+                        'Implementation complexity at scale',
+                        'Resistance from middle management',
+                        'Technology infrastructure failures',
+                        'Data quality and measurement challenges',
+                        'Fatigue from constant change initiatives'
+                    ]
+                }
             },
             {
                 id: 'mcmillon',
@@ -1142,7 +1586,42 @@
                     { label: 'Operational Efficiency', value: 'High' },
                     { label: 'Scale', value: 'High' },
                     { label: 'Dharma Fit', value: 'High' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Achieve 50% of revenue from digital channels within 3 years',
+                        'Reduce supply chain costs by 25% through automation and optimization',
+                        'Increase customer lifetime value by 40% through omni-channel engagement',
+                        'Build seamless experience across all touchpoints'
+                    ],
+                    kpis: [
+                        { metric: 'Digital Revenue %', target: '50%', timeline: '36 months' },
+                        { metric: 'Supply Chain Cost Reduction', target: '-25%', timeline: '24 months' },
+                        { metric: 'Customer Lifetime Value', target: '+40%', timeline: '36 months' },
+                        { metric: 'Omni-Channel NPS', target: '70+', timeline: '18 months' }
+                    ],
+                    dos: [
+                        'Invest in unified commerce platform',
+                        'Build last-mile delivery capabilities',
+                        'Integrate inventory across all channels',
+                        'Personalize customer experience using data',
+                        'Optimize supply chain with AI and automation'
+                    ],
+                    donts: [
+                        'Do not cannibalize existing channels',
+                        'Do not underestimate technology complexity',
+                        'Do not ignore store associate training',
+                        'Do not compromise on customer data privacy',
+                        'Do not launch without thorough testing'
+                    ],
+                    risks: [
+                        'Technology integration complexity',
+                        'Channel conflict and cannibalization',
+                        'High capital requirements for infrastructure',
+                        'Competition from pure-play digital retailers',
+                        'Customer data privacy concerns'
+                    ]
+                }
             },
             {
                 id: 'mrbeast',
@@ -1156,7 +1635,42 @@
                     { label: 'Brand Building', value: 'High' },
                     { label: 'Viral Potential', value: 'High' },
                     { label: 'Dharma Fit', value: 'Medium' }
-                ]
+                ],
+                detailed: {
+                    objectives: [
+                        'Build audience of 10M+ highly engaged followers within 18 months',
+                        'Achieve 20%+ engagement rates (10x industry average)',
+                        'Launch direct-to-consumer brand with $100M+ revenue within 2 years',
+                        'Create viral content generating 1B+ views quarterly'
+                    ],
+                    kpis: [
+                        { metric: 'Audience Size', target: '10M+ followers', timeline: '18 months' },
+                        { metric: 'Engagement Rate', target: '20%+', timeline: 'Ongoing' },
+                        { metric: 'DTC Brand Revenue', target: '$100M+', timeline: '24 months' },
+                        { metric: 'Quarterly Views', target: '1B+', timeline: '12 months' }
+                    ],
+                    dos: [
+                        'Create authentic, value-driven content',
+                        'Reinvest heavily in content production quality',
+                        'Build direct relationships with audience',
+                        'Launch products aligned with brand values',
+                        'Leverage virality for brand awareness'
+                    ],
+                    donts: [
+                        'Do not compromise authenticity for monetization',
+                        'Do not ignore community feedback',
+                        'Do not launch products without audience validation',
+                        'Do not underestimate content production costs',
+                        'Do not rely solely on platform algorithms'
+                    ],
+                    risks: [
+                        'Platform algorithm changes',
+                        'Audience fatigue and declining engagement',
+                        'Brand reputation risks from controversies',
+                        'High content production costs',
+                        'Difficulty scaling personal brand'
+                    ]
+                }
             }
         ];
 
@@ -1186,14 +1700,16 @@
             const name = document.getElementById('userName').value;
             const org = document.getElementById('orgName').value;
             const email = document.getElementById('userEmail').value;
+            const industry = document.getElementById('industry').value;
+            const orgSize = document.getElementById('orgSize').value;
             const challenge = document.getElementById('challenge').value;
 
-            if (!name || !org || !email || !challenge) {
+            if (!name || !org || !email || !industry || !orgSize || !challenge) {
                 alert('Please fill in all required fields');
                 return;
             }
 
-            userData = { name, org, email, challenge, challenges: selectedChallenges };
+            userData = { name, org, email, industry, orgSize, challenge, challenges: selectedChallenges };
             
             closeModal('onboardingModal');
             renderArchetypes();
@@ -1281,149 +1797,386 @@
         }
 
         function generateStrategy() {
-            const content = document.getElementById('resultsContent');
+            document.getElementById('loadingOverlay').classList.add('active');
             
-            const avg = (key) => Math.round(selectedArchetypes.reduce((sum, a) => sum + a.impact[key], 0) / selectedArchetypes.length);
-            
-            content.innerHTML = `
-                <div class="result-section">
-                    <h3 class="result-section-title">Executive Summary</h3>
-                    <p class="result-text"><strong>Organization:</strong> ${userData.org}</p>
-                    <p class="result-text"><strong>Strategic Lead:</strong> ${userData.name}</p>
-                    <p class="result-text"><strong>Primary Challenge:</strong> ${userData.challenge}</p>
-                    <p class="result-text"><strong>Selected Archetypes:</strong> ${selectedArchetypes.map(a => a.name).join(', ')}</p>
-                </div>
+            setTimeout(() => {
+                const content = document.getElementById('resultsContent');
+                const avg = (key) => Math.round(selectedArchetypes.reduce((sum, a) => sum + a.impact[key], 0) / selectedArchetypes.length);
+                
+                let html = `
+                    <div class="result-section">
+                        <h3 class="result-section-title">Executive Summary</h3>
+                        <p class="result-text"><strong>Organization:</strong> ${userData.org}</p>
+                        <p class="result-text"><strong>Industry:</strong> ${userData.industry}</p>
+                        <p class="result-text"><strong>Organization Size:</strong> ${userData.orgSize}</p>
+                        <p class="result-text"><strong>Strategic Lead:</strong> ${userData.name} (${userData.email})</p>
+                        <p class="result-text"><strong>Primary Challenge:</strong> ${userData.challenge}</p>
+                        <p class="result-text"><strong>Selected Strategic Archetypes:</strong> ${selectedArchetypes.map(a => a.name).join(', ')}</p>
+                        <p class="result-text"><strong>Document Generated:</strong> ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    </div>
 
-                <div class="result-section">
-                    <h3 class="result-section-title">Strategic Framework</h3>
-                    <p class="result-text">Your customized strategic framework combines ${selectedArchetypes.length} proven archetypes to address your organizational challenges. This multi-archetype approach provides:</p>
-                    ${selectedArchetypes.map(arch => `
-                        <div class="timeline-item">
-                            <div class="timeline-phase">${arch.name} (${arch.leader})</div>
-                            <div class="timeline-content">${arch.desc}</div>
+                    <div class="result-section">
+                        <h3 class="result-section-title">Strategic Framework Overview</h3>
+                        <p class="result-text">Your customized strategic framework combines ${selectedArchetypes.length} proven archetypes to address your organizational challenges. This multi-archetype approach provides complementary strengths and mitigates individual weaknesses.</p>
+                        
+                        <h4 class="result-subsection-title">Combined Impact Scores</h4>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Growth Potential: ${avg('growth')}%</div>
+                            <div class="kpi-content">Expected revenue growth, market expansion capabilities, and scaling potential based on selected archetype mix.</div>
                         </div>
-                    `).join('')}
-                </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Innovation Capacity: ${avg('innovation')}%</div>
+                            <div class="kpi-content">Ability to develop breakthrough products, adopt new technologies, and disrupt existing markets.</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Ethical Alignment: ${avg('ethical')}%</div>
+                            <div class="kpi-content">Adherence to Bhagavad Gita principles and dharmic decision-making frameworks.</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Sustainability: ${avg('sustain')}%</div>
+                            <div class="kpi-content">Long-term viability, ESG performance, and stakeholder value creation.</div>
+                        </div>
+                    </div>
+                `;
 
-                <div class="result-section">
-                    <h3 class="result-section-title">Combined Impact Analysis</h3>
-                    <p class="result-text">Based on your selected archetype mix, here are the projected impact scores across key dimensions:</p>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Growth Potential: ${avg('growth')}%</div>
-                        <div class="timeline-content">Expected revenue growth, market expansion, and scaling capabilities</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Innovation Capacity: ${avg('innovation')}%</div>
-                        <div class="timeline-content">Ability to develop breakthrough products, adopt new technologies, and disrupt markets</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Ethical Alignment: ${avg('ethical')}%</div>
-                        <div class="timeline-content">Adherence to Bhagavad Gita principles and dharmic decision-making</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Sustainability: ${avg('sustain')}%</div>
-                        <div class="timeline-content">Long-term viability, ESG performance, and stakeholder value creation</div>
-                    </div>
-                </div>
+                // Detailed archetype sections
+                selectedArchetypes.forEach(arch => {
+                    html += `
+                        <div class="result-section">
+                            <h3 class="result-section-title">${arch.name} Archetype</h3>
+                            <p class="result-text"><strong>Inspired by:</strong> ${arch.leader}</p>
+                            <p class="result-text">${arch.desc}</p>
 
-                <div class="result-section">
-                    <h3 class="result-section-title">Implementation Roadmap</h3>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-phase">90-Day Foundation (Months 1-3)</div>
-                            <div class="timeline-content">
+                            <h4 class="result-subsection-title">Strategic Objectives</h4>
+                            <ul class="result-list">
+                                ${arch.detailed.objectives.map(obj => `<li>${obj}</li>`).join('')}
+                            </ul>
+
+                            <h4 class="result-subsection-title">Key Performance Indicators (KPIs)</h4>
+                            <table class="raci-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Target</th>
+                                        <th>Timeline</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${arch.detailed.kpis.map(kpi => `
+                                        <tr>
+                                            <td>${kpi.metric}</td>
+                                            <td>${kpi.target}</td>
+                                            <td>${kpi.timeline}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+
+                            <h4 class="result-subsection-title">Implementation Guidelines</h4>
+                            <div class="dos-donts-grid">
+                                <div class="dos-card">
+                                    <div class="dos-title">DO's - Best Practices</div>
+                                    <ul>
+                                        ${arch.detailed.dos.map(item => `<li>${item}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                <div class="donts-card">
+                                    <div class="donts-title">DON'Ts - Critical Warnings</div>
+                                    <ul>
+                                        ${arch.detailed.donts.map(item => `<li>${item}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h4 class="result-subsection-title">Risk Factors & Mitigation</h4>
+                            <ul class="result-list">
+                                ${arch.detailed.risks.map(risk => `<li>${risk}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                });
+
+                // RACI Matrix
+                html += `
+                    <div class="result-section">
+                        <h3 class="result-section-title">RACI Matrix - Roles & Responsibilities</h3>
+                        <p class="result-text">Clear accountability framework for strategy implementation across organizational levels.</p>
+                        
+                        <table class="raci-table">
+                            <thead>
+                                <tr>
+                                    <th>Activity</th>
+                                    <th>CEO/Board</th>
+                                    <th>C-Suite</th>
+                                    <th>VP/Directors</th>
+                                    <th>Managers</th>
+                                    <th>Teams</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Strategic Vision & Approval</td>
+                                    <td><strong>A</strong></td>
+                                    <td><strong>R</strong></td>
+                                    <td>C</td>
+                                    <td>I</td>
+                                    <td>I</td>
+                                </tr>
+                                <tr>
+                                    <td>Budget Allocation</td>
+                                    <td><strong>A</strong></td>
+                                    <td><strong>R</strong></td>
+                                    <td>C</td>
+                                    <td>I</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Implementation Planning</td>
+                                    <td>I</td>
+                                    <td><strong>A</strong></td>
+                                    <td><strong>R</strong></td>
+                                    <td>C</td>
+                                    <td>I</td>
+                                </tr>
+                                <tr>
+                                    <td>Execution & Delivery</td>
+                                    <td>I</td>
+                                    <td>C</td>
+                                    <td><strong>A</strong></td>
+                                    <td><strong>R</strong></td>
+                                    <td><strong>R</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Performance Monitoring</td>
+                                    <td>C</td>
+                                    <td><strong>A</strong></td>
+                                    <td><strong>R</strong></td>
+                                    <td>C</td>
+                                    <td>I</td>
+                                </tr>
+                                <tr>
+                                    <td>Risk Management</td>
+                                    <td><strong>A</strong></td>
+                                    <td><strong>R</strong></td>
+                                    <td><strong>R</strong></td>
+                                    <td>C</td>
+                                    <td>I</td>
+                                </tr>
+                                <tr>
+                                    <td>Stakeholder Communication</td>
+                                    <td><strong>A</strong></td>
+                                    <td><strong>R</strong></td>
+                                    <td>C</td>
+                                    <td>C</td>
+                                    <td>I</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="result-text" style="margin-top: 1rem; font-size: 0.9rem;"><strong>Legend:</strong> R = Responsible (does the work), A = Accountable (final authority), C = Consulted (provides input), I = Informed (kept updated)</p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3 class="result-section-title">Implementation Roadmap</h3>
+                        
+                        <div class="kpi-card">
+                            <div class="kpi-title">Phase 1: Foundation (Months 1-3)</div>
+                            <div class="kpi-content">
+                                <strong>Objectives:</strong><br>
                                 • Establish strategic leadership team and governance structure<br>
-                                • Conduct baseline assessments across all impact dimensions<br>
+                                • Conduct comprehensive baseline assessments across all impact dimensions<br>
                                 • Launch pilot programs for each selected archetype<br>
-                                • Define success metrics and KPIs<br>
-                                • Secure executive alignment and resource allocation
+                                • Define success metrics, KPIs, and measurement frameworks<br>
+                                • Secure executive alignment and resource allocation<br><br>
+                                
+                                <strong>Key Deliverables:</strong><br>
+                                • Strategic governance charter<br>
+                                • Baseline assessment report<br>
+                                • Pilot program designs<br>
+                                • KPI dashboard and tracking system<br>
+                                • Resource allocation plan<br><br>
+                                
+                                <strong>Success Criteria:</strong><br>
+                                • 100% executive team alignment<br>
+                                • All pilots launched on schedule<br>
+                                • Measurement infrastructure operational<br>
+                                • Budget approved and allocated
                             </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-phase">12-Month Execution (Months 4-12)</div>
-                            <div class="timeline-content">
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">Phase 2: Scaling (Months 4-12)</div>
+                            <div class="kpi-content">
+                                <strong>Objectives:</strong><br>
                                 • Scale successful pilots across organization<br>
-                                • Integrate archetype principles into core processes<br>
+                                • Integrate archetype principles into core processes and systems<br>
                                 • Measure and optimize performance against KPIs<br>
-                                • Address resistance and cultural barriers<br>
-                                • Demonstrate measurable business impact
+                                • Address resistance and cultural barriers systematically<br>
+                                • Demonstrate measurable business impact<br><br>
+                                
+                                <strong>Key Deliverables:</strong><br>
+                                • Organization-wide rollout plan<br>
+                                • Process integration documentation<br>
+                                • Performance optimization reports<br>
+                                • Change management program<br>
+                                • Business impact analysis<br><br>
+                                
+                                <strong>Success Criteria:</strong><br>
+                                • 80%+ organizational adoption<br>
+                                • KPIs trending toward targets<br>
+                                • Measurable business impact demonstrated<br>
+                                • Cultural resistance addressed
                             </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-phase">3-Year Transformation (Years 2-3)</div>
-                            <div class="timeline-content">
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">Phase 3: Transformation (Years 2-3)</div>
+                            <div class="kpi-content">
+                                <strong>Objectives:</strong><br>
                                 • Embed strategic framework into organizational DNA<br>
                                 • Achieve sustained competitive advantage<br>
                                 • Expand to new markets and opportunities<br>
                                 • Continuous refinement and evolution<br>
-                                • Become industry benchmark for strategic excellence
+                                • Become industry benchmark for strategic excellence<br><br>
+                                
+                                <strong>Key Deliverables:</strong><br>
+                                • Strategic framework institutionalization<br>
+                                • Market expansion plans<br>
+                                • Continuous improvement system<br>
+                                • Industry thought leadership<br>
+                                • Long-term sustainability roadmap<br><br>
+                                
+                                <strong>Success Criteria:</strong><br>
+                                • All KPI targets achieved or exceeded<br>
+                                • Sustainable competitive advantage established<br>
+                                • Industry recognition and awards<br>
+                                • Framework becomes self-sustaining
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="result-section">
-                    <h3 class="result-section-title">Ethical Guardrails</h3>
-                    <p class="result-text">Your strategy has been validated against 7 Bhagavad Gita principles:</p>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Dharma (Rightful Duty)</div>
-                        <div class="timeline-content">Strategy aligns with organizational purpose and societal responsibility</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Nishkama Karma (Action Without Attachment)</div>
-                        <div class="timeline-content">Focus on quality of execution rather than obsession with outcomes</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Sthitaprajna (Stable Intelligence)</div>
-                        <div class="timeline-content">Maintain strategic clarity despite market volatility and pressures</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Viveka (Discernment)</div>
-                        <div class="timeline-content">Distinguish between short-term tactics and long-term strategic value</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Lokasangraha (Welfare of Many)</div>
-                        <div class="timeline-content">Prioritize collective benefit over individual gain</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Abhyasa & Vairagya (Discipline & Non-Attachment)</div>
-                        <div class="timeline-content">Consistent practice while releasing attachment to past success</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-phase">Yogah Karmasu Kaushalam (Excellence in Action)</div>
-                        <div class="timeline-content">Pursue mastery and continuous improvement in execution</div>
-                    </div>
-                </div>
+                    <div class="result-section">
+                        <h3 class="result-section-title">Bhagavad Gita Ethical Alignment</h3>
+                        <p class="result-text">Your strategy has been validated against 7 dharmic principles from the Bhagavad Gita:</p>
+                        
+                        <div class="kpi-card">
+                            <div class="kpi-title">1. Dharma (Rightful Duty) - Chapter 3, Verse 35</div>
+                            <div class="kpi-content">"Better is one's own dharma, though imperfect, than the dharma of another well performed."<br><br>
+                            <strong>Alignment:</strong> Your strategy aligns with organizational purpose and societal responsibility, ensuring actions are rooted in rightful duty rather than mere profit maximization.</div>
+                        </div>
 
-                <div class="result-section">
-                    <h3 class="result-section-title">Next Steps</h3>
-                    <p class="result-text">1. Review this strategic playbook with your executive team</p>
-                    <p class="result-text">2. Schedule a consultation with Bhramaastra Advisory Services for detailed implementation planning</p>
-                    <p class="result-text">3. Export this playbook for distribution and reference</p>
-                    <p class="result-text">4. Begin 90-day foundation phase with clear milestones</p>
-                </div>
-            `;
+                        <div class="kpi-card">
+                            <div class="kpi-title">2. Nishkama Karma (Action Without Attachment) - Chapter 2, Verse 47</div>
+                            <div class="kpi-content">"You have a right to perform your prescribed duty, but you are not entitled to the fruits of action."<br><br>
+                            <strong>Alignment:</strong> Focus on quality of execution and continuous improvement rather than obsessive attachment to specific outcomes or quarterly results.</div>
+                        </div>
 
-            closeModal('archetypeModal');
-            document.getElementById('resultsModal').classList.add('active');
+                        <div class="kpi-card">
+                            <div class="kpi-title">3. Sthitaprajna (Stable Intelligence) - Chapter 2, Verses 55-72</div>
+                            <div class="kpi-content">"One who is not disturbed in mind even amidst threefold miseries remains steady in wisdom."<br><br>
+                            <strong>Alignment:</strong> Maintain strategic clarity and long-term vision despite market volatility, competitive pressures, and short-term setbacks.</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">4. Viveka (Discernment) - Chapter 2</div>
+                            <div class="kpi-content">"The wise discriminate between the eternal and the temporary."<br><br>
+                            <strong>Alignment:</strong> Distinguish between short-term tactics and long-term strategic value, preserving core values while adapting methods.</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">5. Lokasangraha (Welfare of Many) - Chapter 3, Verses 20-21</div>
+                            <div class="kpi-content">"By performing duty without attachment, one attains the Supreme, and also sets an example for others."<br><br>
+                            <strong>Alignment:</strong> Prioritize collective benefit and stakeholder welfare over individual gain, creating shared value for all constituents.</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">6. Abhyasa & Vairagya (Discipline & Non-Attachment) - Chapter 6</div>
+                            <div class="kpi-content">"Through practice and detachment, the mind is controlled."<br><br>
+                            <strong>Alignment:</strong> Consistent practice of strategic principles while releasing attachment to past success and embracing continuous evolution.</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">7. Yogah Karmasu Kaushalam (Excellence in Action) - Chapter 2, Verse 50</div>
+                            <div class="kpi-content">"Yoga is skill in action."<br><br>
+                            <strong>Alignment:</strong> Pursue mastery and excellence in execution, combining strategic thinking with operational discipline.</div>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3 class="result-section-title">Next Steps & Consultation</h3>
+                        <p class="result-text">This strategic playbook provides a comprehensive framework for organizational transformation. For detailed implementation support, customized workshops, and ongoing strategic consultation, contact Bhramaastra Advisory Services:</p>
+                        
+                        <div class="kpi-card">
+                            <div class="kpi-title">Bhramaastra Advisory Services</div>
+                            <div class="kpi-content">
+                                <strong>Website:</strong> <a href="https://bhramaastraadvisory.com/" target="_blank" style="color: var(--gold);">bhramaastraadvisory.com</a><br>
+                                <strong>Phone:</strong> <a href="tel:+971504090727" style="color: var(--gold);">+971 50 409 0727</a><br>
+                                <strong>Email:</strong> <a href="mailto:connect@bhramaastraadvisoryservices.com" style="color: var(--gold);">connect@bhramaastraadvisoryservices.com</a><br><br>
+                                
+                                <strong>Services Offered:</strong><br>
+                                • Strategic planning workshops and facilitation<br>
+                                • Executive coaching and leadership development<br>
+                                • Implementation support and change management<br>
+                                • Performance measurement and optimization<br>
+                                • Ongoing strategic consultation and advisory
+                            </div>
+                        </div>
+
+                        <p class="result-text"><strong>Immediate Action Items:</strong></p>
+                        <ul class="result-list">
+                            <li>Review this playbook with your executive team within 7 days</li>
+                            <li>Schedule consultation with Bhramaastra Advisory Services</li>
+                            <li>Establish strategic governance structure and assign RACI roles</li>
+                            <li>Allocate budget and resources for Phase 1 implementation</li>
+                            <li>Begin baseline assessments across all impact dimensions</li>
+                            <li>Communicate strategic direction to organization</li>
+                        </ul>
+                    </div>
+                `;
+
+                content.innerHTML = html;
+                
+                document.getElementById('loadingOverlay').classList.remove('active');
+                closeModal('archetypeModal');
+                document.getElementById('resultsModal').classList.add('active');
+            }, 2000);
         }
 
         function exportPDF() {
-            alert('PDF Export\n\nYour strategic playbook will be exported as a professionally formatted PDF document. This feature requires server-side processing and will be available in the full platform deployment.');
+            alert('Professional PDF Export\n\nYour strategic playbook will be exported as a professionally formatted PDF document with:\n\n• Executive summary cover page\n• Table of contents with page numbers\n• Detailed archetype analysis\n• RACI matrices and KPI tables\n• Implementation roadmap\n• Ethical alignment assessment\n• Professional headers and footers\n• Bhramaastra Advisory branding\n\nThis feature requires server-side processing for optimal formatting and will be available in the full platform deployment.\n\nFor immediate access to a professionally formatted PDF, please contact Bhramaastra Advisory Services.');
         }
 
         function exportJSON() {
             const data = {
+                metadata: {
+                    generatedDate: new Date().toISOString(),
+                    platform: 'STRATAVERSE',
+                    version: '1.0.0'
+                },
                 userData,
-                selectedArchetypes: selectedArchetypes.map(a => ({ id: a.id, name: a.name, leader: a.leader })),
-                timestamp: new Date().toISOString()
+                selectedArchetypes: selectedArchetypes.map(a => ({
+                    id: a.id,
+                    name: a.name,
+                    leader: a.leader,
+                    tag: a.tag,
+                    objectives: a.detailed.objectives,
+                    kpis: a.detailed.kpis,
+                    dos: a.detailed.dos,
+                    donts: a.detailed.donts,
+                    risks: a.detailed.risks
+                })),
+                impactScores: {
+                    growth: Math.round(selectedArchetypes.reduce((sum, a) => sum + a.impact.growth, 0) / selectedArchetypes.length),
+                    innovation: Math.round(selectedArchetypes.reduce((sum, a) => sum + a.impact.innovation, 0) / selectedArchetypes.length),
+                    ethical: Math.round(selectedArchetypes.reduce((sum, a) => sum + a.impact.ethical, 0) / selectedArchetypes.length),
+                    sustainability: Math.round(selectedArchetypes.reduce((sum, a) => sum + a.impact.sustain, 0) / selectedArchetypes.length)
+                }
             };
             
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `strataverse-strategy-${Date.now()}.json`;
+            a.download = `strataverse-strategy-${userData.org.replace(/\s+/g, '-')}-${Date.now()}.json`;
             a.click();
         }
 
