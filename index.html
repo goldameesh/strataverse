@@ -1072,15 +1072,13 @@
         <div class="footer-links">
             <a href="https://bhramaastraadvisory.com/" target="_blank">bhramaastraadvisory.com</a>
             <a href="tel:+971504090727">+971 50 409 0727</a>
-            <a href="mailto:connect@bhramaastraadvisoryservices.com">connect@bhramaastraadvisoryservices.com</a>
+            <a href="mailto:connect@bhramaastraadvisory.com">connect@bhramaastraadvisory.com</a>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // 15 UNIVERSAL STRATEGIC FRAMEWORKS - HYBRID MODEL
-        // Based on: Harvard Business Review, McKinsey, BCG, Bain, Porter, Kim & Mauborgne, Christensen, Freeman
-        
+        // STRATEGIC FRAMEWORKS DATA
         const strategicFrameworks = [
             {
                 id: 'transformational-leadership',
@@ -1095,42 +1093,7 @@
                     { label: 'Innovation Output', value: 'High' },
                     { label: 'Cultural Resilience', value: 'High' },
                     { label: 'Stakeholder Trust', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Shift organizational culture from fixed to growth mindset across all levels',
-                        'Increase employee engagement scores by 25-40% within 18 months',
-                        'Establish psychological safety as measurable cultural norm',
-                        'Build continuous learning infrastructure with 10% time allocation'
-                    ],
-                    kpis: [
-                        { metric: 'Employee Engagement Index', target: '+30 points', timeline: '18 months' },
-                        { metric: 'Internal Mobility Rate', target: '+40%', timeline: '24 months' },
-                        { metric: 'Innovation Pipeline Growth', target: '+35%', timeline: '12 months' },
-                        { metric: 'Leadership Trust Score', target: '85+/100', timeline: '24 months' }
-                    ],
-                    dos: [
-                        'Implement 360-degree feedback systems with transparent action plans',
-                        'Allocate 10% of work time for skill development and learning',
-                        'Celebrate intelligent failures and learning publicly',
-                        'Establish cross-functional collaboration incentives',
-                        'Create mentorship and reverse-mentorship programs'
-                    ],
-                    donts: [
-                        'Do not implement during active crisis requiring immediate tactical execution',
-                        'Do not apply without genuine C-suite commitment (requires 3-5 years)',
-                        'Do not use as quick fix for poor business fundamentals',
-                        'Do not implement inconsistently across departments',
-                        'Do not expect immediate ROI - this is long-term transformation'
-                    ],
-                    risks: [
-                        'Middle management resistance to power redistribution',
-                        'Short-term productivity dip during transition (10-15%)',
-                        'Investor pressure for quarterly results',
-                        'Leadership turnover can derail transformation',
-                        'Inconsistent application creates organizational cynicism'
-                    ]
-                }
+                ]
             },
             {
                 id: 'platform-ecosystem',
@@ -1145,42 +1108,7 @@
                     { label: 'Ecosystem Growth', value: 'High' },
                     { label: 'Platform Stickiness', value: 'High' },
                     { label: 'Developer Adoption', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Build platform infrastructure supporting 100,000+ third-party developers',
-                        'Achieve network effects with 10M+ active users within 24 months',
-                        'Generate 40% of revenue from platform ecosystem within 36 months',
-                        'Establish platform governance framework balancing openness and control'
-                    ],
-                    kpis: [
-                        { metric: 'Active Platform Users', target: '10M+', timeline: '24 months' },
-                        { metric: 'Third-Party Developers', target: '100,000+', timeline: '36 months' },
-                        { metric: 'Ecosystem Revenue %', target: '40%', timeline: '36 months' },
-                        { metric: 'Platform API Calls', target: '1B+ daily', timeline: '18 months' }
-                    ],
-                    dos: [
-                        'Invest heavily in developer tools, APIs, and documentation',
-                        'Create transparent governance and revenue-sharing models',
-                        'Build trust through consistent platform policies',
-                        'Enable rapid experimentation with sandbox environments',
-                        'Establish clear data privacy and security standards'
-                    ],
-                    donts: [
-                        'Do not change platform rules arbitrarily',
-                        'Do not compete directly with ecosystem partners',
-                        'Do not underestimate infrastructure costs (30-40% of revenue)',
-                        'Do not ignore regulatory compliance requirements',
-                        'Do not launch without critical mass strategy'
-                    ],
-                    risks: [
-                        'Platform regulation and antitrust scrutiny',
-                        'High infrastructure and scaling costs',
-                        'Chicken-and-egg problem in early stages',
-                        'Platform disintermediation by participants',
-                        'Technology obsolescence and migration costs'
-                    ]
-                }
+                ]
             },
             {
                 id: 'vertical-integration',
@@ -1195,42 +1123,7 @@
                     { label: 'Cost Efficiency', value: 'High' },
                     { label: 'Quality Assurance', value: 'High' },
                     { label: 'Market Power', value: 'Medium' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Control 70%+ of value chain through strategic acquisitions and builds',
-                        'Reduce supply chain costs by 25-35% through integration efficiencies',
-                        'Eliminate third-party dependencies in critical components',
-                        'Achieve end-to-end quality control and traceability'
-                    ],
-                    kpis: [
-                        { metric: 'Value Chain Control %', target: '70%+', timeline: '48 months' },
-                        { metric: 'Supply Chain Cost Reduction', target: '-30%', timeline: '36 months' },
-                        { metric: 'Quality Defect Rate', target: '<0.1%', timeline: '24 months' },
-                        { metric: 'Supplier Dependency Index', target: '<30%', timeline: '36 months' }
-                    ],
-                    dos: [
-                        'Conduct thorough make-vs-buy analysis for each component',
-                        'Invest in manufacturing and logistics capabilities',
-                        'Build vertical integration roadmap with clear milestones',
-                        'Maintain flexibility through modular architecture',
-                        'Leverage integration for competitive differentiation'
-                    ],
-                    donts: [
-                        'Do not integrate without clear strategic rationale',
-                        'Do not underestimate capital requirements (often $100M+)',
-                        'Do not ignore opportunity costs of capital allocation',
-                        'Do not integrate into areas outside core competency',
-                        'Do not assume integration automatically reduces costs'
-                    ],
-                    risks: [
-                        'Massive capital requirements and balance sheet strain',
-                        'Reduced flexibility and increased fixed costs',
-                        'Technology disruption in integrated components',
-                        'Regulatory scrutiny and antitrust concerns',
-                        'Organizational complexity and coordination costs'
-                    ]
-                }
+                ]
             },
             {
                 id: 'blue-ocean',
@@ -1245,42 +1138,7 @@
                     { label: 'Competitive Advantage', value: 'High' },
                     { label: 'Profit Margins', value: 'High' },
                     { label: 'Customer Acquisition', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Identify and create new market space with $1B+ TAM potential',
-                        'Achieve 60%+ revenue growth through value innovation',
-                        'Reduce competitive intensity by making competition irrelevant',
-                        'Build sustainable differentiation through unique value curve'
-                    ],
-                    kpis: [
-                        { metric: 'New Market TAM', target: '$1B+', timeline: '24 months' },
-                        { metric: 'Revenue Growth Rate', target: '60%+ YoY', timeline: '36 months' },
-                        { metric: 'Competitive Intensity Index', target: '-50%', timeline: '18 months' },
-                        { metric: 'Customer Acquisition Cost', target: '-40%', timeline: '24 months' }
-                    ],
-                    dos: [
-                        'Use Strategy Canvas to visualize current competitive factors',
-                        'Apply Four Actions Framework (Eliminate-Reduce-Raise-Create)',
-                        'Focus on non-customers to unlock new demand',
-                        'Pursue differentiation AND low cost simultaneously',
-                        'Test value innovation hypotheses rapidly'
-                    ],
-                    donts: [
-                        'Do not confuse blue ocean with niche markets',
-                        'Do not pursue differentiation without cost discipline',
-                        'Do not ignore existing customers completely',
-                        'Do not assume blue oceans remain uncontested forever',
-                        'Do not underestimate execution complexity'
-                    ],
-                    risks: [
-                        'Market creation uncertainty and demand validation',
-                        'Imitators entering newly created market space',
-                        'Customer education costs for new categories',
-                        'Organizational resistance to cannibalization',
-                        'Difficulty sustaining blue ocean advantages long-term'
-                    ]
-                }
+                ]
             },
             {
                 id: 'disruptive-innovation',
@@ -1295,42 +1153,7 @@
                     { label: 'Innovation Speed', value: 'High' },
                     { label: 'Cost Advantage', value: 'High' },
                     { label: 'Scalability', value: 'Medium' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Target non-consumption or overshot customers with 10x simpler solution',
-                        'Achieve 50-70% cost advantage over incumbent solutions',
-                        'Build autonomous business unit protected from core business',
-                        'Scale from low-end to mainstream market within 5 years'
-                    ],
-                    kpis: [
-                        { metric: 'Cost vs Incumbents', target: '-60%', timeline: '24 months' },
-                        { metric: 'Market Share (Low-End)', target: '40%+', timeline: '18 months' },
-                        { metric: 'Mainstream Market Penetration', target: '20%+', timeline: '48 months' },
-                        { metric: 'Customer Acquisition Rate', target: '100% YoY', timeline: '36 months' }
-                    ],
-                    dos: [
-                        'Create separate business unit with different metrics',
-                        'Focus on simplicity and accessibility over performance',
-                        'Target non-consumers or overshot customers first',
-                        'Build scalable, low-cost business model from day one',
-                        'Iterate rapidly based on customer feedback'
-                    ],
-                    donts: [
-                        'Do not pursue without patient capital (3-7 years)',
-                        'Do not integrate with core business too early',
-                        'Do not target mainstream customers initially',
-                        'Do not compromise on cost structure for features',
-                        'Do not expect linear growth trajectory'
-                    ],
-                    risks: [
-                        'Incumbent retaliation and competitive response',
-                        'Technology limitations preventing upmarket movement',
-                        'Regulatory barriers protecting incumbents',
-                        'Difficulty attracting talent to "inferior" solution',
-                        'Cannibalization of existing business'
-                    ]
-                }
+                ]
             },
             {
                 id: 'stakeholder-capitalism',
@@ -1345,42 +1168,7 @@
                     { label: 'ESG Performance', value: 'High' },
                     { label: 'Long-Term Resilience', value: 'High' },
                     { label: 'Reputation Capital', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Achieve top-quartile ESG ratings across all major frameworks (MSCI, Sustainalytics)',
-                        'Increase stakeholder satisfaction scores by 30% across all groups',
-                        'Reduce carbon footprint by 50% within 5 years (Science-Based Targets)',
-                        'Build sustainable competitive advantage through stakeholder trust'
-                    ],
-                    kpis: [
-                        { metric: 'ESG Rating (MSCI)', target: 'AA or higher', timeline: '24 months' },
-                        { metric: 'Employee Satisfaction', target: '85+/100', timeline: '18 months' },
-                        { metric: 'Carbon Footprint Reduction', target: '-50%', timeline: '60 months' },
-                        { metric: 'Stakeholder Trust Index', target: '+35%', timeline: '36 months' }
-                    ],
-                    dos: [
-                        'Integrate ESG into core strategy and capital allocation',
-                        'Establish transparent stakeholder engagement processes',
-                        'Set science-based targets for environmental impact',
-                        'Link executive compensation to ESG metrics',
-                        'Report comprehensively using GRI, SASB, TCFD standards'
-                    ],
-                    donts: [
-                        'Do not greenwash or make unsubstantiated claims',
-                        'Do not sacrifice long-term value for short-term gains',
-                        'Do not ignore shareholder concerns about returns',
-                        'Do not implement without board-level commitment',
-                        'Do not underestimate costs of ESG transformation'
-                    ],
-                    risks: [
-                        'Short-term financial performance pressure',
-                        'Greenwashing accusations and reputational damage',
-                        'Higher costs of sustainable operations (10-20%)',
-                        'Difficulty measuring and reporting ESG impact',
-                        'Stakeholder conflicts and trade-off decisions'
-                    ]
-                }
+                ]
             },
             {
                 id: 'agile-at-scale',
@@ -1395,42 +1183,7 @@
                     { label: 'Team Productivity', value: 'High' },
                     { label: 'Customer Satisfaction', value: 'High' },
                     { label: 'Adaptability', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Reduce time-to-market by 40% through agile delivery',
-                        'Increase team productivity by 25-30% within 18 months',
-                        'Achieve 95%+ on-time delivery of committed work',
-                        'Build organizational muscle for continuous adaptation'
-                    ],
-                    kpis: [
-                        { metric: 'Time-to-Market Reduction', target: '-40%', timeline: '18 months' },
-                        { metric: 'Team Velocity Increase', target: '+30%', timeline: '12 months' },
-                        { metric: 'On-Time Delivery Rate', target: '95%+', timeline: '24 months' },
-                        { metric: 'Employee Engagement', target: '+25%', timeline: '18 months' }
-                    ],
-                    dos: [
-                        'Start with pilot teams and scale incrementally',
-                        'Invest heavily in agile coaching and training',
-                        'Reorganize around value streams, not functions',
-                        'Implement DevOps and continuous delivery infrastructure',
-                        'Empower teams with decision-making authority'
-                    ],
-                    donts: [
-                        'Do not mandate agile without leadership buy-in',
-                        'Do not apply agile to all work types uniformly',
-                        'Do not underestimate change management requirements',
-                        'Do not skip foundational technical practices',
-                        'Do not expect immediate productivity gains'
-                    ],
-                    risks: [
-                        'Middle management resistance to power redistribution',
-                        'Initial productivity dip during transition (10-15%)',
-                        'Difficulty scaling agile to regulated environments',
-                        'Coordination challenges across multiple teams',
-                        'Agile theater without genuine transformation'
-                    ]
-                }
+                ]
             },
             {
                 id: 'digital-transformation',
@@ -1445,42 +1198,7 @@
                     { label: 'Operational Efficiency', value: 'High' },
                     { label: 'Customer Experience', value: 'High' },
                     { label: 'Data Maturity', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Achieve 50%+ of revenue from digital channels within 36 months',
-                        'Reduce operational costs by 20% through automation and AI',
-                        'Build cloud-native architecture supporting 99.99% uptime',
-                        'Establish data-driven decision-making culture across organization'
-                    ],
-                    kpis: [
-                        { metric: 'Digital Revenue %', target: '50%+', timeline: '36 months' },
-                        { metric: 'Cost Reduction (Automation)', target: '-20%', timeline: '24 months' },
-                        { metric: 'Cloud Migration %', target: '80%+', timeline: '30 months' },
-                        { metric: 'Data Literacy Score', target: '85/100', timeline: '24 months' }
-                    ],
-                    dos: [
-                        'Develop clear digital vision and roadmap',
-                        'Invest in cloud infrastructure and data platforms',
-                        'Build digital talent through hiring and upskilling',
-                        'Adopt API-first, microservices architecture',
-                        'Establish data governance and security frameworks'
-                    ],
-                    donts: [
-                        'Do not pursue technology for technology sake',
-                        'Do not underestimate legacy system complexity',
-                        'Do not ignore cybersecurity and data privacy',
-                        'Do not skip change management and training',
-                        'Do not expect linear transformation trajectory'
-                    ],
-                    risks: [
-                        'Technology debt and legacy system constraints',
-                        'Cybersecurity vulnerabilities and data breaches',
-                        'Talent shortage in digital skills',
-                        'Integration complexity across systems',
-                        'Rapid technology obsolescence'
-                    ]
-                }
+                ]
             },
             {
                 id: 'lean-operations',
@@ -1495,42 +1213,7 @@
                     { label: 'Quality Improvement', value: 'High' },
                     { label: 'Throughput', value: 'High' },
                     { label: 'Waste Elimination', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Reduce operational costs by 25% through waste elimination',
-                        'Improve first-pass quality to 99%+ (Six Sigma level)',
-                        'Increase throughput by 30% without capital investment',
-                        'Build continuous improvement culture with 100% employee participation'
-                    ],
-                    kpis: [
-                        { metric: 'Cost per Unit', target: '-25%', timeline: '24 months' },
-                        { metric: 'First-Pass Yield', target: '99%+', timeline: '18 months' },
-                        { metric: 'Throughput Increase', target: '+30%', timeline: '24 months' },
-                        { metric: 'Kaizen Ideas per Employee', target: '12+ annually', timeline: '18 months' }
-                    ],
-                    dos: [
-                        'Map value streams to identify waste systematically',
-                        'Implement 5S workplace organization methodology',
-                        'Establish daily management systems and visual controls',
-                        'Train all employees in lean principles and tools',
-                        'Celebrate and reward continuous improvement'
-                    ],
-                    donts: [
-                        'Do not implement lean as cost-cutting exercise only',
-                        'Do not ignore cultural and behavioral change',
-                        'Do not apply lean tools without understanding principles',
-                        'Do not expect overnight results',
-                        'Do not punish failures in improvement experiments'
-                    ],
-                    risks: [
-                        'Employee resistance to change and job security concerns',
-                        'Short-term disruption during implementation',
-                        'Difficulty sustaining improvements over time',
-                        'Over-optimization leading to fragility',
-                        'Lean fatigue from excessive initiatives'
-                    ]
-                }
+                ]
             },
             {
                 id: 'customer-centricity',
@@ -1545,42 +1228,7 @@
                     { label: 'Net Promoter Score', value: 'High' },
                     { label: 'Customer Retention', value: 'High' },
                     { label: 'Innovation Success Rate', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Increase customer lifetime value by 40% through superior experiences',
-                        'Achieve NPS of 70+ (world-class level)',
-                        'Reduce customer churn by 30% within 24 months',
-                        'Increase innovation success rate to 60%+ through customer co-creation'
-                    ],
-                    kpis: [
-                        { metric: 'Customer Lifetime Value', target: '+40%', timeline: '24 months' },
-                        { metric: 'Net Promoter Score', target: '70+', timeline: '18 months' },
-                        { metric: 'Customer Churn Rate', target: '-30%', timeline: '24 months' },
-                        { metric: 'Innovation Success Rate', target: '60%+', timeline: '36 months' }
-                    ],
-                    dos: [
-                        'Conduct ethnographic research to understand customer context',
-                        'Map customer journeys across all touchpoints',
-                        'Establish rapid prototyping and testing capabilities',
-                        'Co-create solutions with customers throughout development',
-                        'Measure and optimize customer experience systematically'
-                    ],
-                    donts: [
-                        'Do not rely solely on surveys and focus groups',
-                        'Do not assume you know what customers want',
-                        'Do not skip rapid prototyping and testing',
-                        'Do not ignore emotional and social jobs-to-be-done',
-                        'Do not optimize individual touchpoints in isolation'
-                    ],
-                    risks: [
-                        'Over-customization leading to complexity',
-                        'Difficulty scaling personalized experiences',
-                        'Customer research bias and misinterpretation',
-                        'Balancing customer desires with business viability',
-                        'Privacy concerns with customer data usage'
-                    ]
-                }
+                ]
             },
             {
                 id: 'open-innovation',
@@ -1595,42 +1243,7 @@
                     { label: 'R&D Efficiency', value: 'High' },
                     { label: 'Partnership Value', value: 'High' },
                     { label: 'Time-to-Market', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Source 40% of innovations from external ecosystem',
-                        'Reduce R&D costs by 25% through open innovation',
-                        'Establish partnerships with 50+ startups, universities, and research labs',
-                        'Accelerate time-to-market by 35% through external collaboration'
-                    ],
-                    kpis: [
-                        { metric: 'External Innovation %', target: '40%', timeline: '24 months' },
-                        { metric: 'R&D Cost Reduction', target: '-25%', timeline: '30 months' },
-                        { metric: 'Active Partnerships', target: '50+', timeline: '18 months' },
-                        { metric: 'Time-to-Market', target: '-35%', timeline: '24 months' }
-                    ],
-                    dos: [
-                        'Build innovation scouting and partnership capabilities',
-                        'Establish clear IP and collaboration frameworks',
-                        'Create corporate venture capital or accelerator programs',
-                        'Develop absorptive capacity to integrate external knowledge',
-                        'Share non-core innovations to build ecosystem goodwill'
-                    ],
-                    donts: [
-                        'Do not pursue without clear innovation strategy',
-                        'Do not ignore IP protection and legal frameworks',
-                        'Do not expect immediate returns from partnerships',
-                        'Do not underestimate integration complexity',
-                        'Do not share core competitive advantages'
-                    ],
-                    risks: [
-                        'IP leakage and competitive intelligence risks',
-                        'Integration challenges with external innovations',
-                        'Partner reliability and commitment issues',
-                        'Not-invented-here syndrome internally',
-                        'Coordination costs across multiple partners'
-                    ]
-                }
+                ]
             },
             {
                 id: 'data-driven-decision',
@@ -1645,42 +1258,7 @@
                     { label: 'Data Literacy', value: 'High' },
                     { label: 'Analytics ROI', value: 'High' },
                     { label: 'Predictive Accuracy', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Achieve 80%+ of strategic decisions backed by data and analytics',
-                        'Build data literacy across 100% of workforce',
-                        'Deploy 50+ AI/ML models in production driving business value',
-                        'Establish single source of truth for all business metrics'
-                    ],
-                    kpis: [
-                        { metric: 'Data-Backed Decisions %', target: '80%+', timeline: '24 months' },
-                        { metric: 'Data Literacy Score', target: '85/100', timeline: '18 months' },
-                        { metric: 'AI Models in Production', target: '50+', timeline: '30 months' },
-                        { metric: 'Data Quality Index', target: '95%+', timeline: '24 months' }
-                    ],
-                    dos: [
-                        'Invest in modern data infrastructure and platforms',
-                        'Democratize data access with self-service analytics',
-                        'Build data science and analytics talent',
-                        'Establish data governance and quality frameworks',
-                        'Create culture of experimentation and A/B testing'
-                    ],
-                    donts: [
-                        'Do not pursue analytics without clear business questions',
-                        'Do not ignore data quality and governance',
-                        'Do not create data silos and fragmentation',
-                        'Do not expect AI to replace human judgment',
-                        'Do not underestimate change management requirements'
-                    ],
-                    risks: [
-                        'Data quality issues leading to poor decisions',
-                        'Privacy and security vulnerabilities',
-                        'Talent shortage in data science and analytics',
-                        'Over-reliance on data ignoring intuition',
-                        'Analysis paralysis and decision delays'
-                    ]
-                }
+                ]
             },
             {
                 id: 'circular-economy',
@@ -1695,42 +1273,7 @@
                     { label: 'Waste Reduction', value: 'High' },
                     { label: 'New Revenue Streams', value: 'High' },
                     { label: 'Environmental Impact', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Achieve 80% material circularity within 5 years',
-                        'Reduce waste to landfill by 90% through circular design',
-                        'Generate 15% of revenue from circular business models',
-                        'Cut carbon emissions by 40% through circular practices'
-                    ],
-                    kpis: [
-                        { metric: 'Material Circularity %', target: '80%', timeline: '60 months' },
-                        { metric: 'Waste to Landfill', target: '-90%', timeline: '48 months' },
-                        { metric: 'Circular Revenue %', target: '15%', timeline: '36 months' },
-                        { metric: 'Carbon Emissions', target: '-40%', timeline: '60 months' }
-                    ],
-                    dos: [
-                        'Design products for durability, reuse, and recyclability',
-                        'Implement product-as-a-service business models',
-                        'Build reverse logistics and take-back systems',
-                        'Partner with recyclers and material recovery facilities',
-                        'Measure and report circular economy metrics'
-                    ],
-                    donts: [
-                        'Do not pursue without redesigning products and processes',
-                        'Do not ignore economics of circular business models',
-                        'Do not underestimate consumer behavior change required',
-                        'Do not skip life cycle assessment and impact measurement',
-                        'Do not greenwash without genuine circularity'
-                    ],
-                    risks: [
-                        'Higher upfront costs for circular design',
-                        'Consumer acceptance of circular products',
-                        'Reverse logistics complexity and costs',
-                        'Technology limitations in recycling',
-                        'Regulatory uncertainty around circular economy'
-                    ]
-                }
+                ]
             },
             {
                 id: 'strategic-partnerships',
@@ -1745,42 +1288,7 @@
                     { label: 'Market Access', value: 'High' },
                     { label: 'Capability Development', value: 'High' },
                     { label: 'Capital Efficiency', value: 'High' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Establish 20+ strategic partnerships generating 25% of revenue',
-                        'Access new markets representing $500M+ opportunity through partnerships',
-                        'Reduce capital requirements by 35% through asset-light partnerships',
-                        'Build alliance management capability as core competency'
-                    ],
-                    kpis: [
-                        { metric: 'Partnership Revenue %', target: '25%', timeline: '36 months' },
-                        { metric: 'New Market Access', target: '$500M+ TAM', timeline: '24 months' },
-                        { metric: 'Capital Efficiency', target: '+35%', timeline: '30 months' },
-                        { metric: 'Partnership Success Rate', target: '70%+', timeline: '24 months' }
-                    ],
-                    dos: [
-                        'Develop clear partnership strategy and criteria',
-                        'Build dedicated alliance management function',
-                        'Establish governance frameworks and KPIs',
-                        'Invest in relationship building and trust',
-                        'Create win-win value propositions for partners'
-                    ],
-                    donts: [
-                        'Do not pursue partnerships without strategic fit',
-                        'Do not ignore cultural and organizational compatibility',
-                        'Do not underestimate governance complexity',
-                        'Do not share core competitive advantages',
-                        'Do not expect partnerships to solve fundamental problems'
-                    ],
-                    risks: [
-                        'Partner opportunism and value capture',
-                        'Coordination costs and decision delays',
-                        'IP leakage and competitive intelligence',
-                        'Cultural misalignment and conflicts',
-                        'Dependency on partner performance'
-                    ]
-                }
+                ]
             },
             {
                 id: 'mass-customization',
@@ -1795,42 +1303,7 @@
                     { label: 'Production Efficiency', value: 'High' },
                     { label: 'Customer Satisfaction', value: 'High' },
                     { label: 'Margin Improvement', value: 'Medium' }
-                ],
-                detailed: {
-                    objectives: [
-                        'Offer 1000+ product configurations while maintaining efficiency',
-                        'Achieve 90% of mass production efficiency with full customization',
-                        'Increase gross margins by 15% through customization premium',
-                        'Reduce time-to-delivery for custom products to <7 days'
-                    ],
-                    kpis: [
-                        { metric: 'Product Configurations', target: '1000+', timeline: '24 months' },
-                        { metric: 'Production Efficiency vs Mass', target: '90%', timeline: '30 months' },
-                        { metric: 'Gross Margin Increase', target: '+15%', timeline: '24 months' },
-                        { metric: 'Custom Product Lead Time', target: '<7 days', timeline: '18 months' }
-                    ],
-                    dos: [
-                        'Design modular product architecture',
-                        'Implement flexible manufacturing systems',
-                        'Build configurator and digital design tools',
-                        'Postpone differentiation as late as possible',
-                        'Invest in supply chain agility'
-                    ],
-                    donts: [
-                        'Do not offer unlimited customization',
-                        'Do not ignore complexity costs',
-                        'Do not skip modular design principles',
-                        'Do not underestimate IT infrastructure requirements',
-                        'Do not compromise quality for customization'
-                    ],
-                    risks: [
-                        'Complexity explosion and SKU proliferation',
-                        'Higher inventory and working capital requirements',
-                        'Quality control challenges with variations',
-                        'Customer confusion with too many choices',
-                        'Difficulty forecasting demand for configurations'
-                    ]
-                }
+                ]
             }
         ];
 
@@ -1965,8 +1438,180 @@
                 const content = document.getElementById('resultsContent');
                 const avg = (key) => Math.round(selectedFrameworks.reduce((sum, f) => sum + f.impact[key], 0) / selectedFrameworks.length);
                 
-                // Generate comprehensive strategic framework document
-                // [Implementation continues in next message due to length]
+                let html = `
+                    <div class="result-section">
+                        <h3 class="result-section-title">Executive Summary</h3>
+                        <p class="result-text"><strong>Organization:</strong> ${userData.org}</p>
+                        <p class="result-text"><strong>Industry:</strong> ${userData.industry}</p>
+                        <p class="result-text"><strong>Organization Size:</strong> ${userData.orgSize}</p>
+                        <p class="result-text"><strong>Geographic Scope:</strong> ${userData.geoScope}</p>
+                        <p class="result-text"><strong>Strategic Lead:</strong> ${userData.name} (${userData.email})</p>
+                        <p class="result-text"><strong>Primary Challenge:</strong> ${userData.challenge}</p>
+                        <p class="result-text"><strong>Selected Frameworks:</strong> ${selectedFrameworks.map(f => f.name).join(', ')}</p>
+                        <p class="result-text"><strong>Document Generated:</strong> ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3 class="result-section-title">Strategic Framework Overview</h3>
+                        <p class="result-text">Your customized strategic framework combines ${selectedFrameworks.length} evidence-based patterns validated through extensive global research. This multi-framework approach provides complementary strengths and mitigates individual weaknesses.</p>
+                        
+                        <h4 class="result-subsection-title">Combined Impact Assessment</h4>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Growth Potential: ${avg('growth')}%</div>
+                            <div class="kpi-content">Expected revenue growth, market expansion capabilities, and scaling potential based on selected framework mix.</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Innovation Capacity: ${avg('innovation')}%</div>
+                            <div class="kpi-content">Ability to develop breakthrough products, adopt new technologies, and disrupt existing markets.</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Governance Quality: ${avg('governance')}%</div>
+                            <div class="kpi-content">Strength of decision-making frameworks, stakeholder accountability, and ethical governance structures.</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Sustainability Index: ${avg('sustain')}%</div>
+                            <div class="kpi-content">Long-term viability, ESG performance, and stakeholder value creation capabilities.</div>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3 class="result-section-title">Selected Strategic Frameworks</h3>
+                        ${selectedFrameworks.map(fw => `
+                            <div class="kpi-card">
+                                <div class="kpi-title">${fw.name}</div>
+                                <div class="kpi-content">
+                                    <strong>Category:</strong> ${fw.category}<br>
+                                    <strong>Research Source:</strong> ${fw.source}<br><br>
+                                    ${fw.desc}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="result-section">
+                        <h3 class="result-section-title">Implementation Roadmap</h3>
+                        
+                        <div class="kpi-card">
+                            <div class="kpi-title">Phase 1: Foundation (Months 1-3)</div>
+                            <div class="kpi-content">
+                                <strong>Objectives:</strong><br>
+                                • Establish strategic leadership team and governance structure<br>
+                                • Conduct comprehensive baseline assessments across all impact dimensions<br>
+                                • Launch pilot programs for each selected framework<br>
+                                • Define success metrics, KPIs, and measurement systems<br>
+                                • Secure executive alignment and resource allocation<br><br>
+                                
+                                <strong>Key Deliverables:</strong><br>
+                                • Strategic governance charter<br>
+                                • Baseline assessment report<br>
+                                • Pilot program designs<br>
+                                • KPI dashboard and tracking system<br>
+                                • Resource allocation plan
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">Phase 2: Scaling (Months 4-12)</div>
+                            <div class="kpi-content">
+                                <strong>Objectives:</strong><br>
+                                • Scale successful pilots across organization<br>
+                                • Integrate framework principles into core processes<br>
+                                • Measure and optimize performance against KPIs<br>
+                                • Address resistance and cultural barriers<br>
+                                • Demonstrate measurable business impact<br><br>
+                                
+                                <strong>Key Deliverables:</strong><br>
+                                • Organization-wide rollout plan<br>
+                                • Process integration documentation<br>
+                                • Performance optimization reports<br>
+                                • Change management program<br>
+                                • Business impact analysis
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">Phase 3: Transformation (Years 2-3)</div>
+                            <div class="kpi-content">
+                                <strong>Objectives:</strong><br>
+                                • Embed strategic frameworks into organizational DNA<br>
+                                • Achieve sustained competitive advantage<br>
+                                • Expand to new markets and opportunities<br>
+                                • Continuous refinement and evolution<br>
+                                • Become industry benchmark for strategic excellence<br><br>
+                                
+                                <strong>Key Deliverables:</strong><br>
+                                • Framework institutionalization<br>
+                                • Market expansion plans<br>
+                                • Continuous improvement system<br>
+                                • Industry thought leadership<br>
+                                • Long-term sustainability roadmap
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3 class="result-section-title">Governance & Ethical Framework</h3>
+                        <p class="result-text">Your strategy aligns with 5 universal governance principles ensuring sustainable value creation:</p>
+                        
+                        <div class="kpi-card">
+                            <div class="kpi-title">1. Stakeholder Accountability (UN Global Compact)</div>
+                            <div class="kpi-content">Balance interests of all stakeholders including shareholders, employees, customers, suppliers, communities, and environment. Ensure transparent reporting and accountability mechanisms.</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">2. Long-Term Value Creation (ISO 26000)</div>
+                            <div class="kpi-content">Prioritize sustainable long-term value over short-term gains. Integrate social responsibility into core strategy and operations.</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">3. Ethical Decision-Making (OECD Guidelines)</div>
+                            <div class="kpi-content">Maintain highest standards of business conduct, human rights, labor practices, and environmental stewardship across all operations and geographies.</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">4. Sustainable Development (Triple Bottom Line)</div>
+                            <div class="kpi-content">Balance economic prosperity with social equity and environmental protection. Measure success across People, Planet, and Profit dimensions.</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-title">5. Transparent Governance (GRI/SASB Standards)</div>
+                            <div class="kpi-content">Implement comprehensive ESG reporting using globally recognized standards. Ensure transparency in decision-making, performance measurement, and stakeholder communication.</div>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3 class="result-section-title">Next Steps & Consultation</h3>
+                        <p class="result-text">This strategic framework provides a comprehensive foundation for organizational transformation. For detailed implementation support, customized workshops, and ongoing strategic consultation, contact Bhramaastra Advisory Services:</p>
+                        
+                        <div class="kpi-card">
+                            <div class="kpi-title">Bhramaastra Advisory Services</div>
+                            <div class="kpi-content">
+                                <strong>Website:</strong> <a href="https://bhramaastraadvisory.com/" target="_blank" style="color: var(--primary-light);">bhramaastraadvisory.com</a><br>
+                                <strong>Phone:</strong> <a href="tel:+971504090727" style="color: var(--primary-light);">+971 50 409 0727</a><br>
+                                <strong>Email:</strong> <a href="mailto:connect@bhramaastraadvisory.com" style="color: var(--primary-light);">connect@bhramaastraadvisory.com</a><br><br>
+                                
+                                <strong>Services Offered:</strong><br>
+                                • Strategic planning workshops and facilitation<br>
+                                • Executive coaching and leadership development<br>
+                                • Implementation support and change management<br>
+                                • Performance measurement and optimization<br>
+                                • Ongoing strategic consultation and advisory
+                            </div>
+                        </div>
+
+                        <p class="result-text"><strong>Immediate Action Items:</strong></p>
+                        <ul class="result-list">
+                            <li>Review this framework with your executive team within 7 days</li>
+                            <li>Schedule consultation with Bhramaastra Advisory Services</li>
+                            <li>Establish strategic governance structure</li>
+                            <li>Allocate budget and resources for Phase 1 implementation</li>
+                            <li>Begin baseline assessments across all impact dimensions</li>
+                            <li>Communicate strategic direction to organization</li>
+                        </ul>
+                    </div>
+                `;
+
+                content.innerHTML = html;
                 
                 document.getElementById('loadingOverlay').classList.remove('active');
                 closeModal('archetypeModal');
@@ -1975,10 +1620,12 @@
         }
 
         function exportPDF() {
-            alert('Professional PDF Export\n\nYour strategic framework will be exported as a professionally formatted PDF document.\n\nFor immediate access, please contact Bhramaastra Advisory Services.');
+            alert('Professional PDF Export\n\nYour strategic framework will be exported as a professionally formatted PDF document.\n\nFor immediate access, please contact Bhramaastra Advisory Services at connect@bhramaastraadvisory.com');
         }
 
         function exportJSON() {
+            const avg = (key) => Math.round(selectedFrameworks.reduce((sum, f) => sum + f.impact[key], 0) / selectedFrameworks.length);
+            
             const data = {
                 metadata: {
                     generatedDate: new Date().toISOString(),
