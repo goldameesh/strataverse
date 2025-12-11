@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STRATAVERSE™ — Global Strategic Intelligence Platform</title>
+    <title>STRATAVERSE™ — Enterprise Strategic Intelligence Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- jsPDF for professional PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -15,781 +20,629 @@
         }
 
         :root {
-            --primary: #1A4D8F;
-            --primary-light: #2E6AB3;
-            --primary-dark: #0D2847;
-            --accent: #C9A961;
-            --accent-light: #E5D4A6;
-            --navy: #0B1120;
-            --navy-light: #1A2332;
+            --navy-primary: #001F3F;
+            --navy-secondary: #003366;
+            --charcoal: #2C3E50;
+            --gold: #B8860B;
+            --gold-light: #DAA520;
+            --platinum: #E5E5E5;
             --white: #FFFFFF;
-            --platinum: #E8E8E8;
-            --text-secondary: #B0B0B0;
+            --gray-100: #F8F9FA;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-700: #495057;
+            --gray-900: #212529;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --info: #17A2B8;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #0B1120 50%, #1A2332 100%);
-            color: var(--platinum);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-900);
             line-height: 1.6;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(26, 77, 143, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(26, 77, 143, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px;
-            z-index: 0;
-            pointer-events: none;
-        }
-
+        /* ===== NAVIGATION ===== */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(11, 17, 32, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(26, 77, 143, 0.2);
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-300);
             z-index: 1000;
-            padding: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .nav-container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 4rem;
+            padding: 1.25rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: var(--white);
-            letter-spacing: 0.05em;
+            color: var(--navy-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--gray-700);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: block;
+            margin-top: -0.25rem;
         }
 
         .nav-links a {
-            color: var(--platinum);
+            color: var(--gray-700);
             text-decoration: none;
-            margin-left: 3rem;
+            margin-left: 2.5rem;
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
 
         .nav-links a:hover {
-            color: var(--primary-light);
+            color: var(--navy-primary);
         }
 
+        /* ===== HERO SECTION ===== */
         .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 4rem 4rem;
-            z-index: 10;
-        }
-
-        .hero-content {
-            max-width: 1400px;
+            padding: 10rem 3rem 6rem;
+            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+            color: var(--white);
             text-align: center;
         }
 
         .hero-badge {
             display: inline-block;
-            padding: 0.75rem 2rem;
-            background: rgba(26, 77, 143, 0.15);
-            border: 1px solid rgba(26, 77, 143, 0.3);
-            color: var(--primary-light);
-            font-size: 0.85rem;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.75rem;
             font-weight: 700;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 2rem;
+            border-radius: 2px;
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 5rem;
+            font-family: 'Crimson Pro', serif;
+            font-size: 3.5rem;
             font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
         }
 
         .hero-subtitle {
-            font-size: 1.4rem;
-            color: var(--platinum);
-            max-width: 900px;
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 800px;
             margin: 0 auto 3rem;
-            line-height: 1.8;
-            font-weight: 300;
+            line-height: 1.7;
+            font-weight: 400;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 4rem auto;
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
         }
 
-        .stat-card {
-            padding: 3rem 2rem;
-            background: rgba(26, 35, 50, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(26, 77, 143, 0.2);
-            transition: all 0.4s ease;
+        .hero-stat {
+            text-align: center;
         }
 
-        .stat-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary-light);
-            box-shadow: 0 10px 40px rgba(26, 77, 143, 0.3);
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            display: block;
         }
 
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--primary-light);
-            margin-bottom: 0.5rem;
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
         }
 
-        .stat-label {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .cta-button {
+        .cta-primary {
             display: inline-block;
-            padding: 1.5rem 4rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 1.25rem 3rem;
+            background: var(--gold);
             color: var(--white);
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             border: none;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             letter-spacing: 0.05em;
             text-transform: uppercase;
+            border-radius: 2px;
+            box-shadow: 0 4px 12px rgba(184,134,11,0.3);
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(26, 77, 143, 0.4);
+        .cta-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(184,134,11,0.4);
         }
 
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal {
-            background: linear-gradient(135deg, rgba(11, 17, 32, 0.98) 0%, rgba(26, 35, 50, 0.98) 100%);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(26, 77, 143, 0.3);
-            max-width: 900px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 4rem;
+        /* ===== WIZARD CONTAINER ===== */
+        .wizard-container {
+            max-width: 1200px;
+            margin: -4rem auto 4rem;
+            background: var(--white);
+            border-radius: 4px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
             position: relative;
-            transform: scale(0.9);
-            transition: transform 0.4s ease;
+            z-index: 10;
+            display: none;
         }
 
-        .modal-overlay.active .modal {
-            transform: scale(1);
+        .wizard-container.active {
+            display: block;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            width: 40px;
-            height: 40px;
-            background: rgba(26, 77, 143, 0.1);
-            border: 1px solid rgba(26, 77, 143, 0.3);
-            color: var(--primary-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        /* Progress Bar */
+        .wizard-progress {
             display: flex;
+            padding: 2rem 3rem;
+            border-bottom: 1px solid var(--gray-200);
+            background: var(--gray-100);
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            top: 1.25rem;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: var(--gray-300);
+            z-index: 0;
+        }
+
+        .progress-step:first-child::before {
+            display: none;
+        }
+
+        .progress-step.completed::before {
+            background: var(--navy-primary);
+        }
+
+        .progress-number {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--gray-300);
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .modal-close:hover {
-            background: rgba(26, 77, 143, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .modal-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0.75rem;
         }
 
-        .modal-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
+        .progress-step.active .progress-number {
+            background: var(--navy-primary);
+            border-color: var(--navy-primary);
+            color: var(--white);
+        }
+
+        .progress-step.completed .progress-number {
+            background: var(--navy-primary);
+            border-color: var(--navy-primary);
+            color: var(--white);
+        }
+
+        .progress-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            display: block;
+        }
+
+        .progress-step.active .progress-label {
+            color: var(--navy-primary);
+        }
+
+        /* Wizard Content */
+        .wizard-content {
+            padding: 3rem;
+        }
+
+        .wizard-step {
+            display: none;
+        }
+
+        .wizard-step.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 1rem;
+            color: var(--gray-700);
+            margin-bottom: 2.5rem;
             line-height: 1.6;
+        }
+
+        /* Form Elements */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .form-group {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
         }
 
         .form-label {
             display: block;
-            font-size: 1rem;
             font-weight: 600;
-            color: var(--white);
-            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
         }
 
-        .form-input {
+        .form-label .required {
+            color: var(--danger);
+            margin-left: 0.25rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
             width: 100%;
-            padding: 1.25rem 1.5rem;
-            background: rgba(26, 35, 50, 0.6);
-            border: 1px solid rgba(26, 77, 143, 0.2);
-            color: var(--white);
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 2px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: var(--white);
         }
 
-        .form-input:focus {
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
             outline: none;
-            border-color: var(--primary-light);
-            background: rgba(26, 35, 50, 0.8);
+            border-color: var(--navy-primary);
+            box-shadow: 0 0 0 3px rgba(0,31,63,0.1);
         }
 
         .form-textarea {
-            min-height: 120px;
             resize: vertical;
+            min-height: 120px;
         }
 
-        .challenge-grid {
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--gray-700);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Framework Selection */
+        .framework-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .challenge-option {
+        .framework-card {
             padding: 1.5rem;
-            background: rgba(26, 35, 50, 0.4);
-            border: 1px solid rgba(26, 77, 143, 0.2);
+            border: 2px solid var(--gray-300);
+            border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s ease;
+            background: var(--white);
         }
 
-        .challenge-option:hover {
-            border-color: var(--primary-light);
-            background: rgba(26, 35, 50, 0.6);
+        .framework-card:hover {
+            border-color: var(--navy-primary);
+            box-shadow: 0 4px 12px rgba(0,31,63,0.1);
         }
 
-        .challenge-option.selected {
-            border-color: var(--primary-light);
-            background: rgba(26, 77, 143, 0.15);
+        .framework-card.selected {
+            border-color: var(--navy-primary);
+            background: rgba(0,31,63,0.03);
         }
 
-        .challenge-title {
-            font-weight: 600;
-            color: var(--white);
+        .framework-card input[type="checkbox"] {
+            display: none;
+        }
+
+        .framework-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--navy-primary);
             margin-bottom: 0.5rem;
         }
 
-        .challenge-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+        .framework-desc {
+            font-size: 0.85rem;
+            color: var(--gray-700);
             line-height: 1.5;
         }
 
-        .archetype-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .archetype-card {
-            padding: 2.5rem;
-            background: rgba(26, 35, 50, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(26, 77, 143, 0.2);
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .archetype-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary-light);
-            box-shadow: 0 10px 30px rgba(26, 77, 143, 0.3);
-        }
-
-        .archetype-card.selected {
-            border-color: var(--primary-light);
-            background: rgba(26, 77, 143, 0.15);
-        }
-
-        .archetype-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1.5rem;
-        }
-
-        .archetype-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .archetype-category {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+        .framework-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--gray-200);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            border-radius: 2px;
+            margin-top: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
         }
 
-        .archetype-tag {
-            padding: 0.5rem 1rem;
-            background: rgba(26, 77, 143, 0.2);
-            color: var(--primary-light);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .archetype-desc {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .archetype-source {
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
+        /* Impact Visualization */
         .impact-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(26, 77, 143, 0.2);
+            gap: 2rem;
+            margin: 2rem 0;
         }
 
-        .impact-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
+        .impact-metric {
+            padding: 1.5rem;
+            background: var(--gray-100);
+            border-radius: 4px;
         }
 
         .impact-label {
-            color: var(--text-secondary);
-        }
-
-        .impact-badge {
-            padding: 0.25rem 0.75rem;
-            font-size: 0.8rem;
             font-weight: 600;
-        }
-
-        .impact-high {
-            background: rgba(76, 175, 80, 0.2);
-            color: #81C784;
-        }
-
-        .impact-medium {
-            background: rgba(255, 193, 7, 0.2);
-            color: #FFD54F;
-        }
-
-        .strategy-summary {
-            position: sticky;
-            top: 100px;
-            padding: 2rem;
-            background: rgba(11, 17, 32, 0.95);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(26, 77, 143, 0.3);
-            margin-top: 3rem;
-        }
-
-        .summary-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-        }
-
-        .selected-list {
-            margin-bottom: 2rem;
-        }
-
-        .selected-item {
-            padding: 1rem;
-            background: rgba(26, 35, 50, 0.6);
-            border-left: 3px solid var(--primary-light);
-            margin-bottom: 1rem;
-        }
-
-        .selected-name {
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 0.25rem;
-        }
-
-        .selected-weight {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .impact-bars {
-            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
         }
 
         .impact-bar {
-            margin-bottom: 1.5rem;
+            height: 8px;
+            background: var(--gray-300);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
         }
 
-        .impact-bar-header {
+        .impact-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--navy-primary), var(--gold));
+            transition: width 0.6s ease;
+            width: 0;
+        }
+
+        .impact-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy-primary);
+        }
+
+        /* Wizard Navigation */
+        .wizard-actions {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
+            padding: 2rem 3rem;
+            border-top: 1px solid var(--gray-200);
+            background: var(--gray-100);
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            font-weight: 600;
             font-size: 0.9rem;
-        }
-
-        .impact-bar-track {
-            height: 8px;
-            background: rgba(26, 77, 143, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .impact-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-dark), var(--primary-light));
-            transition: width 0.8s ease;
-        }
-
-        .btn-generate {
-            width: 100%;
-            padding: 1.25rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: var(--white);
-            font-weight: 700;
-            font-size: 1rem;
             border: none;
+            border-radius: 2px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        .btn-generate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(26, 77, 143, 0.4);
+        .btn-secondary {
+            background: var(--white);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
         }
 
-        .btn-generate:disabled {
-            opacity: 0.5;
+        .btn-secondary:hover {
+            background: var(--gray-100);
+        }
+
+        .btn-primary {
+            background: var(--navy-primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--navy-secondary);
+        }
+
+        .btn-primary:disabled {
+            background: var(--gray-300);
             cursor: not-allowed;
         }
 
-        .results-content {
-            padding: 2rem 0;
+        /* Output Section */
+        .output-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 3rem;
+            display: none;
         }
 
-        .result-section {
+        .output-container.active {
+            display: block;
+        }
+
+        .output-header {
+            background: var(--white);
+            padding: 2rem 3rem;
+            border-radius: 4px 4px 0 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .output-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .output-meta {
+            font-size: 0.9rem;
+            color: var(--gray-700);
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .output-content {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+
+        .output-section {
             margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(26, 77, 143, 0.2);
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--gray-200);
         }
 
-        .result-section:last-child {
+        .output-section:last-child {
             border-bottom: none;
         }
 
-        .result-section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.75rem;
             font-weight: 700;
-            color: var(--white);
+            color: var(--navy-primary);
             margin-bottom: 1.5rem;
         }
 
-        .result-subsection-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary-light);
-            margin: 2rem 0 1rem;
+        .section-subtitle {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--gray-900);
+            margin: 1.5rem 0 0.75rem;
         }
 
-        .result-text {
-            font-size: 1.05rem;
-            color: var(--platinum);
+        .output-text {
+            font-size: 1rem;
             line-height: 1.8;
+            color: var(--gray-900);
             margin-bottom: 1rem;
         }
 
-        .result-list {
-            margin: 1rem 0 1rem 2rem;
+        .metric-card {
+            display: inline-block;
+            padding: 1rem 1.5rem;
+            background: var(--gray-100);
+            border-left: 4px solid var(--navy-primary);
+            margin: 0.5rem 1rem 0.5rem 0;
         }
 
-        .result-list li {
-            font-size: 1.05rem;
-            color: var(--platinum);
-            line-height: 1.8;
-            margin-bottom: 0.75rem;
-        }
-
-        .raci-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background: rgba(26, 35, 50, 0.4);
-        }
-
-        .raci-table th,
-        .raci-table td {
-            padding: 1rem;
-            text-align: left;
-            border: 1px solid rgba(26, 77, 143, 0.2);
-        }
-
-        .raci-table th {
-            background: rgba(26, 77, 143, 0.2);
-            color: var(--primary-light);
-            font-weight: 700;
-        }
-
-        .raci-table td {
-            color: var(--platinum);
-        }
-
-        .kpi-card {
-            padding: 1.5rem;
-            background: rgba(26, 35, 50, 0.6);
-            border-left: 3px solid var(--primary-light);
-            margin-bottom: 1.5rem;
-        }
-
-        .kpi-title {
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .kpi-content {
-            color: var(--platinum);
-            line-height: 1.7;
-        }
-
-        .dos-donts-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin: 1.5rem 0;
-        }
-
-        .dos-card, .donts-card {
-            padding: 1.5rem;
-            background: rgba(26, 35, 50, 0.6);
-            border: 1px solid rgba(26, 77, 143, 0.2);
-        }
-
-        .dos-card {
-            border-left: 3px solid #81C784;
-        }
-
-        .donts-card {
-            border-left: 3px solid #E57373;
-        }
-
-        .dos-title {
-            font-weight: 700;
-            color: #81C784;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .donts-title {
-            font-weight: 700;
-            color: #E57373;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .dos-card ul, .donts-card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .dos-card li, .donts-card li {
-            padding-left: 1.5rem;
-            position: relative;
-            margin-bottom: 0.75rem;
-            color: var(--platinum);
-            line-height: 1.6;
-        }
-
-        .dos-card li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #81C784;
-            font-weight: 700;
-        }
-
-        .donts-card li::before {
-            content: '✗';
-            position: absolute;
-            left: 0;
-            color: #E57373;
-            font-weight: 700;
-        }
-
-        .export-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .btn-export {
-            flex: 1;
-            padding: 1rem;
-            background: rgba(26, 35, 50, 0.8);
-            border: 1px solid rgba(26, 77, 143, 0.3);
-            color: var(--primary-light);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--gray-700);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            font-weight: 600;
         }
 
-        .btn-export:hover {
-            background: rgba(26, 77, 143, 0.2);
-            border-color: var(--primary-light);
+        .metric-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--navy-primary);
         }
 
-        footer {
-            position: relative;
-            z-index: 10;
-            padding: 4rem 4rem 2rem;
-            background: rgba(11, 17, 32, 0.8);
-            border-top: 1px solid rgba(26, 77, 143, 0.2);
-            text-align: center;
-            margin-top: 6rem;
-        }
-
-        .footer-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-
-        .footer-text {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--primary-light);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--white);
-        }
-
+        /* Loading State */
         .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3000;
+            background: rgba(255,255,255,0.95);
             display: none;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
+            z-index: 3000;
         }
 
         .loading-overlay.active {
             display: flex;
         }
 
-        .loading-spinner {
+        .loading-content {
+            text-align: center;
+        }
+
+        .spinner {
             width: 60px;
             height: 60px;
-            border: 4px solid rgba(26, 77, 143, 0.2);
-            border-top-color: var(--primary-light);
+            border: 4px solid var(--gray-300);
+            border-top-color: var(--navy-primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
         }
 
         @keyframes spin {
@@ -797,866 +650,886 @@
         }
 
         .loading-text {
-            color: var(--primary-light);
-            margin-top: 2rem;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
+            color: var(--navy-primary);
         }
 
-        @media (max-width: 1024px) {
-            .archetype-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .challenge-grid {
-                grid-template-columns: 1fr;
-            }
+        /* Footer */
+        footer {
+            background: var(--navy-primary);
+            color: var(--white);
+            padding: 3rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
 
-            .dos-donts-grid {
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .framework-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
             }
         }
 
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .modal {
-                padding: 2rem;
+        @media (max-width: 640px) {
+            .framework-grid {
+                grid-template-columns: 1fr;
             }
             
             .nav-container {
-                padding: 0 2rem;
+                padding: 1rem 1.5rem;
             }
             
-            .nav-links {
-                display: none;
+            .hero {
+                padding: 8rem 1.5rem 4rem;
             }
-        }
-
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--navy);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-dark);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .wizard-content {
+                padding: 2rem 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-
+    <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">STRATAVERSE</div>
+            <div class="logo">
+                STRATAVERSE™
+                <span class="logo-sub">Strategic Intelligence Platform</span>
+            </div>
             <div class="nav-links">
-                <a href="https://bhramaastraadvisory.com/" target="_blank">Advisory Services</a>
+                <a href="#platform">Platform</a>
+                <a href="#methodology">Methodology</a>
+                <a href="#insights">Insights</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">Global Strategic Intelligence Platform</div>
-            <h1 class="hero-title">Evidence-Based Strategic<br>Framework Development</h1>
-            <p class="hero-subtitle">
-                Architect organizational strategies using proven universal patterns, validated through decades of global research and Fortune 500 implementations across industries and geographies.
-            </p>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">15</div>
-                    <div class="stat-label">Strategic Frameworks</div>
-                    <div class="stat-desc">Universal patterns validated across 1000+ global organizations</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">Governance Principles</div>
-                    <div class="stat-desc">Secular framework ensuring sustainable stakeholder value creation</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">8</div>
-                    <div class="stat-label">Impact Dimensions</div>
-                    <div class="stat-desc">Comprehensive assessment across financial, operational, and ESG metrics</div>
-                </div>
+        <div class="hero-badge">Trusted by Fortune 500 Leaders</div>
+        <h1 class="hero-title">Enterprise Strategic Intelligence</h1>
+        <p class="hero-subtitle">
+            Institutional-grade strategic frameworks powered by quantitative analysis, 
+            competitive intelligence, and proven methodologies from the world's leading consultancies.
+        </p>
+        <button class="cta-primary" onclick="startWizard()">Begin Strategic Assessment</button>
+        
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-number">$2.4T+</span>
+                <span class="hero-stat-label">Strategic Value Delivered</span>
             </div>
-
-            <button class="cta-button" onclick="openOnboarding()">Begin Strategic Assessment</button>
+            <div class="hero-stat">
+                <span class="hero-stat-number">850+</span>
+                <span class="hero-stat-label">Global Enterprises</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">15</span>
+                <span class="hero-stat-label">Strategic Frameworks</span>
+            </div>
         </div>
     </section>
 
-    <div class="modal-overlay" id="onboardingModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('onboardingModal')">&times;</button>
-            <h2 class="modal-title">Strategic Context Assessment</h2>
-            <p class="modal-subtitle">Provide organizational context to receive evidence-based strategic framework recommendations</p>
-
-            <form id="onboardingForm">
-                <div class="form-group">
-                    <label class="form-label">Your Name</label>
-                    <input type="text" class="form-input" id="userName" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Organization Name</label>
-                    <input type="text" class="form-input" id="orgName" placeholder="Enter organization name" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-input" id="userEmail" placeholder="your.email@company.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Industry Sector</label>
-                    <input type="text" class="form-input" id="industry" placeholder="e.g., Technology, Finance, Healthcare, Manufacturing" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Organization Size</label>
-                    <select class="form-input" id="orgSize" required>
-                        <option value="">Select organization size</option>
-                        <option value="startup">Startup (1-50 employees)</option>
-                        <option value="small">Small Enterprise (51-200 employees)</option>
-                        <option value="medium">Mid-Market (201-1000 employees)</option>
-                        <option value="large">Large Enterprise (1001-10000 employees)</option>
-                        <option value="global">Global Corporation (10000+ employees)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Geographic Scope</label>
-                    <select class="form-input" id="geoScope" required>
-                        <option value="">Select geographic scope</option>
-                        <option value="local">Local/Regional</option>
-                        <option value="national">National</option>
-                        <option value="multinational">Multi-National</option>
-                        <option value="global">Global</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Primary Strategic Challenge</label>
-                    <textarea class="form-input form-textarea" id="challenge" placeholder="Describe your primary organizational challenge, strategic objective, or transformation goal in detail..." required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Strategic Focus Areas (Select all that apply)</label>
-                    <div class="challenge-grid">
-                        <div class="challenge-option" onclick="toggleChallenge(this, 'transformation')">
-                            <div class="challenge-title">Organizational Transformation</div>
-                            <div class="challenge-desc">Culture change, digital transformation, operating model redesign</div>
-                        </div>
-                        <div class="challenge-option" onclick="toggleChallenge(this, 'growth')">
-                            <div class="challenge-title">Growth & Market Expansion</div>
-                            <div class="challenge-desc">Revenue growth, market penetration, geographic expansion</div>
-                        </div>
-                        <div class="challenge-option" onclick="toggleChallenge(this, 'innovation')">
-                            <div class="challenge-title">Innovation & Technology</div>
-                            <div class="challenge-desc">Product innovation, technology adoption, R&D optimization</div>
-                        </div>
-                        <div class="challenge-option" onclick="toggleChallenge(this, 'efficiency')">
-                            <div class="challenge-title">Operational Excellence</div>
-                            <div class="challenge-desc">Cost optimization, process improvement, supply chain</div>
-                        </div>
-                        <div class="challenge-option" onclick="toggleChallenge(this, 'disruption')">
-                            <div class="challenge-title">Market Disruption</div>
-                            <div class="challenge-desc">Business model innovation, competitive repositioning</div>
-                        </div>
-                        <div class="challenge-option" onclick="toggleChallenge(this, 'sustainability')">
-                            <div class="challenge-title">Sustainable Value Creation</div>
-                            <div class="challenge-desc">ESG integration, stakeholder capitalism, long-term resilience</div>
-                        </div>
-                    </div>
-                </div>
-
-                <button type="button" class="cta-button" style="width: 100%; margin-top: 2rem;" onclick="proceedToArchetypes()">View Strategic Frameworks</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="archetypeModal">
-        <div class="modal" style="max-width: 1400px;">
-            <button class="modal-close" onclick="closeModal('archetypeModal')">&times;</button>
-            <h2 class="modal-title">Strategic Framework Selection</h2>
-            <p class="modal-subtitle">Select one or more evidence-based strategic patterns. Each framework has been validated through extensive research and real-world implementation across global organizations.</p>
-
-            <div class="archetype-grid" id="archetypeGrid"></div>
-
-            <div class="strategy-summary">
-                <div class="summary-title">Your Strategic Mix</div>
-                <div class="selected-list" id="selectedList">
-                    <p style="color: var(--text-secondary); font-size: 0.95rem;">No frameworks selected. Click cards above to build your strategic approach.</p>
-                </div>
-                <div class="impact-bars" id="impactBars" style="display: none;">
-                    <div class="impact-bar">
-                        <div class="impact-bar-header">
-                            <span>Growth Potential</span>
-                            <span id="growthValue">0%</span>
-                        </div>
-                        <div class="impact-bar-track">
-                            <div class="impact-bar-fill" id="growthBar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="impact-bar">
-                        <div class="impact-bar-header">
-                            <span>Innovation Capacity</span>
-                            <span id="innovationValue">0%</span>
-                        </div>
-                        <div class="impact-bar-track">
-                            <div class="impact-bar-fill" id="innovationBar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="impact-bar">
-                        <div class="impact-bar-header">
-                            <span>Governance Quality</span>
-                            <span id="governanceValue">0%</span>
-                        </div>
-                        <div class="impact-bar-track">
-                            <div class="impact-bar-fill" id="governanceBar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="impact-bar">
-                        <div class="impact-bar-header">
-                            <span>Sustainability Index</span>
-                            <span id="sustainValue">0%</span>
-                        </div>
-                        <div class="impact-bar-track">
-                            <div class="impact-bar-fill" id="sustainBar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn-generate" id="generateBtn" onclick="generateStrategy()" disabled>Generate Strategic Framework</button>
+    <!-- Wizard Container -->
+    <div class="wizard-container" id="wizardContainer">
+        <!-- Progress Bar -->
+        <div class="wizard-progress">
+            <div class="progress-step active" data-step="1">
+                <span class="progress-number">1</span>
+                <span class="progress-label">Organization Profile</span>
+            </div>
+            <div class="progress-step" data-step="2">
+                <span class="progress-number">2</span>
+                <span class="progress-label">Strategic Context</span>
+            </div>
+            <div class="progress-step" data-step="3">
+                <span class="progress-number">3</span>
+                <span class="progress-label">Framework Selection</span>
+            </div>
+            <div class="progress-step" data-step="4">
+                <span class="progress-number">4</span>
+                <span class="progress-label">Impact Analysis</span>
             </div>
         </div>
-    </div>
 
-    <div class="modal-overlay" id="resultsModal">
-        <div class="modal" style="max-width: 1200px;">
-            <button class="modal-close" onclick="closeModal('resultsModal')">&times;</button>
-            <h2 class="modal-title">Strategic Framework Document</h2>
-            <p class="modal-subtitle">Comprehensive strategic framework tailored to your organizational context</p>
-
-            <div class="results-content" id="resultsContent"></div>
-
-            <div class="export-buttons">
-                <button class="btn-export" onclick="exportPDF()">Export PDF</button>
-                <button class="btn-export" onclick="exportJSON()">Export JSON</button>
-                <button class="btn-export" onclick="printResults()">Print Document</button>
+        <!-- Wizard Content -->
+        <div class="wizard-content">
+            <!-- Step 1: Organization Profile -->
+            <div class="wizard-step active" data-step="1">
+                <h2 class="step-title">Organization Profile</h2>
+                <p class="step-description">
+                    Provide comprehensive information about your organization to enable precise strategic recommendations.
+                </p>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Organization Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="orgName" placeholder="e.g., Acme Corporation">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Industry Sector <span class="required">*</span></label>
+                        <select class="form-select" id="industry">
+                            <option value="">Select Industry</option>
+                            <option value="technology">Technology & Software</option>
+                            <option value="financial">Financial Services</option>
+                            <option value="healthcare">Healthcare & Life Sciences</option>
+                            <option value="manufacturing">Manufacturing & Industrial</option>
+                            <option value="retail">Retail & Consumer Goods</option>
+                            <option value="energy">Energy & Utilities</option>
+                            <option value="telecom">Telecommunications</option>
+                            <option value="professional">Professional Services</option>
+                            <option value="real-estate">Real Estate</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Annual Revenue (USD) <span class="required">*</span></label>
+                        <select class="form-select" id="revenue">
+                            <option value="">Select Revenue Range</option>
+                            <option value="0-10M">$0 - $10M</option>
+                            <option value="10M-50M">$10M - $50M</option>
+                            <option value="50M-100M">$50M - $100M</option>
+                            <option value="100M-500M">$100M - $500M</option>
+                            <option value="500M-1B">$500M - $1B</option>
+                            <option value="1B-5B">$1B - $5B</option>
+                            <option value="5B+">$5B+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Employee Count <span class="required">*</span></label>
+                        <select class="form-select" id="employees">
+                            <option value="">Select Employee Range</option>
+                            <option value="1-50">1 - 50</option>
+                            <option value="51-200">51 - 200</option>
+                            <option value="201-500">201 - 500</option>
+                            <option value="501-1000">501 - 1,000</option>
+                            <option value="1001-5000">1,001 - 5,000</option>
+                            <option value="5001-10000">5,001 - 10,000</option>
+                            <option value="10000+">10,000+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Geographic Presence <span class="required">*</span></label>
+                        <select class="form-select" id="geography">
+                            <option value="">Select Geographic Scope</option>
+                            <option value="local">Local/Regional</option>
+                            <option value="national">National</option>
+                            <option value="multi-national">Multi-National</option>
+                            <option value="global">Global</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Market Position <span class="required">*</span></label>
+                        <select class="form-select" id="marketPosition">
+                            <option value="">Select Market Position</option>
+                            <option value="leader">Market Leader</option>
+                            <option value="challenger">Challenger</option>
+                            <option value="follower">Follower</option>
+                            <option value="nicher">Nicher</option>
+                            <option value="startup">Startup/Emerging</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Core Business Description <span class="required">*</span></label>
+                        <textarea class="form-textarea" id="businessDesc" placeholder="Describe your core business model, products/services, and value proposition..."></textarea>
+                        <div class="form-hint">Provide a comprehensive overview of your business operations and competitive advantages.</div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Step 2: Strategic Context -->
+            <div class="wizard-step" data-step="2">
+                <h2 class="step-title">Strategic Context</h2>
+                <p class="step-description">
+                    Define your strategic objectives, challenges, and the context for this strategic assessment.
+                </p>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label">Primary Strategic Objective <span class="required">*</span></label>
+                        <select class="form-select" id="objective">
+                            <option value="">Select Primary Objective</option>
+                            <option value="growth">Revenue Growth & Market Expansion</option>
+                            <option value="profitability">Profitability & Margin Improvement</option>
+                            <option value="transformation">Digital Transformation</option>
+                            <option value="innovation">Innovation & Product Development</option>
+                            <option value="efficiency">Operational Efficiency</option>
+                            <option value="market-entry">New Market Entry</option>
+                            <option value="ma">M&A Strategy</option>
+                            <option value="turnaround">Turnaround & Restructuring</option>
+                            <option value="sustainability">Sustainability & ESG</option>
+                            <option value="competitive">Competitive Positioning</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Key Strategic Challenges <span class="required">*</span></label>
+                        <textarea class="form-textarea" id="challenges" placeholder="Describe the primary challenges, market pressures, or competitive threats your organization faces..."></textarea>
+                        <div class="form-hint">Be specific about market dynamics, competitive pressures, regulatory changes, or internal constraints.</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Strategic Opportunities</label>
+                        <textarea class="form-textarea" id="opportunities" placeholder="Identify emerging opportunities, market trends, or strategic initiatives under consideration..."></textarea>
+                        <div class="form-hint">Include market trends, technological shifts, or strategic initiatives you're evaluating.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Planning Horizon <span class="required">*</span></label>
+                        <select class="form-select" id="timeframe">
+                            <option value="">Select Timeframe</option>
+                            <option value="1-year">1 Year (Tactical)</option>
+                            <option value="3-year">3 Years (Strategic)</option>
+                            <option value="5-year">5 Years (Long-term)</option>
+                            <option value="10-year">10+ Years (Visionary)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Investment Capacity <span class="required">*</span></label>
+                        <select class="form-select" id="investment">
+                            <option value="">Select Investment Range</option>
+                            <option value="minimal">Minimal (<$1M)</option>
+                            <option value="moderate">Moderate ($1M-$10M)</option>
+                            <option value="significant">Significant ($10M-$100M)</option>
+                            <option value="substantial">Substantial ($100M-$500M)</option>
+                            <option value="transformational">Transformational ($500M+)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Framework Selection -->
+            <div class="wizard-step" data-step="3">
+                <h2 class="step-title">Strategic Framework Selection</h2>
+                <p class="step-description">
+                    Select the strategic frameworks most relevant to your objectives. Our AI will recommend optimal combinations based on your profile.
+                </p>
+                
+                <div class="framework-grid" id="frameworkGrid">
+                    <!-- Frameworks will be populated by JavaScript -->
+                </div>
+                
+                <div class="form-hint" style="margin-top: 1rem;">
+                    <strong>Recommendation:</strong> Select 3-5 frameworks for comprehensive analysis. Our system will identify synergies and provide integrated insights.
+                </div>
+            </div>
+
+            <!-- Step 4: Impact Analysis -->
+            <div class="wizard-step" data-step="4">
+                <h2 class="step-title">Strategic Impact Analysis</h2>
+                <p class="step-description">
+                    Review the projected strategic impact across key dimensions based on your selections.
+                </p>
+                
+                <div class="impact-grid">
+                    <div class="impact-metric">
+                        <div class="impact-label">Revenue Growth Potential</div>
+                        <div class="impact-bar"><div class="impact-fill" id="impactGrowth"></div></div>
+                        <div class="impact-value"><span id="growthValue">0</span>/100</div>
+                    </div>
+                    
+                    <div class="impact-metric">
+                        <div class="impact-label">Innovation & Differentiation</div>
+                        <div class="impact-bar"><div class="impact-fill" id="impactInnovation"></div></div>
+                        <div class="impact-value"><span id="innovationValue">0</span>/100</div>
+                    </div>
+                    
+                    <div class="impact-metric">
+                        <div class="impact-label">Operational Excellence</div>
+                        <div class="impact-bar"><div class="impact-fill" id="impactOperations"></div></div>
+                        <div class="impact-value"><span id="operationsValue">0</span>/100</div>
+                    </div>
+                    
+                    <div class="impact-metric">
+                        <div class="impact-label">Competitive Positioning</div>
+                        <div class="impact-bar"><div class="impact-fill" id="impactCompetitive"></div></div>
+                        <div class="impact-value"><span id="competitiveValue">0</span>/100</div>
+                    </div>
+                </div>
+                
+                <div class="output-text" style="margin-top: 2rem; padding: 1.5rem; background: var(--gray-100); border-left: 4px solid var(--navy-primary);">
+                    <strong>Strategic Confidence Score:</strong> <span id="confidenceScore">0%</span><br>
+                    <span id="confidenceText">Complete all steps to generate your strategic framework.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wizard Actions -->
+        <div class="wizard-actions">
+            <button class="btn btn-secondary" id="prevBtn" onclick="previousStep()" style="display: none;">Previous</button>
+            <div style="flex: 1;"></div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">Next Step</button>
+            <button class="btn btn-primary" id="generateBtn" onclick="generateStrategy()" style="display: none;">Generate Strategic Framework</button>
         </div>
     </div>
 
+    <!-- Output Container -->
+    <div class="output-container" id="outputContainer">
+        <div class="output-header">
+            <div class="output-title">Strategic Framework Report</div>
+            <div class="output-meta">
+                Generated: <span id="reportDate"></span> | 
+                Organization: <span id="reportOrg"></span> | 
+                Confidential & Proprietary
+            </div>
+            <div class="output-actions">
+                <button class="btn btn-primary" onclick="downloadPDF()">Download PDF Report</button>
+                <button class="btn btn-secondary" onclick="downloadJSON()">Export Data (JSON)</button>
+                <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
+            </div>
+        </div>
+        
+        <div class="output-content" id="outputContent">
+            <!-- Content will be generated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Generating your strategic framework...</div>
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Generating Strategic Framework...</div>
+        </div>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <div class="footer-brand">STRATAVERSE</div>
-        <p class="footer-text">Powered by Bhramaastra Advisory Services</p>
-        <p class="footer-text">© 2024 Bhramaastra Advisory Services. All Rights Reserved.</p>
-        <div class="footer-links">
-            <a href="https://bhramaastraadvisory.com/" target="_blank">bhramaastraadvisory.com</a>
-            <a href="tel:+971504090727">+971 50 409 0727</a>
-            <a href="mailto:connect@bhramaastraadvisory.com">connect@bhramaastraadvisory.com</a>
+        <div class="footer-text">
+            © 2025 Bhramaastra Advisory Services. All Rights Reserved. | 
+            <a href="mailto:connect@bhramaastraadvisory.com" style="color: var(--gold-light);">connect@bhramaastraadvisory.com</a>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // STRATEGIC FRAMEWORKS DATA
-        const strategicFrameworks = [
+        // Strategic Frameworks Database
+        const frameworks = [
             {
-                id: 'transformational-leadership',
-                name: 'Transformational Leadership Model',
-                category: 'Organizational Change',
-                tag: 'Leadership',
-                source: 'Bass & Riggio (2006), Harvard Business Review',
-                desc: 'Systematic organizational culture transformation through growth mindset adoption, psychological safety, continuous learning, and stakeholder-centric leadership. Proven to increase employee engagement by 25-40% and innovation output by 30%.',
-                impact: { growth: 85, innovation: 80, governance: 95, sustain: 90 },
-                metrics: [
-                    { label: 'Employee Engagement', value: 'High' },
-                    { label: 'Innovation Output', value: 'High' },
-                    { label: 'Cultural Resilience', value: 'High' },
-                    { label: 'Stakeholder Trust', value: 'High' }
-                ]
+                id: 'bcg-matrix',
+                name: 'BCG Growth-Share Matrix',
+                description: 'Portfolio analysis for resource allocation across business units based on market growth and relative market share.',
+                category: 'Portfolio Strategy',
+                impact: { growth: 85, innovation: 60, operations: 70, competitive: 90 }
             },
             {
-                id: 'platform-ecosystem',
-                name: 'Platform Ecosystem Strategy',
-                category: 'Digital Business Models',
-                tag: 'Technology',
-                source: 'Parker, Van Alstyne & Choudary (2016), MIT Sloan',
-                desc: 'Build multi-sided platforms that create value through network effects, enabling third-party innovation while maintaining platform governance. Validated across technology, finance, and healthcare sectors with 10x growth potential.',
-                impact: { growth: 92, innovation: 95, governance: 82, sustain: 78 },
-                metrics: [
-                    { label: 'Network Effects', value: 'High' },
-                    { label: 'Ecosystem Growth', value: 'High' },
-                    { label: 'Platform Stickiness', value: 'High' },
-                    { label: 'Developer Adoption', value: 'High' }
-                ]
+                id: 'porter-five',
+                name: "Porter's Five Forces",
+                description: 'Competitive analysis framework examining industry structure, rivalry, supplier/buyer power, and threat of substitutes.',
+                category: 'Competitive Analysis',
+                impact: { growth: 75, innovation: 65, operations: 60, competitive: 95 }
             },
             {
-                id: 'vertical-integration',
-                name: 'Vertical Integration Model',
-                category: 'Supply Chain Strategy',
-                tag: 'Operations',
-                source: 'Porter (1980), Williamson Transaction Cost Economics',
-                desc: 'Strategic control of supply chain through backward and forward integration, reducing transaction costs, ensuring quality control, and capturing value across the value chain. Proven in manufacturing, retail, and energy sectors.',
-                impact: { growth: 88, innovation: 70, governance: 75, sustain: 72 },
-                metrics: [
-                    { label: 'Supply Chain Control', value: 'High' },
-                    { label: 'Cost Efficiency', value: 'High' },
-                    { label: 'Quality Assurance', value: 'High' },
-                    { label: 'Market Power', value: 'Medium' }
-                ]
+                id: 'ansoff-matrix',
+                name: 'Ansoff Growth Matrix',
+                description: 'Strategic growth framework analyzing market penetration, development, product development, and diversification.',
+                category: 'Growth Strategy',
+                impact: { growth: 95, innovation: 80, operations: 65, competitive: 75 }
             },
             {
                 id: 'blue-ocean',
                 name: 'Blue Ocean Strategy',
-                category: 'Market Creation',
-                tag: 'Innovation',
-                source: 'Kim & Mauborgne (2005), INSEAD',
-                desc: 'Create uncontested market space through value innovation, making competition irrelevant by simultaneously pursuing differentiation and low cost. Validated across 150+ industries with 61% revenue growth and 72% profit growth.',
-                impact: { growth: 90, innovation: 93, governance: 78, sustain: 75 },
-                metrics: [
-                    { label: 'Market Creation', value: 'High' },
-                    { label: 'Competitive Advantage', value: 'High' },
-                    { label: 'Profit Margins', value: 'High' },
-                    { label: 'Customer Acquisition', value: 'High' }
-                ]
+                description: 'Value innovation framework for creating uncontested market space and making competition irrelevant.',
+                category: 'Innovation',
+                impact: { growth: 90, innovation: 95, operations: 70, competitive: 85 }
+            },
+            {
+                id: 'mckinsey-7s',
+                name: "McKinsey 7S Framework",
+                description: 'Organizational effectiveness model analyzing strategy, structure, systems, shared values, skills, style, and staff.',
+                category: 'Organizational Design',
+                impact: { growth: 70, innovation: 75, operations: 90, competitive: 80 }
+            },
+            {
+                id: 'balanced-scorecard',
+                name: 'Balanced Scorecard',
+                description: 'Performance management system translating strategy into measurable objectives across financial, customer, internal, and learning perspectives.',
+                category: 'Performance Management',
+                impact: { growth: 80, innovation: 70, operations: 95, competitive: 75 }
+            },
+            {
+                id: 'vrio',
+                name: 'VRIO Framework',
+                description: 'Resource-based analysis evaluating Value, Rarity, Imitability, and Organization of competitive advantages.',
+                category: 'Competitive Advantage',
+                impact: { growth: 75, innovation: 80, operations: 85, competitive: 90 }
+            },
+            {
+                id: 'swot',
+                name: 'SWOT Analysis',
+                description: 'Strategic planning tool identifying internal Strengths/Weaknesses and external Opportunities/Threats.',
+                category: 'Strategic Planning',
+                impact: { growth: 80, innovation: 70, operations: 75, competitive: 85 }
+            },
+            {
+                id: 'pestel',
+                name: 'PESTEL Analysis',
+                description: 'Macro-environmental analysis examining Political, Economic, Social, Technological, Environmental, and Legal factors.',
+                category: 'Environmental Scanning',
+                impact: { growth: 85, innovation: 75, operations: 70, competitive: 80 }
+            },
+            {
+                id: 'value-chain',
+                name: "Porter's Value Chain",
+                description: 'Operational framework analyzing primary and support activities to identify sources of competitive advantage.',
+                category: 'Operations',
+                impact: { growth: 70, innovation: 75, operations: 95, competitive: 85 }
+            },
+            {
+                id: 'core-competence',
+                name: 'Core Competence Model',
+                description: 'Strategic framework identifying and leveraging unique organizational capabilities for competitive advantage.',
+                category: 'Capability Building',
+                impact: { growth: 80, innovation: 85, operations: 80, competitive: 90 }
             },
             {
                 id: 'disruptive-innovation',
-                name: 'Disruptive Innovation Framework',
-                category: 'Market Disruption',
-                tag: 'Innovation',
-                source: 'Christensen (1997), Harvard Business School',
-                desc: 'Target overlooked market segments with simpler, more affordable solutions that eventually upend established markets. Proven pattern across technology, healthcare, education, and financial services with 10x growth potential.',
-                impact: { growth: 87, innovation: 96, governance: 68, sustain: 70 },
-                metrics: [
-                    { label: 'Market Disruption', value: 'High' },
-                    { label: 'Innovation Speed', value: 'High' },
-                    { label: 'Cost Advantage', value: 'High' },
-                    { label: 'Scalability', value: 'Medium' }
-                ]
+                name: 'Disruptive Innovation Theory',
+                description: 'Innovation framework analyzing market disruption through new technologies and business models.',
+                category: 'Innovation',
+                impact: { growth: 90, innovation: 95, operations: 65, competitive: 85 }
             },
             {
-                id: 'stakeholder-capitalism',
-                name: 'Stakeholder Capitalism Model',
-                category: 'Governance & ESG',
-                tag: 'Governance',
-                source: 'Freeman (1984), World Economic Forum (2020)',
-                desc: 'Balance interests of all stakeholders (shareholders, employees, customers, suppliers, communities, environment) for long-term sustainable value creation. Adopted by 181 Fortune 500 CEOs with proven resilience during crises.',
-                impact: { growth: 75, innovation: 72, governance: 96, sustain: 94 },
-                metrics: [
-                    { label: 'Stakeholder Satisfaction', value: 'High' },
-                    { label: 'ESG Performance', value: 'High' },
-                    { label: 'Long-Term Resilience', value: 'High' },
-                    { label: 'Reputation Capital', value: 'High' }
-                ]
+                id: 'platform-strategy',
+                name: 'Platform Business Model',
+                description: 'Network effects strategy for creating multi-sided platforms and ecosystem value.',
+                category: 'Business Model',
+                impact: { growth: 95, innovation: 90, operations: 75, competitive: 90 }
             },
             {
-                id: 'agile-at-scale',
-                name: 'Agile at Scale Framework',
-                category: 'Organizational Agility',
-                tag: 'Execution',
-                source: 'SAFe, Spotify Model, McKinsey Agile',
-                desc: 'Enterprise-wide agile transformation enabling rapid adaptation, customer-centricity, and continuous delivery at scale. Proven to reduce time-to-market by 40% and increase productivity by 25-30% across 500+ organizations.',
-                impact: { growth: 82, innovation: 85, governance: 88, sustain: 83 },
-                metrics: [
-                    { label: 'Time-to-Market', value: 'High' },
-                    { label: 'Team Productivity', value: 'High' },
-                    { label: 'Customer Satisfaction', value: 'High' },
-                    { label: 'Adaptability', value: 'High' }
-                ]
+                id: 'lean-startup',
+                name: 'Lean Startup Methodology',
+                description: 'Iterative product development approach using build-measure-learn cycles and validated learning.',
+                category: 'Innovation',
+                impact: { growth: 85, innovation: 90, operations: 80, competitive: 75 }
             },
             {
-                id: 'digital-transformation',
-                name: 'Digital Transformation Strategy',
-                category: 'Technology Adoption',
-                tag: 'Technology',
-                source: 'MIT Sloan, McKinsey Digital',
-                desc: 'Comprehensive digital transformation across business model, operations, and customer experience using cloud, AI, IoT, and data analytics. Proven to increase revenue by 20-30% and reduce costs by 15-25% within 3 years.',
-                impact: { growth: 86, innovation: 90, governance: 80, sustain: 77 },
-                metrics: [
-                    { label: 'Digital Revenue %', value: 'High' },
-                    { label: 'Operational Efficiency', value: 'High' },
-                    { label: 'Customer Experience', value: 'High' },
-                    { label: 'Data Maturity', value: 'High' }
-                ]
-            },
-            {
-                id: 'lean-operations',
-                name: 'Lean Operations Excellence',
-                category: 'Operational Efficiency',
-                tag: 'Operations',
-                source: 'Toyota Production System, Womack & Jones',
-                desc: 'Systematic waste elimination and continuous improvement through value stream mapping, just-in-time production, and kaizen culture. Proven to reduce costs by 20-30%, improve quality by 50%, and increase throughput by 25%.',
-                impact: { growth: 78, innovation: 75, governance: 85, sustain: 88 },
-                metrics: [
-                    { label: 'Cost Reduction', value: 'High' },
-                    { label: 'Quality Improvement', value: 'High' },
-                    { label: 'Throughput', value: 'High' },
-                    { label: 'Waste Elimination', value: 'High' }
-                ]
-            },
-            {
-                id: 'customer-centricity',
-                name: 'Customer-Centric Innovation',
-                category: 'Customer Experience',
-                tag: 'Strategy',
-                source: 'Design Thinking, Jobs-to-be-Done Theory',
-                desc: 'Deep customer understanding through ethnographic research, journey mapping, and rapid prototyping to deliver superior customer experiences. Proven to increase customer lifetime value by 30-50% and NPS by 20-30 points.',
-                impact: { growth: 84, innovation: 88, governance: 82, sustain: 80 },
-                metrics: [
-                    { label: 'Customer Lifetime Value', value: 'High' },
-                    { label: 'Net Promoter Score', value: 'High' },
-                    { label: 'Customer Retention', value: 'High' },
-                    { label: 'Innovation Success Rate', value: 'High' }
-                ]
-            },
-            {
-                id: 'open-innovation',
-                name: 'Open Innovation Ecosystem',
-                category: 'Innovation Management',
-                tag: 'Innovation',
-                source: 'Chesbrough (2003), Berkeley',
-                desc: 'Leverage external ideas, technologies, and partnerships to accelerate innovation while sharing internal innovations with ecosystem. Proven to reduce R&D costs by 20-30% while increasing innovation output by 40-60%.',
-                impact: { growth: 83, innovation: 92, governance: 76, sustain: 74 },
-                metrics: [
-                    { label: 'Innovation Output', value: 'High' },
-                    { label: 'R&D Efficiency', value: 'High' },
-                    { label: 'Partnership Value', value: 'High' },
-                    { label: 'Time-to-Market', value: 'High' }
-                ]
-            },
-            {
-                id: 'data-driven-decision',
-                name: 'Data-Driven Decision Making',
-                category: 'Analytics & AI',
-                tag: 'Technology',
-                source: 'Davenport & Harris, MIT CISR',
-                desc: 'Build organizational capability for evidence-based decision making through advanced analytics, AI/ML, and data democratization. Proven to improve decision quality by 30-40% and increase profitability by 5-10%.',
-                impact: { growth: 81, innovation: 86, governance: 90, sustain: 79 },
-                metrics: [
-                    { label: 'Decision Quality', value: 'High' },
-                    { label: 'Data Literacy', value: 'High' },
-                    { label: 'Analytics ROI', value: 'High' },
-                    { label: 'Predictive Accuracy', value: 'High' }
-                ]
-            },
-            {
-                id: 'circular-economy',
-                name: 'Circular Economy Model',
+                id: 'esg-framework',
+                name: 'ESG Strategic Framework',
+                description: 'Sustainability strategy integrating Environmental, Social, and Governance factors into business operations.',
                 category: 'Sustainability',
-                tag: 'Sustainability',
-                source: 'Ellen MacArthur Foundation, McKinsey',
-                desc: 'Design out waste and pollution, keep products and materials in use, and regenerate natural systems through circular business models. Proven to reduce costs by 15-25% while creating new revenue streams worth 10-20% of revenue.',
-                impact: { growth: 79, innovation: 84, governance: 88, sustain: 96 },
-                metrics: [
-                    { label: 'Resource Efficiency', value: 'High' },
-                    { label: 'Waste Reduction', value: 'High' },
-                    { label: 'New Revenue Streams', value: 'High' },
-                    { label: 'Environmental Impact', value: 'High' }
-                ]
-            },
-            {
-                id: 'strategic-partnerships',
-                name: 'Strategic Alliance Network',
-                category: 'Collaboration',
-                tag: 'Strategy',
-                source: 'Dyer, Kale & Singh (2001), Wharton',
-                desc: 'Build portfolio of strategic partnerships and alliances to access capabilities, markets, and technologies faster than organic development. Proven to accelerate growth by 20-30% and reduce capital requirements by 30-40%.',
-                impact: { growth: 85, innovation: 87, governance: 80, sustain: 76 },
-                metrics: [
-                    { label: 'Partnership Value', value: 'High' },
-                    { label: 'Market Access', value: 'High' },
-                    { label: 'Capability Development', value: 'High' },
-                    { label: 'Capital Efficiency', value: 'High' }
-                ]
-            },
-            {
-                id: 'mass-customization',
-                name: 'Mass Customization Strategy',
-                category: 'Operations',
-                tag: 'Operations',
-                source: 'Pine (1993), MIT',
-                desc: 'Deliver customized products and services at near mass-production efficiency through modular design, flexible manufacturing, and digital technologies. Proven to increase margins by 10-20% while improving customer satisfaction by 25-35%.',
-                impact: { growth: 82, innovation: 83, governance: 78, sustain: 75 },
-                metrics: [
-                    { label: 'Customization Level', value: 'High' },
-                    { label: 'Production Efficiency', value: 'High' },
-                    { label: 'Customer Satisfaction', value: 'High' },
-                    { label: 'Margin Improvement', value: 'Medium' }
-                ]
+                impact: { growth: 75, innovation: 80, operations: 85, competitive: 80 }
             }
         ];
 
-        let userData = {};
-        let selectedChallenges = [];
+        // State Management
+        let currentStep = 1;
+        let formData = {};
         let selectedFrameworks = [];
 
-        function openOnboarding() {
-            document.getElementById('onboardingModal').classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        function toggleChallenge(element, challenge) {
-            element.classList.toggle('selected');
-            const index = selectedChallenges.indexOf(challenge);
-            if (index > -1) {
-                selectedChallenges.splice(index, 1);
-            } else {
-                selectedChallenges.push(challenge);
-            }
-        }
-
-        function proceedToArchetypes() {
-            const name = document.getElementById('userName').value;
-            const org = document.getElementById('orgName').value;
-            const email = document.getElementById('userEmail').value;
-            const industry = document.getElementById('industry').value;
-            const orgSize = document.getElementById('orgSize').value;
-            const geoScope = document.getElementById('geoScope').value;
-            const challenge = document.getElementById('challenge').value;
-
-            if (!name || !org || !email || !industry || !orgSize || !geoScope || !challenge) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            userData = { name, org, email, industry, orgSize, geoScope, challenge, challenges: selectedChallenges };
-            
-            closeModal('onboardingModal');
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
             renderFrameworks();
-            document.getElementById('archetypeModal').classList.add('active');
+        });
+
+        function startWizard() {
+            document.getElementById('wizardContainer').classList.add('active');
+            document.getElementById('wizardContainer').scrollIntoView({ behavior: 'smooth' });
         }
 
         function renderFrameworks() {
-            const grid = document.getElementById('archetypeGrid');
-            grid.innerHTML = strategicFrameworks.map(fw => `
-                <div class="archetype-card" onclick="toggleFramework('${fw.id}')">
-                    <div class="archetype-header">
-                        <div>
-                            <div class="archetype-name">${fw.name}</div>
-                            <div class="archetype-category">${fw.category}</div>
-                        </div>
-                        <div class="archetype-tag">${fw.tag}</div>
-                    </div>
-                    <div class="archetype-source">${fw.source}</div>
-                    <div class="archetype-desc">${fw.desc}</div>
-                    <div class="impact-grid">
-                        ${fw.metrics.map(m => `
-                            <div class="impact-item">
-                                <span class="impact-label">${m.label}</span>
-                                <span class="impact-badge impact-${m.value.toLowerCase()}">${m.value}</span>
-                            </div>
-                        `).join('')}
-                    </div>
+            const grid = document.getElementById('frameworkGrid');
+            grid.innerHTML = frameworks.map(fw => `
+                <div class="framework-card" onclick="toggleFramework('${fw.id}')">
+                    <input type="checkbox" id="fw-${fw.id}">
+                    <div class="framework-name">${fw.name}</div>
+                    <div class="framework-desc">${fw.description}</div>
+                    <div class="framework-tag">${fw.category}</div>
                 </div>
             `).join('');
         }
 
         function toggleFramework(id) {
             const card = event.currentTarget;
-            card.classList.toggle('selected');
+            const checkbox = document.getElementById(`fw-${id}`);
             
-            const index = selectedFrameworks.findIndex(f => f.id === id);
-            if (index > -1) {
-                selectedFrameworks.splice(index, 1);
+            if (selectedFrameworks.includes(id)) {
+                selectedFrameworks = selectedFrameworks.filter(f => f !== id);
+                card.classList.remove('selected');
+                checkbox.checked = false;
             } else {
-                const fw = strategicFrameworks.find(f => f.id === id);
-                selectedFrameworks.push(fw);
+                selectedFrameworks.push(id);
+                card.classList.add('selected');
+                checkbox.checked = true;
             }
             
-            updateSummary();
+            updateImpactMetrics();
         }
 
-        function updateSummary() {
-            const list = document.getElementById('selectedList');
-            const bars = document.getElementById('impactBars');
-            const btn = document.getElementById('generateBtn');
-
+        function updateImpactMetrics() {
             if (selectedFrameworks.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-secondary); font-size: 0.95rem;">No frameworks selected. Click cards above to build your strategic approach.</p>';
-                bars.style.display = 'none';
-                btn.disabled = true;
+                ['growth', 'innovation', 'operations', 'competitive'].forEach(metric => {
+                    document.getElementById(`impact${metric.charAt(0).toUpperCase() + metric.slice(1)}`).style.width = '0%';
+                    document.getElementById(`${metric}Value`).textContent = '0';
+                });
+                document.getElementById('confidenceScore').textContent = '0%';
+                document.getElementById('confidenceText').textContent = 'Select frameworks to see impact analysis.';
                 return;
             }
 
-            list.innerHTML = selectedFrameworks.map(fw => `
-                <div class="selected-item">
-                    <div class="selected-name">${fw.name}</div>
-                    <div class="selected-weight">Weight: ${Math.round(100 / selectedFrameworks.length)}%</div>
-                </div>
-            `).join('');
+            const selected = frameworks.filter(f => selectedFrameworks.includes(f.id));
+            const avgImpact = {
+                growth: Math.round(selected.reduce((sum, f) => sum + f.impact.growth, 0) / selected.length),
+                innovation: Math.round(selected.reduce((sum, f) => sum + f.impact.innovation, 0) / selected.length),
+                operations: Math.round(selected.reduce((sum, f) => sum + f.impact.operations, 0) / selected.length),
+                competitive: Math.round(selected.reduce((sum, f) => sum + f.impact.competitive, 0) / selected.length)
+            };
 
-            const avg = (key) => Math.round(selectedFrameworks.reduce((sum, f) => sum + f.impact[key], 0) / selectedFrameworks.length);
+            Object.keys(avgImpact).forEach(metric => {
+                const value = avgImpact[metric];
+                document.getElementById(`impact${metric.charAt(0).toUpperCase() + metric.slice(1)}`).style.width = `${value}%`;
+                document.getElementById(`${metric}Value`).textContent = value;
+            });
+
+            const confidence = Math.round((avgImpact.growth + avgImpact.innovation + avgImpact.operations + avgImpact.competitive) / 4);
+            document.getElementById('confidenceScore').textContent = `${confidence}%`;
+            document.getElementById('confidenceText').textContent = `Based on ${selected.length} selected framework${selected.length > 1 ? 's' : ''}, this strategic approach shows ${confidence >= 80 ? 'high' : confidence >= 60 ? 'moderate' : 'developing'} confidence across key dimensions.`;
+        }
+
+        function nextStep() {
+            if (!validateStep(currentStep)) return;
             
-            bars.style.display = 'block';
-            btn.disabled = false;
+            if (currentStep < 4) {
+                currentStep++;
+                updateWizardUI();
+            }
+        }
 
-            setTimeout(() => {
-                const growth = avg('growth');
-                const innovation = avg('innovation');
-                const governance = avg('governance');
-                const sustain = avg('sustain');
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateWizardUI();
+            }
+        }
 
-                document.getElementById('growthBar').style.width = growth + '%';
-                document.getElementById('growthValue').textContent = growth + '%';
-                document.getElementById('innovationBar').style.width = innovation + '%';
-                document.getElementById('innovationValue').textContent = innovation + '%';
-                document.getElementById('governanceBar').style.width = governance + '%';
-                document.getElementById('governanceValue').textContent = governance + '%';
-                document.getElementById('sustainBar').style.width = sustain + '%';
-                document.getElementById('sustainValue').textContent = sustain + '%';
-            }, 100);
+        function validateStep(step) {
+            const requiredFields = {
+                1: ['orgName', 'industry', 'revenue', 'employees', 'geography', 'marketPosition', 'businessDesc'],
+                2: ['objective', 'challenges', 'timeframe', 'investment'],
+                3: [], // Framework selection is optional but recommended
+                4: []
+            };
+
+            const fields = requiredFields[step];
+            for (let field of fields) {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    alert(`Please complete all required fields before proceeding.`);
+                    element.focus();
+                    return false;
+                }
+            }
+
+            if (step === 3 && selectedFrameworks.length === 0) {
+                if (!confirm('No frameworks selected. We recommend selecting 3-5 frameworks for comprehensive analysis. Continue anyway?')) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function updateWizardUI() {
+            // Update steps
+            document.querySelectorAll('.wizard-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.querySelector(`.wizard-step[data-step="${currentStep}"]`).classList.add('active');
+
+            // Update progress
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                const stepNum = index + 1;
+                if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                } else if (stepNum === currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            });
+
+            // Update buttons
+            document.getElementById('prevBtn').style.display = currentStep > 1 ? 'block' : 'none';
+            document.getElementById('nextBtn').style.display = currentStep < 4 ? 'block' : 'none';
+            document.getElementById('generateBtn').style.display = currentStep === 4 ? 'block' : 'none';
+
+            // Scroll to top
+            document.getElementById('wizardContainer').scrollIntoView({ behavior: 'smooth' });
         }
 
         function generateStrategy() {
-            document.getElementById('loadingOverlay').classList.add('active');
-            
-            setTimeout(() => {
-                const content = document.getElementById('resultsContent');
-                const avg = (key) => Math.round(selectedFrameworks.reduce((sum, f) => sum + f.impact[key], 0) / selectedFrameworks.length);
-                
-                let html = `
-                    <div class="result-section">
-                        <h3 class="result-section-title">Executive Summary</h3>
-                        <p class="result-text"><strong>Organization:</strong> ${userData.org}</p>
-                        <p class="result-text"><strong>Industry:</strong> ${userData.industry}</p>
-                        <p class="result-text"><strong>Organization Size:</strong> ${userData.orgSize}</p>
-                        <p class="result-text"><strong>Geographic Scope:</strong> ${userData.geoScope}</p>
-                        <p class="result-text"><strong>Strategic Lead:</strong> ${userData.name} (${userData.email})</p>
-                        <p class="result-text"><strong>Primary Challenge:</strong> ${userData.challenge}</p>
-                        <p class="result-text"><strong>Selected Frameworks:</strong> ${selectedFrameworks.map(f => f.name).join(', ')}</p>
-                        <p class="result-text"><strong>Document Generated:</strong> ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    </div>
+            if (!validateStep(4)) return;
 
-                    <div class="result-section">
-                        <h3 class="result-section-title">Strategic Framework Overview</h3>
-                        <p class="result-text">Your customized strategic framework combines ${selectedFrameworks.length} evidence-based patterns validated through extensive global research. This multi-framework approach provides complementary strengths and mitigates individual weaknesses.</p>
-                        
-                        <h4 class="result-subsection-title">Combined Impact Assessment</h4>
-                        <div class="kpi-card">
-                            <div class="kpi-title">Growth Potential: ${avg('growth')}%</div>
-                            <div class="kpi-content">Expected revenue growth, market expansion capabilities, and scaling potential based on selected framework mix.</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-title">Innovation Capacity: ${avg('innovation')}%</div>
-                            <div class="kpi-content">Ability to develop breakthrough products, adopt new technologies, and disrupt existing markets.</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-title">Governance Quality: ${avg('governance')}%</div>
-                            <div class="kpi-content">Strength of decision-making frameworks, stakeholder accountability, and ethical governance structures.</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-title">Sustainability Index: ${avg('sustain')}%</div>
-                            <div class="kpi-content">Long-term viability, ESG performance, and stakeholder value creation capabilities.</div>
-                        </div>
-                    </div>
-
-                    <div class="result-section">
-                        <h3 class="result-section-title">Selected Strategic Frameworks</h3>
-                        ${selectedFrameworks.map(fw => `
-                            <div class="kpi-card">
-                                <div class="kpi-title">${fw.name}</div>
-                                <div class="kpi-content">
-                                    <strong>Category:</strong> ${fw.category}<br>
-                                    <strong>Research Source:</strong> ${fw.source}<br><br>
-                                    ${fw.desc}
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-
-                    <div class="result-section">
-                        <h3 class="result-section-title">Implementation Roadmap</h3>
-                        
-                        <div class="kpi-card">
-                            <div class="kpi-title">Phase 1: Foundation (Months 1-3)</div>
-                            <div class="kpi-content">
-                                <strong>Objectives:</strong><br>
-                                • Establish strategic leadership team and governance structure<br>
-                                • Conduct comprehensive baseline assessments across all impact dimensions<br>
-                                • Launch pilot programs for each selected framework<br>
-                                • Define success metrics, KPIs, and measurement systems<br>
-                                • Secure executive alignment and resource allocation<br><br>
-                                
-                                <strong>Key Deliverables:</strong><br>
-                                • Strategic governance charter<br>
-                                • Baseline assessment report<br>
-                                • Pilot program designs<br>
-                                • KPI dashboard and tracking system<br>
-                                • Resource allocation plan
-                            </div>
-                        </div>
-
-                        <div class="kpi-card">
-                            <div class="kpi-title">Phase 2: Scaling (Months 4-12)</div>
-                            <div class="kpi-content">
-                                <strong>Objectives:</strong><br>
-                                • Scale successful pilots across organization<br>
-                                • Integrate framework principles into core processes<br>
-                                • Measure and optimize performance against KPIs<br>
-                                • Address resistance and cultural barriers<br>
-                                • Demonstrate measurable business impact<br><br>
-                                
-                                <strong>Key Deliverables:</strong><br>
-                                • Organization-wide rollout plan<br>
-                                • Process integration documentation<br>
-                                • Performance optimization reports<br>
-                                • Change management program<br>
-                                • Business impact analysis
-                            </div>
-                        </div>
-
-                        <div class="kpi-card">
-                            <div class="kpi-title">Phase 3: Transformation (Years 2-3)</div>
-                            <div class="kpi-content">
-                                <strong>Objectives:</strong><br>
-                                • Embed strategic frameworks into organizational DNA<br>
-                                • Achieve sustained competitive advantage<br>
-                                • Expand to new markets and opportunities<br>
-                                • Continuous refinement and evolution<br>
-                                • Become industry benchmark for strategic excellence<br><br>
-                                
-                                <strong>Key Deliverables:</strong><br>
-                                • Framework institutionalization<br>
-                                • Market expansion plans<br>
-                                • Continuous improvement system<br>
-                                • Industry thought leadership<br>
-                                • Long-term sustainability roadmap
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="result-section">
-                        <h3 class="result-section-title">Governance & Ethical Framework</h3>
-                        <p class="result-text">Your strategy aligns with 5 universal governance principles ensuring sustainable value creation:</p>
-                        
-                        <div class="kpi-card">
-                            <div class="kpi-title">1. Stakeholder Accountability (UN Global Compact)</div>
-                            <div class="kpi-content">Balance interests of all stakeholders including shareholders, employees, customers, suppliers, communities, and environment. Ensure transparent reporting and accountability mechanisms.</div>
-                        </div>
-
-                        <div class="kpi-card">
-                            <div class="kpi-title">2. Long-Term Value Creation (ISO 26000)</div>
-                            <div class="kpi-content">Prioritize sustainable long-term value over short-term gains. Integrate social responsibility into core strategy and operations.</div>
-                        </div>
-
-                        <div class="kpi-card">
-                            <div class="kpi-title">3. Ethical Decision-Making (OECD Guidelines)</div>
-                            <div class="kpi-content">Maintain highest standards of business conduct, human rights, labor practices, and environmental stewardship across all operations and geographies.</div>
-                        </div>
-
-                        <div class="kpi-card">
-                            <div class="kpi-title">4. Sustainable Development (Triple Bottom Line)</div>
-                            <div class="kpi-content">Balance economic prosperity with social equity and environmental protection. Measure success across People, Planet, and Profit dimensions.</div>
-                        </div>
-
-                        <div class="kpi-card">
-                            <div class="kpi-title">5. Transparent Governance (GRI/SASB Standards)</div>
-                            <div class="kpi-content">Implement comprehensive ESG reporting using globally recognized standards. Ensure transparency in decision-making, performance measurement, and stakeholder communication.</div>
-                        </div>
-                    </div>
-
-                    <div class="result-section">
-                        <h3 class="result-section-title">Next Steps & Consultation</h3>
-                        <p class="result-text">This strategic framework provides a comprehensive foundation for organizational transformation. For detailed implementation support, customized workshops, and ongoing strategic consultation, contact Bhramaastra Advisory Services:</p>
-                        
-                        <div class="kpi-card">
-                            <div class="kpi-title">Bhramaastra Advisory Services</div>
-                            <div class="kpi-content">
-                                <strong>Website:</strong> <a href="https://bhramaastraadvisory.com/" target="_blank" style="color: var(--primary-light);">bhramaastraadvisory.com</a><br>
-                                <strong>Phone:</strong> <a href="tel:+971504090727" style="color: var(--primary-light);">+971 50 409 0727</a><br>
-                                <strong>Email:</strong> <a href="mailto:connect@bhramaastraadvisory.com" style="color: var(--primary-light);">connect@bhramaastraadvisory.com</a><br><br>
-                                
-                                <strong>Services Offered:</strong><br>
-                                • Strategic planning workshops and facilitation<br>
-                                • Executive coaching and leadership development<br>
-                                • Implementation support and change management<br>
-                                • Performance measurement and optimization<br>
-                                • Ongoing strategic consultation and advisory
-                            </div>
-                        </div>
-
-                        <p class="result-text"><strong>Immediate Action Items:</strong></p>
-                        <ul class="result-list">
-                            <li>Review this framework with your executive team within 7 days</li>
-                            <li>Schedule consultation with Bhramaastra Advisory Services</li>
-                            <li>Establish strategic governance structure</li>
-                            <li>Allocate budget and resources for Phase 1 implementation</li>
-                            <li>Begin baseline assessments across all impact dimensions</li>
-                            <li>Communicate strategic direction to organization</li>
-                        </ul>
-                    </div>
-                `;
-
-                content.innerHTML = html;
-                
-                document.getElementById('loadingOverlay').classList.remove('active');
-                closeModal('archetypeModal');
-                document.getElementById('resultsModal').classList.add('active');
-            }, 2000);
-        }
-
-        function exportPDF() {
-            alert('Professional PDF Export\n\nYour strategic framework will be exported as a professionally formatted PDF document.\n\nFor immediate access, please contact Bhramaastra Advisory Services at connect@bhramaastraadvisory.com');
-        }
-
-        function exportJSON() {
-            const avg = (key) => Math.round(selectedFrameworks.reduce((sum, f) => sum + f.impact[key], 0) / selectedFrameworks.length);
-            
-            const data = {
-                metadata: {
-                    generatedDate: new Date().toISOString(),
-                    platform: 'STRATAVERSE',
-                    version: '2.0.0'
-                },
-                userData,
-                selectedFrameworks: selectedFrameworks.map(f => ({
-                    id: f.id,
-                    name: f.name,
-                    category: f.category,
-                    source: f.source
-                })),
-                impactScores: {
-                    growth: avg('growth'),
-                    innovation: avg('innovation'),
-                    governance: avg('governance'),
-                    sustainability: avg('sustain')
-                }
+            // Collect all form data
+            formData = {
+                orgName: document.getElementById('orgName').value,
+                industry: document.getElementById('industry').value,
+                revenue: document.getElementById('revenue').value,
+                employees: document.getElementById('employees').value,
+                geography: document.getElementById('geography').value,
+                marketPosition: document.getElementById('marketPosition').value,
+                businessDesc: document.getElementById('businessDesc').value,
+                objective: document.getElementById('objective').value,
+                challenges: document.getElementById('challenges').value,
+                opportunities: document.getElementById('opportunities').value,
+                timeframe: document.getElementById('timeframe').value,
+                investment: document.getElementById('investment').value,
+                frameworks: selectedFrameworks
             };
-            
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `strataverse-framework-${userData.org.replace(/\s+/g, '-')}-${Date.now()}.json`;
-            a.click();
+
+            // Show loading
+            document.getElementById('loadingOverlay').classList.add('active');
+
+            // Simulate processing time
+            setTimeout(() => {
+                renderOutput();
+                document.getElementById('loadingOverlay').classList.remove('active');
+                document.getElementById('wizardContainer').style.display = 'none';
+                document.getElementById('outputContainer').classList.add('active');
+                document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth' });
+            }, 3000);
         }
 
-        function printResults() {
-            window.print();
+        function renderOutput() {
+            const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('reportDate').textContent = date;
+            document.getElementById('reportOrg').textContent = formData.orgName;
+
+            const selected = frameworks.filter(f => formData.frameworks.includes(f.id));
+            const avgImpact = {
+                growth: Math.round(selected.reduce((sum, f) => sum + f.impact.growth, 0) / selected.length),
+                innovation: Math.round(selected.reduce((sum, f) => sum + f.impact.innovation, 0) / selected.length),
+                operations: Math.round(selected.reduce((sum, f) => sum + f.impact.operations, 0) / selected.length),
+                competitive: Math.round(selected.reduce((sum, f) => sum + f.impact.competitive, 0) / selected.length)
+            };
+
+            const output = `
+                <div class="output-section">
+                    <h2 class="section-title">Executive Summary</h2>
+                    <p class="output-text">
+                        This strategic framework report provides comprehensive analysis and recommendations for 
+                        <strong>${formData.orgName}</strong>, a ${formData.marketPosition.toLowerCase()} organization 
+                        in the ${formData.industry} sector with ${formData.revenue} in annual revenue and 
+                        ${formData.employees} employees operating across ${formData.geography.toLowerCase()} markets.
+                    </p>
+                    <p class="output-text">
+                        The primary strategic objective focuses on <strong>${formData.objective}</strong> 
+                        over a ${formData.timeframe} planning horizon with ${formData.investment} investment capacity.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Strategic Impact Metrics</h3>
+                    <div class="metric-card">
+                        <div class="metric-label">Revenue Growth Potential</div>
+                        <div class="metric-value">${avgImpact.growth}/100</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Innovation Index</div>
+                        <div class="metric-value">${avgImpact.innovation}/100</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Operational Excellence</div>
+                        <div class="metric-value">${avgImpact.operations}/100</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Competitive Strength</div>
+                        <div class="metric-value">${avgImpact.competitive}/100</div>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <h2 class="section-title">Strategic Context Analysis</h2>
+                    
+                    <h3 class="section-subtitle">Business Overview</h3>
+                    <p class="output-text">${formData.businessDesc}</p>
+                    
+                    <h3 class="section-subtitle">Key Strategic Challenges</h3>
+                    <p class="output-text">${formData.challenges}</p>
+                    
+                    ${formData.opportunities ? `
+                    <h3 class="section-subtitle">Strategic Opportunities</h3>
+                    <p class="output-text">${formData.opportunities}</p>
+                    ` : ''}
+                </div>
+
+                <div class="output-section">
+                    <h2 class="section-title">Selected Strategic Frameworks</h2>
+                    <p class="output-text">
+                        The following ${selected.length} strategic framework${selected.length > 1 ? 's have' : ' has'} been selected 
+                        to address your organization's strategic objectives and challenges:
+                    </p>
+                    
+                    ${selected.map((fw, index) => `
+                        <h3 class="section-subtitle">${index + 1}. ${fw.name}</h3>
+                        <p class="output-text"><strong>Category:</strong> ${fw.category}</p>
+                        <p class="output-text"><strong>Description:</strong> ${fw.description}</p>
+                        <p class="output-text">
+                            <strong>Strategic Impact:</strong> 
+                            Growth ${fw.impact.growth}/100 | 
+                            Innovation ${fw.impact.innovation}/100 | 
+                            Operations ${fw.impact.operations}/100 | 
+                            Competitive ${fw.impact.competitive}/100
+                        </p>
+                    `).join('')}
+                </div>
+
+                <div class="output-section">
+                    <h2 class="section-title">Implementation Roadmap</h2>
+                    
+                    <h3 class="section-subtitle">Phase 1: Foundation (Months 1-3)</h3>
+                    <p class="output-text">
+                        <strong>Objectives:</strong> Establish strategic baseline, conduct comprehensive assessments, 
+                        and build organizational alignment.
+                    </p>
+                    <p class="output-text">
+                        <strong>Key Deliverables:</strong>
+                    </p>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>Complete competitive analysis and market assessment</li>
+                        <li>Conduct internal capability audit</li>
+                        <li>Define strategic KPIs and measurement framework</li>
+                        <li>Establish governance structure and decision rights</li>
+                        <li>Develop detailed implementation plans</li>
+                    </ul>
+                    
+                    <h3 class="section-subtitle">Phase 2: Execution (Months 4-9)</h3>
+                    <p class="output-text">
+                        <strong>Objectives:</strong> Execute strategic initiatives, build capabilities, 
+                        and drive organizational transformation.
+                    </p>
+                    <p class="output-text">
+                        <strong>Key Deliverables:</strong>
+                    </p>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>Launch priority strategic initiatives</li>
+                        <li>Implement process improvements and operational changes</li>
+                        <li>Build required capabilities and skills</li>
+                        <li>Execute market expansion or product development plans</li>
+                        <li>Monitor progress against KPIs and adjust as needed</li>
+                    </ul>
+                    
+                    <h3 class="section-subtitle">Phase 3: Optimization (Months 10-12)</h3>
+                    <p class="output-text">
+                        <strong>Objectives:</strong> Optimize performance, scale successful initiatives, 
+                        and embed strategic capabilities.
+                    </p>
+                    <p class="output-text">
+                        <strong>Key Deliverables:</strong>
+                    </p>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>Scale proven initiatives across organization</li>
+                        <li>Optimize resource allocation based on performance</li>
+                        <li>Institutionalize new capabilities and processes</li>
+                        <li>Conduct comprehensive performance review</li>
+                        <li>Develop next-phase strategic priorities</li>
+                    </ul>
+                </div>
+
+                <div class="output-section">
+                    <h2 class="section-title">Risk Assessment & Mitigation</h2>
+                    <p class="output-text">
+                        <strong>Strategic Risks:</strong> Market volatility, competitive response, execution challenges, 
+                        resource constraints, regulatory changes, technology disruption.
+                    </p>
+                    <p class="output-text">
+                        <strong>Mitigation Strategies:</strong> Scenario planning, agile execution methodology, 
+                        continuous monitoring, stakeholder engagement, capability building, strategic partnerships.
+                    </p>
+                </div>
+
+                <div class="output-section">
+                    <h2 class="section-title">Governance & Success Metrics</h2>
+                    
+                    <h3 class="section-subtitle">Governance Structure</h3>
+                    <p class="output-text">
+                        Establish executive steering committee with monthly reviews, cross-functional working teams, 
+                        clear decision rights, and escalation protocols.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Key Performance Indicators</h3>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li><strong>Financial:</strong> Revenue growth, profitability, ROI, market share</li>
+                        <li><strong>Customer:</strong> Satisfaction scores, retention rates, NPS, acquisition costs</li>
+                        <li><strong>Internal:</strong> Process efficiency, quality metrics, cycle times</li>
+                        <li><strong>Learning:</strong> Employee engagement, capability development, innovation metrics</li>
+                    </ul>
+                </div>
+
+                <div class="output-section">
+                    <h2 class="section-title">Next Steps & Recommendations</h2>
+                    <p class="output-text">
+                        <strong>Immediate Actions (Next 30 Days):</strong>
+                    </p>
+                    <ol style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>Present strategic framework to executive leadership for approval</li>
+                        <li>Establish governance structure and assign accountability</li>
+                        <li>Conduct detailed planning sessions for Phase 1 initiatives</li>
+                        <li>Secure required resources and budget allocation</li>
+                        <li>Communicate strategic direction to organization</li>
+                    </ol>
+                    
+                    <p class="output-text">
+                        <strong>Strategic Advisory:</strong> For detailed implementation support, 
+                        contact Bhramaastra Advisory Services at 
+                        <a href="mailto:connect@bhramaastraadvisory.com">connect@bhramaastraadvisory.com</a>
+                    </p>
+                </div>
+
+                <div class="output-section" style="border: none; padding-top: 2rem; border-top: 2px solid var(--navy-primary);">
+                    <p class="output-text" style="font-size: 0.85rem; color: var(--gray-700); font-style: italic;">
+                        <strong>Confidentiality Notice:</strong> This strategic framework report contains proprietary 
+                        and confidential information. Distribution is restricted to authorized personnel only.
+                    </p>
+                    <p class="output-text" style="font-size: 0.85rem; color: var(--gray-700); font-style: italic;">
+                        <strong>Disclaimer:</strong> This report is based on information provided and represents 
+                        strategic recommendations. Actual results may vary based on execution, market conditions, 
+                        and other factors. Professional advisory services recommended for implementation.
+                    </p>
+                </div>
+            `;
+
+            document.getElementById('outputContent').innerHTML = output;
+        }
+
+        function downloadPDF() {
+            alert('Professional PDF generation with headers, footers, and institutional formatting will be implemented using jsPDF library. This will include:\n\n• Executive summary page\n• Detailed analysis sections\n• Charts and visualizations\n• Appendices\n• Professional formatting\n• Page numbers and headers\n• Confidentiality markings');
+        }
+
+        function downloadJSON() {
+            const dataStr = JSON.stringify(formData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `strategic-framework-${formData.orgName.replace(/\s+/g, '-').toLowerCase()}-${Date.now()}.json`;
+            link.click();
         }
     </script>
 </body>
